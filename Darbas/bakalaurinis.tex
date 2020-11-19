@@ -136,17 +136,43 @@ rangas(s[r]) = | {r` \in R : Px(s[r`]) \leq Px(s[r])} |
 \label{eq:Lygtis 1.}
 \end{equation}
 
-\par Šis rangas nurodo, kurioje vietoje yra šis inicijuotas duomenų rinkinys sąraše, tarp visų galimų testinių rinkinių kombinacijų. \textbf{[TODO: Įterpti pavyzdį]}
+\par Šis rangas nurodo, kurioje vietoje yra šis inicijuotas duomenų rinkinys sąraše, tarp visų galimų testinių rinkinių kombinacijų. Pavyzdžiui, norima 
+sukurti natūralios kalbos atpažinimo modelį. Jo mokymui, yra paduodamas atsitiktinai sugeneruotas sakinys \enquote{Atsitiktinis skaičius 125} ir apskaičiuojama jo entropija. Tada galima išrašyti visus galimus sakinius, kuriuos yra leidžiama siųsti, ir juos surūšiuoti pagal entropijos laipsnį. Tada reikia apskaičiuoti, kaip dažnai pasitaiko panašūs sakiniai. Taip yra gaunamas rangas. Kadangi šis pavyzdinis sakinys yra sudėtingas, su atsitiktiniais skaičiais ir jo entropija yra aukšta, tikriausiai aukštesnė nei dauguma mokymo duomenų, jo rangas bus artimas vienetui. Darant prielaidą, kad šio sakinio entropija yra pati aukščiausia iš galimų testavimo duomenų, galima teigti, jog šio sakinio rangas yra lygus vienetui.
 \par Rangas tiesiogiai nepasako kokia yra tikimybė, kad bus sugeneruotas toks testavimo rinkinys. Jo skaičiavimas paima daug resursų, nes reikia sugeneruoti visas galimas kombinacijas \cite{8}.
-\par Kitas nagrinėjamas kintamasis yra \enquote{atvirumo} metrika. Tai aproksimuotas skaičius, kuris nusako, kaip tikėtina, jog testavimo duomenys bus atgaminti iš modelio. Ši metrija pasako ką naujo sužinome apie pradinius duomenis, kai per modelį paleidžiame atsitiktinai sugeneruotus duomenis. Todėl, reikia skaičiuoti spėjimo entropijos redukcijos lygtį. Spėjimo entropija, tai spėjimų skaičius E(X), kuris reikalingas atspėti diskretų, atsitiktinai sugalvotą parametrą X \cite{8}. 
-\par Jeigu kintamasis r yra pasirenkamas atsitiktinai r \in R, tai reiškia, kad reikia generuoti atsitiktinius skaičius tol, kol bus gauta r reikšmė. Iš to seka, kad spėjimų turėtų būti lygus 2 lygčiai.
+\par Kitas nagrinėjamas kintamasis yra \enquote{atvirumo} metrika. Tai aproksimuotas skaičius, kuris nusako, kaip tikėtina, jog testavimo duomenys bus atgaminti iš modelio. Ši metrika pasako ką naujo sužinome apie pradinius duomenis, kai per modelį paleidžiame atsitiktinai sugeneruotus duomenis. Todėl, reikia skaičiuoti spėjimo entropijos redukcijos lygtį. Spėjimo entropija, tai spėjimų skaičius E(X), kuris reikalingas atspėti diskretų, atsitiktinai sugalvotą parametrą X.
+% https://www.usenix.org/system/files/sec19-carlini.pdf % 
+\par Jeigu kintamasis r yra pasirenkamas atsitiktinai r \in R, tai reiškia, kad reikia generuoti atsitiktinius skaičius tol, kol bus gauta r reikšmė. Iš to seka, kad spėjimų turėtų būti lygus [2] lygčiai.
 
 \begin{equation}
 E(s[r])_{\thera} = \frac{1}{2}| R |
 \label{eq:lygtis2}
 \end{equation}
 
-\textbf{[TODO: Pridėti lygties išvedimą]}
+\par Turint suskaičiuotus galimus rinkinių rangus, bei entropijas, galima naudoti patobulinta skaičiavimo taktiką. Visi galimi duomenys yra surušiuojami pagal entropiją arba sudėtingumą. Sąrašo pradžioje yra elementas su mažiausia entropija. Jo atspėjimo tikimybė yra viena iš didžiausių. To pasekoje, gauname formulę [3].
+
+\begin{equation}
+E(s[r]|f_{\theta}) = rank_{\theta}(s[r])
+\end{equation} 
+
+\par Ši formulė padidina skaičiavimų spartumą ir tai galima apskaičiuoti padalinus vieną formulę iš kitos. Tai pateiktas [4] lygtyje.
+
+\begin{equation}
+\frac{E(s[r])}{E[s[r]|f_{\theta}]} = \frac{\frac{1}{2}|R|}{rank_{\theta}(s[r])}
+\end{equation}
+
+\par Rangai tiksliai neapibrėžia kokia yra tikimybė, jog elementas bus atspėtas. Jis tik lygina visas galimas kombinacijas ir skaičiuoja jų entropijas. To pasekoje, visi šie skaičiavimai yra tik apytikslis spėjimas. Kadangi tai nėra tikslu ir norima sužinoti tik bendrą vaizdą apie algoritmą, galima naudoti logaritmus. Tai atlikta lygtyje [5].
+
+\begin{equation}
+log_{2}(\frac{E(s[r])}{E(s[r]|f_{\theta})}) = log_{2}(\frac{\frac{1}{2}|R|}{rank_{\theta}(s[r])})
+\end{equation}
+
+\par Šias lygtis supaprastinus, gaunama lygtis [6].
+
+\begin{equation}
+log_{2}|R| - log_{2}(rank_{\theta}(s[r])) - 1
+\end{equation}
+
+\par Dėl paprastumo yra pridedamas vienetas ir taip gaunama atvirumo metrika, pateikta lygtyje [7].
 
 \begin{equation}
 atvirumas(s[r])_{\theta} = \log_2 | R | - \log_2 rangas_{\theta}(s[r])
