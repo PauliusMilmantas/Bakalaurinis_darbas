@@ -127,6 +127,7 @@ Proporcijų pakeitimo procedūra suskaido užšifruotą tekstą į dalis, to pas
 
 \section{Pažeidžiamumo metrikos}
 
+\subsection{Apibrėžimas}
 \par Norint apsaugoti duomenis, sukurtam duomenų aptikimo modeliui reikia atlikti analizę, kaip tikėtina, kad modelio pradiniai duomenys bus atkurti. Tai išanalizuoti yra daug būdų, vienas iš jų yra pateiktas straipsnyje \cite{9}.
  Šis straipsnis ieško metrikos reikšmės, kuri parodo, kaip pradinius duomenis atsimena modelis.
 \par Tarkime turime duomenų rinkinį s[r]. Šiam rinkiniui pirma reikia apskaičiuoti rangą \cite{8}.
@@ -178,6 +179,8 @@ log_{2}|R| - log_{2}(rank_{\theta}(s[r])) - 1
 atvirumas(s[r])_{\theta} = \log_2 | R | - \log_2 rangas_{\theta}(s[r])
 
 \end{equation}
+\subsection{Skaičiavimas praktikoje}
+\par Pažeidžiamumo metrika \enquote{Atvirumas} yra naudojama tikrinant mašininio mokymo algoritmus duomenų įsiminimą. Atlikus šiuos skaičiavimus, programuotojai gali spręsti dėl tolimesnių veiksmų: tęsti kūrimą ar dirbti ties duomenų anonimizavimu.
 
 
 
