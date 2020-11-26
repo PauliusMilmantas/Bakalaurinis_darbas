@@ -12,24 +12,24 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.2.}Skaičiavimas praktikoje}{7}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.}Modelio duomenų atgavimo metodai}{8}
+\contentsline {section}{\numberline {3.}Modelio duomenų atgavimo metodai}{9}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.}Homomorfinis šifravimas}{9}
+\contentsline {section}{\numberline {4.}Homomorfinis šifravimas}{10}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.}Federuotas mašininis mokymas}{10}
+\contentsline {section}{\numberline {5.}Federuotas mašininis mokymas}{11}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.1.}Metodas}{10}
+\contentsline {subsection}{\numberline {5.1.}Metodas}{11}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.2.}Komunikacijos kaštų mažinimas}{10}
+\contentsline {subsection}{\numberline {5.2.}Komunikacijos kaštų mažinimas}{11}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.3.}Įrenginių heterogeniškumas}{10}
+\contentsline {subsection}{\numberline {5.3.}Įrenginių heterogeniškumas}{11}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.4.}Analizės heterogeniškumas}{10}
+\contentsline {subsection}{\numberline {5.4.}Analizės heterogeniškumas}{11}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.5.}Saugos problemos}{10}
+\contentsline {subsection}{\numberline {5.5.}Saugos problemos}{11}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6.}Blokų-grandinių technologija}{11}
+\contentsline {section}{\numberline {6.}Blokų-grandinių technologija}{12}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {7.}Saugus skirtingų pusių skaičiavimas}{12}
+\contentsline {section}{\numberline {7.}Saugus skirtingų pusių skaičiavimas}{13}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {8.}Bendro įspūdžio privatus agregavimas}{13}
+\contentsline {section}{\numberline {8.}Bendro įspūdžio privatus agregavimas}{14}

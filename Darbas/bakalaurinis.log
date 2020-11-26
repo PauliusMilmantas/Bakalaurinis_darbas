@@ -1,4 +1,4 @@
-This is LuaTeX, Version 1.0.4 (TeX Live 2017/Debian)  (format=lualatex 2020.10.30)  19 NOV 2020 19:06
+This is LuaTeX, Version 1.0.4 (TeX Live 2017/Debian)  (format=lualatex 2020.10.30)  26 NOV 2020 16:55
  restricted system commands enabled.
 **bakalaurinis.tex
 (./bakalaurinis.tex
@@ -34,7 +34,7 @@ Inserting `luaotfload.aux.set_capheight' at position 3 in `luaotfload.patch_font
 '.
 Inserting `luaotfload.rewrite_fontname' at position 4 in `luaotfload.patch_font'
 .
-luaotfload | main : initialization completed in 0.085 seconds
+luaotfload | main : initialization completed in 0.097 seconds
 Babel <3.18> and hyphenation patterns for 1 language(s) loaded.
 (./VUMIFInfBakalaurinis.cls
 Document Class: VUMIFInfBakalaurinis 2015/02/03 1.0 VU MIF CS1 bachelor thesis c
@@ -1504,9 +1504,7 @@ l.181 \end{equation}
 The `$' that I just saw supposedly matches a previous `$$'.
 So I shall assume that you typed `$$' both times.
 
-[7] [8
-
-] [9
+[7] [8] [9
 
 ] [10
 
@@ -1514,11 +1512,13 @@ So I shall assume that you typed `$$' both times.
 
 ] [12
 
+] [13
+
 ]
 
-LaTeX Warning: Empty bibliography on input line 208.
+LaTeX Warning: Empty bibliography on input line 241.
 
-[13
+[14
 
 ] (./bakalaurinis.aux
 Language lithuanian already loaded; id is 4)
@@ -1538,24 +1538,26 @@ Package logreq Info: Writing requests to 'bakalaurinis.run.xml'.
 Here is how much of LuaTeX's memory you used:
  24418 strings out of 494480
  125171,1144653 words of node,token memory allocated
- 733 words of node memory still in use:
-   6 hlist, 2 vlist, 2 rule, 2 glue, 1 kern, 21 attribute, 95 glue_spec, 21 attr
+ 741 words of node memory still in use:
+   6 hlist, 2 vlist, 2 rule, 2 glue, 1 kern, 23 attribute, 95 glue_spec, 23 attr
 ibute_list, 1 write nodes
-   avail lists: 1:2,2:265,3:73,4:52,5:359,6:4161,7:777,8:49,9:138,10:40,11:763
+   avail lists: 1:2,2:261,3:73,4:52,5:359,6:4161,7:777,8:49,9:151,10:40,11:763
  27825 multiletter control sequences out of 65536+600000
  64 fonts using 9451903 bytes
  67i,12n,96p,1352b,2800s stack positions out of 5000i,500n,10000p,200000b,100000s
 </usr/share/texmf/fonts/opentype/public/tex-gyre/texgyretermes-bold.otf></usr/sh
 are/texmf/fonts/opentype/public/tex-gyre/texgyretermes-regular.otf></usr/share/t
-exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmsy10.pfb>
-Output written on bakalaurinis.pdf (14 pages, 181544 bytes).
+exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/font
+s/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmsy10.pfb>
+Output written on bakalaurinis.pdf (15 pages, 201358 bytes).
 
-PDF statistics: 84 PDF objects out of 1000 (max. 8388607)
- 55 compressed objects within 1 object stream
+PDF statistics: 95 PDF objects out of 1000 (max. 8388607)
+ 63 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 131072)
  1 words of extra memory for PDF output out of 10000 (max. 100000000)
 
