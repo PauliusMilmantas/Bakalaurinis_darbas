@@ -1,4 +1,4 @@
-This is LuaTeX, Version 1.0.4 (TeX Live 2017/Debian)  (format=lualatex 2020.10.30)  26 NOV 2020 16:55
+This is LuaTeX, Version 1.0.4 (TeX Live 2017/Debian)  (format=lualatex 2020.10.30)  29 NOV 2020 17:31
  restricted system commands enabled.
 **bakalaurinis.tex
 (./bakalaurinis.tex
@@ -34,7 +34,7 @@ Inserting `luaotfload.aux.set_capheight' at position 3 in `luaotfload.patch_font
 '.
 Inserting `luaotfload.rewrite_fontname' at position 4 in `luaotfload.patch_font'
 .
-luaotfload | main : initialization completed in 0.097 seconds
+luaotfload | main : initialization completed in 0.102 seconds
 Babel <3.18> and hyphenation patterns for 1 language(s) loaded.
 (./VUMIFInfBakalaurinis.cls
 Document Class: VUMIFInfBakalaurinis 2015/02/03 1.0 VU MIF CS1 bachelor thesis c
@@ -1353,15 +1353,6 @@ LaTeX Warning: Citation '1' on page 2 undefined on input line 41.
 
 LaTeX Warning: Citation '2' on page 2 undefined on input line 45.
 
-
-LaTeX Warning: Citation '2' on page 2 undefined on input line 46.
-
-
-LaTeX Warning: Citation '2' on page 2 undefined on input line 47.
-
-
-LaTeX Warning: Citation '2' on page 2 undefined on input line 48.
-
 [2
 
 ]
@@ -1373,9 +1364,6 @@ LaTeX Warning: Citation '3' on page 3 undefined on input line 61.
 
 
 LaTeX Warning: Citation '4' on page 3 undefined on input line 61.
-
-
-LaTeX Warning: Citation '4' on page 3 undefined on input line 63.
 
 
 LaTeX Warning: Citation '4' on page 3 undefined on input line 63.
@@ -1410,16 +1398,7 @@ LaTeX Warning: Citation '6' on page 3 undefined on input line 77.
 LaTeX Warning: Citation '7' on page 4 undefined on input line 79.
 
 
-LaTeX Warning: Citation '7' on page 4 undefined on input line 79.
-
-
 LaTeX Warning: Citation '8' on page 4 undefined on input line 81.
-
-
-LaTeX Warning: Citation '8' on page 4 undefined on input line 81.
-
-
-LaTeX Warning: Citation '6' on page 4 undefined on input line 84.
 
 
 LaTeX Warning: Citation '6' on page 4 undefined on input line 84.
@@ -1541,7 +1520,7 @@ Here is how much of LuaTeX's memory you used:
  741 words of node memory still in use:
    6 hlist, 2 vlist, 2 rule, 2 glue, 1 kern, 23 attribute, 95 glue_spec, 23 attr
 ibute_list, 1 write nodes
-   avail lists: 1:2,2:261,3:73,4:52,5:359,6:4161,7:777,8:49,9:151,10:40,11:763
+   avail lists: 1:1,2:254,3:73,4:52,5:359,6:4158,7:776,8:49,9:151,10:40,11:763
  27825 multiletter control sequences out of 65536+600000
  64 fonts using 9451903 bytes
  67i,12n,96p,1352b,2800s stack positions out of 5000i,500n,10000p,200000b,100000s
@@ -1554,7 +1533,7 @@ s/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/
 public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
 msfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
 m/cmsy10.pfb>
-Output written on bakalaurinis.pdf (15 pages, 201358 bytes).
+Output written on bakalaurinis.pdf (15 pages, 201202 bytes).
 
 PDF statistics: 95 PDF objects out of 1000 (max. 8388607)
  63 compressed objects within 1 object stream
