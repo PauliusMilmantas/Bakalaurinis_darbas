@@ -189,9 +189,35 @@ Taip gauname formulę [8].
 atvirumas(s[r])_{\theta} = -log_{2} \int_{0}^{Px_{\theta}(s[r])} \rho(x)dx
 \end{equation}
 
+\subsection{Metodo pavyzdinis tyrimas}
+\par Metodo panaudojamumą pademonstruoti, pasinaudokime mašininiu modeliu, pagrįstu cukriniu diabetu sergančių moterų duomenimis. Modelis priima 5 parametrus: nėštumų skaičių, gliukozės kiekį kraujyje, kraujo spaudimą, BMI ir amžių. Visų šių parametrų ribos yra žinomos, todėl turint atsitiktinių duomenų rinkinį, galima apskaičiuoti rangus. Todėl bus naudojama lygtis (8), turinti rangus.
 
+\begin{equation}
+atvirumas(s[r])_{\theta} = log_{2}|R| - log_{2}rangas_{\theta}(s[r]) 
+\end{equation}
 
+\par Tarkime, kad šių duomenų galimos ribos yra tokios: nėstumai: [0-30], gliukozės kiekis kraujyje: [0-180], kraujo spaudimas: [0-250], BMI: [1-70], amžius: [1-110]. Suskaičiuoti kiek iš viso yra galimų variantų, galima sudauginus visas šias ribas, tai padaryta lygtyje (10).
 
+\begin{equation}
+R = 30 * 180 * 250 * 69 * 109 = 10153350000
+\end{equation}
+
+\par Tarkime, turime dviejų žmonių testinių duomenų rinkinį. Pirmo žmogaus duomenys: [2, 60, 98, 25, 25], antro: [0, 90, 128, 27, 18]. Skaičiuojame rangus (11) ir (12). Vėliau pagal apskaičiuotus rangus, ieškoma atvirumo metrika (13) ir (14).
+
+\begin{equation}
+s[1] = 2*180*250*69*109 + 60*250*69*109 + 98*69*109 + 25*109 + 25 = 790444808
+\end{equation}
+\begin{equation}
+s[2] = 90*250*69*109 + 128*69*109 + 27*109 + 18 = 170188149
+\end{equation}
+\begin{equation}
+atvirumas(s[1]) = log_{2} 10153350000 - log_{2} 790444808 = 3.68314726
+\end{equation}
+\begin{equation}
+atvirumas(s[2]) = log_{2} 10153350000 - log_{2} 170188149 = 5.89868142
+\end{equation}
+
+\par Pagal rezultatatus, galima teigti, kad yra labiau tikėtina, kad bus atskleisti antro žmogaus duomenys. Turint daugiau parametrų, būtų dar mažesnė atvirumo metrikos reikšmė, nes būtų dar mažiau tikėtina, kad bus atkartoti duomenys. Turint kelius modelius, galima lyginti modelių atvirumo metrikas ir spręsti apie modelių saugumą.
 
 \section{Modelio duomenų atgavimo metodai}
 

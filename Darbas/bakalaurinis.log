@@ -1,4 +1,4 @@
-This is LuaTeX, Version 1.0.4 (TeX Live 2017/Debian)  (format=lualatex 2020.10.30)  29 NOV 2020 17:31
+This is LuaTeX, Version 1.0.4 (TeX Live 2017/Debian)  (format=lualatex 2020.10.30)  6 JAN 2021 19:25
  restricted system commands enabled.
 **bakalaurinis.tex
 (./bakalaurinis.tex
@@ -34,7 +34,7 @@ Inserting `luaotfload.aux.set_capheight' at position 3 in `luaotfload.patch_font
 '.
 Inserting `luaotfload.rewrite_fontname' at position 4 in `luaotfload.patch_font'
 .
-luaotfload | main : initialization completed in 0.102 seconds
+luaotfload | main : initialization completed in 0.083 seconds
 Babel <3.18> and hyphenation patterns for 1 language(s) loaded.
 (./VUMIFInfBakalaurinis.cls
 Document Class: VUMIFInfBakalaurinis 2015/02/03 1.0 VU MIF CS1 bachelor thesis c
@@ -1495,7 +1495,7 @@ So I shall assume that you typed `$$' both times.
 
 ]
 
-LaTeX Warning: Empty bibliography on input line 241.
+LaTeX Warning: Empty bibliography on input line 267.
 
 [14
 
@@ -1517,10 +1517,10 @@ Package logreq Info: Writing requests to 'bakalaurinis.run.xml'.
 Here is how much of LuaTeX's memory you used:
  24418 strings out of 494480
  125171,1144653 words of node,token memory allocated
- 741 words of node memory still in use:
-   6 hlist, 2 vlist, 2 rule, 2 glue, 1 kern, 23 attribute, 95 glue_spec, 23 attr
+ 789 words of node memory still in use:
+   6 hlist, 2 vlist, 2 rule, 2 glue, 1 kern, 35 attribute, 95 glue_spec, 35 attr
 ibute_list, 1 write nodes
-   avail lists: 1:1,2:254,3:73,4:52,5:359,6:4158,7:776,8:49,9:151,10:40,11:763
+   avail lists: 1:1,2:244,3:93,4:52,5:359,6:4158,7:776,8:66,9:151,10:40,11:763
  27825 multiletter control sequences out of 65536+600000
  64 fonts using 9451903 bytes
  67i,12n,96p,1352b,2800s stack positions out of 5000i,500n,10000p,200000b,100000s
@@ -1533,7 +1533,7 @@ s/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/
 public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
 msfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
 m/cmsy10.pfb>
-Output written on bakalaurinis.pdf (15 pages, 201202 bytes).
+Output written on bakalaurinis.pdf (15 pages, 205430 bytes).
 
 PDF statistics: 95 PDF objects out of 1000 (max. 8388607)
  63 compressed objects within 1 object stream
