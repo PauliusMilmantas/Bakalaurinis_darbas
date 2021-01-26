@@ -125,7 +125,7 @@ Proporcijų pakeitimo procedūra suskaido užšifruotą tekstą į dalis, to pas
 
 
 
-\section{Pažeidžiamumo metrikos}
+\section{Duomenų pažeidžiamumo metrikos}
 
 \subsection{Apibrėžimas}
 \par Norint apsaugoti duomenis, sukurtam duomenų aptikimo modeliui reikia atlikti analizę, kaip tikėtina, kad modelio pradiniai duomenys bus atkurti. Tai išanalizuoti yra daug būdų, vienas iš jų yra pateiktas straipsnyje \cite{9}.
@@ -219,9 +219,68 @@ atvirumas(s[2]) = log_{2} 10153350000 - log_{2} 170188149 = 5.89868142
 
 \par Pagal rezultatatus, galima teigti, kad yra labiau tikėtina, kad bus atskleisti antro žmogaus duomenys. Turint daugiau parametrų, būtų dar mažesnė atvirumo metrikos reikšmė, nes būtų dar mažiau tikėtina, kad bus atkartoti duomenys. Turint kelius modelius, galima lyginti modelių atvirumo metrikas ir spręsti apie modelių saugumą.
 
-\section{Modelio duomenų atgavimo metodai}
+\section{Modelių palyginimo metodai}
 
-\par Geros literatūros neradau, tikriausiai reikės pašalinti...
+\subsection{Lyginimas pagal duomenų nuokrypį}
+
+\par Siekiant palyginti, kaip modeliai gerai saugo privačius duomenis, apibrėžiame metriką DMDK (didžiausias modelio duomenų nuokrypis). Kuo metrika yra mažesnė, tuo tiksliau galima nuspėti, kokie duomenys buvo naudojami modelio mokymui. Kuo metrika didesnė, tuo yra sunkiau nuspėti, kokie duomenys buvo naudojami mokymui. Ši metrika leidžia lyginti skirtingus modelius su skirtingais duomenimis.
+\par DMDK yra išvestas lygtyje [15]. Prieš DMDK skaičiavimą reikia paimti visus modelio mokymui skirtus duomenis ir kiekvienai duomenų eilutei apskaičiuoti modelio išvestį. Skaičiavimus reikia atlikti tik su tomis eilutėmis, su kuriuomis modelis išvedė teisingą atsakymą. Turint tik tas eilutes, su kuriomis modelis išvedė teisingą atsakymą, galima į nelygybę įstatyti kintamuosius. Lygtyje yra naudojami tokie kintamieji: m - duomenų eilučių skaičius, h - parametrų skaičius (stulpeliai), \epsilon - ieškomas didžiausias galimas kintamasis, su kuriuo modelis nepakeičia išvesties rezultatų, $D_{eilut.:n, stulp.:k}$ - duomenys n eilutėje ir k stulpelyje.
+
+\begin{equation}
+DMDK = \frac{\sum_{n=0}^{m} (\frac{\sum_{k=0}^{h} (max((|\epsilon| + D_{eilut.:n, stulp.:k}) : \epsilon \in R))}{h})}{m}
+\end{equation} 
+
+\subsection{Skaičiavimo pavyzdys}
+\par Tarkime egzistuoja modelis, kuris turi 2 parametrus: gliukozės kiekis kraujyje ir KMI. Pagal šiuos du parametrus modelis išveda rezultatą: ar žmogus serga cukriniu diabetu ar ne. Paimamos visos mokymo duomenų eilutės, su kuriomis modelis išveda teisingą rezultatą. Tarkime, jos yra aprašytos lentelėje [1].
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lll}
+Gliukozė & KMI  & Išvestis \\
+148      & 33.6 & 1        \\
+85       & 26.6 & 0        \\
+183      & 23.3 & 1       
+\end{tabular}
+\caption{Pavyzdiniai duomenys}
+\label{tab:my-table}
+\end{table}
+
+\par Taikant jau sukurtą modelį, įvertiname ar keičiasi išvestis didinant kiekvienos eilutės kiekvieno stulpelio reikšmes, pridedant $\epsilon$. Kiekvienai reikšmei yra atskirai didinamas $\epsilon$, kol gaunamas tos eilutės tam tikro stulpelio maksimalus $\epsilon$. Skaičiavimams parodyti, tarkime, kad gautos maksimalios $\epsilon$ reikšmės yra pateiktos lentelėje [2].
+
+\begin{table}[t]
+\centering
+\begin{tabular}{lll}
+Gliukozė & KMI \\
+3      & 2 \\
+6       & 1 \\
+4      & 0.1
+\end{tabular}
+\caption{Pavyzdinės epsilon reikšmės}
+\label{tab:my-table}
+\end{table}
+
+\par DMDK skaičiavimas pateiktas lygtyje [16].
+
+\begin{equation}
+DMDK = \frac{3 + 2}{2} + \frac{6 + 1}{2} + \frac{4 + 0.1}{2} = 8.05
+\end{equation}
+
+\par Apskaičiavus kitų modelių DMDK reikšmes, galima lyginti, kuris modelis efektyviau saugo duomenis, naudotus mokymosi metu. Jeigu kito modelio apskaičiuota DMDK reikšmė būtų didesnė už 8.05, reikštų, kad tas modelis labiau saugo duomenų privatumą.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 \section{Homomorfinis šifravimas}
