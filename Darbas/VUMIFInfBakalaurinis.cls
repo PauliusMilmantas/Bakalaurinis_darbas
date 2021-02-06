@@ -16,7 +16,8 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{VUMIFInfBakalaurinis}[2015/02/03 1.0 VU MIF CS1 bachelor thesis class]
 \LoadClass[12pt, a4paper]{article}
-\RequirePackage{LTPlius}  % Nustatymų sulietuvinimas
+\usepackage[utf8]{inputenc}
+\usepackage[english,lithuanian]{babel}
 \RequirePackage{fontspec} % Šrifto pasirinkimui
 \setmainfont[
     Ligatures=TeX,
@@ -74,22 +75,8 @@
 % Pirmos eilutės paragrafe atitraukimas 0,7 cm
 \setlength{\parindent}{0.7cm}
 
-% Nustatomas bibliografijos stilius
-\RequirePackage[
-    alldates=iso8601,
-    autolang=other,
-    backend=biber,
-    sortcites=true,
-    style=trad-alpha,
-    abbreviate=true,
-    minalphanames=3,
-    maxalphanames=3,
-    maxnames=9,
-    minnames=4,
-]{biblatex}
-\RequirePackage[style=lithuanian]{csquotes}
+
 % Pliuso ženklas, kuris rodomas esant >3 autoriams, sumažinamas ir pakeliamas
-\renewcommand*{\labelalphaothers}{\textsuperscript{+}}
 
 % -------------------------------
 % Titulinio puslapio formatavimas
@@ -132,7 +119,7 @@
           & \smallskip Darbo vadovas: \\
           & \medskip \@supervisor \hfill  \@signatureplace \\
           & \smallskip Recenzentas: \\
-          & \@reviewer \hfill  \@signatureplace
+          %& \@reviewer \hfill  \@signatureplace
         \end{tabular} \par}%
      \end{flushright}
      \vskip 2.9cm
