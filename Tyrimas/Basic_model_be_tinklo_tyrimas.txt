@@ -1,0 +1,72 @@
+Error (MSE) that each client gets on test set by training only on own local data:
+Hospital 1:	2272.06
+Predicted: 63.775510204081634 Not predicted: 36.224489795918366
+0th collumn maximum epsilon: 0.5179282868525896
+1th collumn maximum epsilon: 0.0
+2th collumn maximum epsilon: 0.0
+3th collumn maximum epsilon: 0.0
+4th collumn maximum epsilon: 0.0
+5th collumn maximum epsilon: 0.0
+6th collumn maximum epsilon: 0.0
+7th collumn maximum epsilon: 0.0
+8th collumn maximum epsilon: 0.0
+9th collumn maximum epsilon: 0.0
+Model maximum epsilon: 0.05179282868525896
+Model treshold: 50
+Steps 1000
+
+Error (MSE) that each client gets on test set by training only on own local data:
+Hospital 1:	2185.37
+Predicted: 63.52040816326531 Not predicted: 36.47959183673469
+0th collumn maximum epsilon: 1.416
+1th collumn maximum epsilon: 0.0
+2th collumn maximum epsilon: 0.0
+3th collumn maximum epsilon: 0.0
+4th collumn maximum epsilon: 0.0
+5th collumn maximum epsilon: 0.0
+6th collumn maximum epsilon: 0.0
+7th collumn maximum epsilon: 0.0
+8th collumn maximum epsilon: 0.0
+9th collumn maximum epsilon: 0.0
+Model maximum epsilon: 0.1416
+Model treshold: 50
+Steps 40000
+
+Loading data
+Running distributed gradient aggregation for 1000 iterations
+Error (MSE) that each client gets after running the protocol:
+Hospital 1:	2272.06
+Predicted: 63.775510204081634 Not predicted: 36.224489795918366
+0th collumn maximum epsilon: 0.5179282868525896
+1th collumn maximum epsilon: 0.0
+2th collumn maximum epsilon: 0.0
+3th collumn maximum epsilon: 0.0
+4th collumn maximum epsilon: 0.0
+5th collumn maximum epsilon: 0.0
+6th collumn maximum epsilon: 0.0
+7th collumn maximum epsilon: 0.0
+8th collumn maximum epsilon: 0.0
+9th collumn maximum epsilon: 0.0
+Model maximum epsilon: 0.05179282868525896
+Model treshold: 50
+
+Running distributed gradient aggregation for 2000 iterations
+Error (MSE) that each client gets after running the protocol:
+Hospital 1:	2202.75
+Predicted: 63.775510204081634 Not predicted: 36.224489795918366
+0th collumn maximum epsilon: 2.99203187250996
+1th collumn maximum epsilon: 0.0
+2th collumn maximum epsilon: 0.0
+3th collumn maximum epsilon: 0.0
+4th collumn maximum epsilon: 0.0
+5th collumn maximum epsilon: 0.0
+6th collumn maximum epsilon: 0.0
+7th collumn maximum epsilon: 0.0
+8th collumn maximum epsilon: 0.0
+9th collumn maximum epsilon: 0.0
+Model maximum epsilon: 0.29920318725099604
+Model treshold: 50
+
+
+
+
