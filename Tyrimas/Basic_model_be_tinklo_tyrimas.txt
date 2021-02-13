@@ -14,6 +14,7 @@ Predicted: 63.775510204081634 Not predicted: 36.224489795918366
 Model maximum epsilon: 0.05179282868525896
 Model treshold: 50
 Steps 1000
+Acc*epsilon/100/100 = 0.0003303
 
 Error (MSE) that each client gets on test set by training only on own local data:
 Hospital 1:	2185.37
@@ -31,6 +32,7 @@ Predicted: 63.52040816326531 Not predicted: 36.47959183673469
 Model maximum epsilon: 0.1416
 Model treshold: 50
 Steps 40000
+Acc*epsilon/100/100 = 0.0008994
 
 Loading data
 Running distributed gradient aggregation for 1000 iterations
@@ -49,6 +51,7 @@ Predicted: 63.775510204081634 Not predicted: 36.224489795918366
 9th collumn maximum epsilon: 0.0
 Model maximum epsilon: 0.05179282868525896
 Model treshold: 50
+Acc*epsilon/100/100 = 3.303114068666152e-4
 
 Running distributed gradient aggregation for 2000 iterations
 Error (MSE) that each client gets after running the protocol:
@@ -66,7 +69,7 @@ Predicted: 63.775510204081634 Not predicted: 36.224489795918366
 9th collumn maximum epsilon: 0.0
 Model maximum epsilon: 0.29920318725099604
 Model treshold: 50
-
+Acc*epsilon/100/100 = 
 
 
 

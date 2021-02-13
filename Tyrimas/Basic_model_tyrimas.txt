@@ -1,3 +1,6 @@
+Padalinus parametrus iš 10, DMDK rodiklis išlieka vienodas.
+Pridejus atsitiktini triuksma, DMDK rodiklis nekinta.
+
 Epoch: 99 Training loss: 112.7331327018328 Accuracy: 65.08875739644971
 0th collumn maximum epsilon: 81.72524999999933
 1th collumn maximum epsilon: 100.09999999999856
