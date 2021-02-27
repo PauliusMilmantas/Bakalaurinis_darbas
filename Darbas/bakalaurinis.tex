@@ -60,6 +60,7 @@
 	\par Darbo uždaviniai:
 	\begin{itemize}
 		\item Išanalizuoti esamus algoritmus pagal jų saugumą ir panaudojamumą.
+		\item Identifikuoti kriterijus, kurių pagalba galima įvertinti privatumo išsaugojimą, bei palyginti algoritmus tarpusavyje.
 		\item Ištirti kurie algoritmai yra realizuoti realizuoti algoritmus, kurie nėra atvirai prieinami.
 		\item Palyginti algoritmus pagal našumą.
 	\end{itemize}
@@ -102,7 +103,7 @@ Proporcijų pakeitimo procedūra suskaido užšifruotą tekstą į dalis, to pas
 
 \section{Duomenų pažeidžiamumo metrikos}
 
-\subsection{Apibrėžimas}
+\subsection{Matematinė uždavinio formuluotė}
 \par Norint apsaugoti duomenis, sukurtam duomenų aptikimo modeliui reikia atlikti analizę, kaip tikėtina, kad modelio pradiniai duomenys bus atkurti. Tai išanalizuoti yra daug būdų, vienas iš jų yra pateiktas straipsnyje \cite{11}.
  Šis straipsnis ieško metrikos reikšmės, kuri parodo, kaip pradinius duomenis atsimena modelis.
 \par Tarkime turime duomenų rinkinį s[r]. Šiam rinkiniui pirma reikia apskaičiuoti rangą.
@@ -124,7 +125,7 @@ sukurti natūralios kalbos atpažinimo modelį. Jo mokymui, yra paduodamas atsit
 \par Rangas tiesiogiai nepasako kokia yra tikimybė, kad bus sugeneruotas toks testavimo rinkinys. Jo skaičiavimas paima daug resursų, nes reikia sugeneruoti visas galimas kombinacijas \cite{11}.
 \par Kitas nagrinėjamas kintamasis yra \say{atvirumo} metrika. Tai aproksimacija, kuri nusako, kaip tikėtina, jog testavimo duomenys bus atgaminti iš modelio. Ši metrika pasako ką naujo sužinome apie pradinius duomenis, kai per modelį paleidžiame atsitiktinai sugeneruotus duomenis. Todėl, reikia skaičiuoti prognozuojamą entropiją, pagal pateiktas modelio prognozes. Prognozės entropija, tai spėjimų skaičius $E(X)$, kuris reikalingas atspėti diskretų, atsitiktinai sugalvotą parametrą X.
 % https://www.usenix.org/system/files/sec19-carlini.pdf % 
-\par Jeigu kintamasis r yra pasirenkamas atsitiktinai $r \in R$, tai reiškia, kad reikia generuoti atsitiktinius skaičius tol, kol bus gauta r reikšmė. Iš to seka, kad spėjimų turėtų būti lygus [3] lygčiai.
+\par Jeigu kintamasis r yra pasirenkamas atsitiktinai $r \in R$, tai reiškia, kad reikia generuoti atsitiktinius skaičius tol, kol bus gauta r reikšmė. Iš to seka, kad spėjimų turėtų būti lygus [3] lygčiai. 
 
 \begin{equation}
 E(s[r])_{\theta} = \frac{1}{2} | R |
@@ -186,10 +187,10 @@ R = 30 \cdot 180 \cdot 250 \cdot 69 \cdot 109 = 10153350000
 \par Tarkime, turime dviejų žmonių testinių duomenų rinkinį. Pirmo žmogaus duomenys: [2, 60, 98, 25, 25], antro: [0, 90, 128, 27, 18]. Skaičiuojame rangus [12] ir [13]. Vėliau pagal apskaičiuotus rangus, ieškoma atvirumo metrika [14] ir [15].
 
 \begin{equation}
-s[1] = 2*180*250*69*109 + 60*250*69*109 + 98*69*109 + 25*109 + 25 = 790444808
+s[1] = 2 \cdot 180 \cdot 250 \cdot 69 \cdot 109 + 60 \cdot 250 \cdot 69 \cdot 109 + 98 \cdot 69 \cdot 109 + 25 \cdot 109 + 25 = 790444808
 \end{equation}
 \begin{equation}
-s[2] = 90*250*69*109 + 128*69*109 + 27*109 + 18 = 170188149
+s[2] = 90 \cdot 250 \cdot 69 \cdot 109 + 128 \cdot 69 \cdot 109 + 27 \cdot 109 + 18 = 170188149
 \end{equation}
 \begin{equation}
 atvirumas(s[1]) = log_{2} 10153350000 - log_{2} 790444808 = 3.68314726
@@ -204,7 +205,7 @@ atvirumas(s[2]) = log_{2} 10153350000 - log_{2} 170188149 = 5.89868142
 
 \subsection{Lyginimas pagal duomenų nuokrypį}
 
-\par Siekiant palyginti, kaip modeliai gerai saugo privačius duomenis, apibrėžiame metriką DMDK (didžiausias modelio duomenų nuokrypis). Kuo metrika yra mažesnė, tuo tiksliau galima nuspėti, kokie duomenys buvo naudojami modelio mokymui. Kuo metrika didesnė, tuo yra sunkiau nuspėti, kokie duomenys buvo naudojami mokymui. Ši metrika leidžia lyginti skirtingus modelius su skirtingais duomenimis. Metrika buvo sugalvota specialiai šiam darbui, siekiant palyginti skirtingus modelius.
+\par Siekiant palyginti, kaip modeliai gerai saugo privačius duomenis, apibrėžiame metriką DMDK (didžiausias modelio duomenų nuokrypis). Kuo metrika yra mažesnė, tuo tiksliau galima nuspėti, kokie duomenys buvo naudojami modelio mokymui. Kuo metrika didesnė, tuo yra sunkiau nuspėti, kokie duomenys buvo naudojami mokymui. Ši metrika leidžia lyginti skirtingus modelius su skirtingais duomenimis. Metrika buvo pasiūlyta specialiai šiam darbui, siekiant palyginti skirtingus modelius.
 \par DMDK yra išvestas lygtyje [16]. Prieš DMDK skaičiavimą reikia paimti visus modelio mokymui skirtus duomenis ir kiekvienai duomenų eilutei apskaičiuoti modelio išvestį. Skaičiavimus reikia atlikti tik su tomis eilutėmis, su kuriuomis modelis išvedė teisingą atsakymą. Turint tik tas eilutes, su kuriomis modelis išvedė teisingą atsakymą, galima į nelygybę įstatyti kintamuosius. Lygtyje yra naudojami tokie kintamieji: m - duomenų eilučių skaičius, h - parametrų skaičius (stulpeliai), $\epsilon$ - ieškomas didžiausias galimas kintamasis, su kuriuo modelis nepakeičia išvesties rezultatų, $D_{eilut.:n, stulp.:k}$ - duomenys n eilutėje ir k stulpelyje.
 
 \begin{equation}
@@ -212,7 +213,7 @@ DMDK = {\sum_{n=0}^{m} ({\sum_{k=0}^{h} (max((|\epsilon| + D_{eilut.:n, stulp.:k
 \end{equation} 
 
 \subsection{Skaičiavimo pavyzdys}
-\par Tarkime egzistuoja modelis, kuris turi 2 parametrus: gliukozės kiekis kraujyje ir KMI. Pagal šiuos du parametrus modelis išveda rezultatą: ar žmogus serga cukriniu diabetu ar ne. Paimamos visos mokymo duomenų eilutės, su kuriomis modelis išveda teisingą rezultatą. Tarkime, jos yra aprašytos \ref{tab:my-table} lentelėje.
+\par Tarkime egzistuoja modelis, kuris turi 2 parametrus: gliukozės kiekis kraujyje ir KMI. Pagal šiuos du parametrus modelis išveda rezultatą: ar žmogus serga cukriniu diabetu ar ne. Paimamos visos mokymo duomenų eilutės, su kuriomis modelis išveda teisingą rezultatą. Tarkime, jos yra aprašytos \ref{tab:my-table0} lentelėje.
 
 \begin{table}[h]
 \centering
@@ -224,7 +225,7 @@ Gliukozė & KMI  & Išvestis \\\cline{1-3}
 183      & 23.3 & 1        \\\cline{1-3}
 \end{tabular}
 \caption{Pavyzdiniai duomenys}
-\label{tab:my-table}
+\label{tab:my-table0}
 \end{table}
 
 \par Taikant jau sukurtą modelį, įvertiname ar keičiasi išvestis didinant kiekvienos eilutės kiekvieno stulpelio reikšmes, pridedant $\epsilon$. Kiekvienai reikšmei yra atskirai didinamas $\epsilon$, kol gaunamas tos eilutės tam tikro stulpelio maksimalus $\epsilon$. Skaičiavimams parodyti, tarkime, kad gautos maksimalios $\epsilon$ reikšmės yra pateiktos lentelėje [2].
@@ -251,7 +252,7 @@ DMDK = \frac{3 + 2}{2} + \frac{6 + 1}{2} + \frac{4 + 0.1}{2} = 8.05
 \par Apskaičiavus kitų modelių DMDK reikšmes, galima lyginti, kuris modelis efektyviau saugo duomenis, naudotus mokymosi metu. Jeigu kito modelio apskaičiuota DMDK reikšmė būtų didesnė už 8.05, reikštų, kad tas modelis labiau saugo duomenų privatumą.
 
 \subsection{Algoritmo verifikavimas}
-\par Siekiant įrodyti, kad algoritmas teisingai įvertina skirtingus modelius ir galima juos palyginti tarpusavyje, paimkime kelis skirtingus modelių pavyzdžius.
+\par Siekiant pademonstruoti, kad algoritmas teisingai įvertina skirtingus modelius ir galima juos palyginti tarpusavyje, paimkime kelis skirtingus modelių pavyzdžius.
 \par Tarkime, kad pirmas modelis turi viena parametrą - KMI. Pagal šį parametrą, modelis prognozuoja, ar žmogus serga cukriniu diabetu ar ne. Modelio tikslumas yra 54\%, jis visą laiką prognozuoja, kad žmogus serga cukriniu diabetu. Skaičiuojant DMDK, reikia pasirinkti tik tuos duomenis, su kuriais buvo išvesta teisinga prognozė. Modelis visą laiką prognozuoja, kad žmogus serga cukriniu diabetu, todėl, nėra tokios reikšmės, kurią pridėjus prie duomenų, pasikeis modelio prognozė. Todėl DMDK reikšmė yra $\infty$ ir tai reiškia, kad modelis negali būti saugesnis. Kai modelio prognozė visą laiką yra tapati, neįmano atgaminti pradinių duomenų, su kuriais modelis buvo mokomas.
 \par Antras pavyzdinis modelis prognozuoja ar žmogus serga cukriniu diabetu, pagal 2 parametrus: KMI ir gimdymų skaičiumi. Modelio tikslumas yra 72\%, modelio DMDK reikšmė yra 0,00134. Sprendžiant pagal DMDK, modelis yra nesaugus ir yra labai priklausomas nuo pradinių duomenų, su kuriais modelis buvo mokomas. Modelio nesaugumui įrodyti, paimkime kelias savo sugalvotas duomenų eilutes ir pabandykime atgaminti pradinius duomenis. Tarkime, kad mūsų sugalvotos duomenų eilutės yra lentelėje [3].
 
@@ -288,42 +289,30 @@ KMI & Gimdymų skaičius \\\cline{1-2}
     \item Skaitant duomenis, prie jų reikšmių yra pridedamas atsitiktinai sugeneruotas triukšmas - skaičius nuo -1 iki 1. Naudo modelio DMDK reikšmė yra panaši į modelio, prieš duomenų keitimą. Tendencijos išlieka panašios.
 \end{enumerate}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 \section{Homomorfinis šifravimas}
+\subsection{Metodas}
 % https://www.venafi.com/blog/homomorphic-encryption-what-it-and-how-it-used %
-\par Homomorfinis šifravimas, yra šifravimo algoritmų klasė, kuri yra grindžiama principu, leidžiančiu atlikti skaičiavimus su užšifruotais duomenimis, jų neatšifruojant. Šie algoritmai yra šiek tiek panašūs į viešo šifravimo algoritmus, kurie yra paplitę tinklalapių apsaugoje. Yra naudojamas viešas ir privatus raktas. Su viešu raktu duomenys yra užšifruojami, o su privačiu, atšifruojami. Momomorfinis šifravimas skiriasi nuo viešo šifravimo tuo, kad naudoja algebrainę sistemą, kuri leidžia atlikti skaičiavimus su užšifruotais duomenimis.
+\par Homomorfinis šifravimas, yra šifravimo algoritmų klasė, kuri yra grindžiama principu, leidžiančiu atlikti skaičiavimus su užšifruotais duomenimis, jų neatšifruojant. Šie algoritmai yra šiek tiek panašūs į viešo šifravimo algoritmus, kurie yra paplitę tinklalapių apsaugoje. Yra naudojamas viešas ir privatus raktas. Su viešu raktu duomenys yra užšifruojami, o su privačiu, atšifruojami. Momomorfinis šifravimas skiriasi nuo viešo šifravimo tuo, kad naudoja algebrainę sistemą, kuri leidžia atlikti skaičiavimus su užšifruotais duomenimis. \cite{14} Algebrainė sistema yra duomenų rinkinys kartu su savo matematinėmis operacijomis.
   % https://planetmath.org/algebraicsystem %
-\par Algebrainė sistema yra duomenų rinkinys kartu su savo matematinėmis operacijomis. 
-
-
-
 \par Yra trijų tipų homomorfiniai šifrai: dalinai homomorfiniai (PHE), šiek tiek homomorfiniai (SHE) ir pilnai homomorfiniai šifrai (FHE). Dalinai homomorfinės sistemos leidžia atlikti skaičiavimus visiems duomenims, tik su pasirinkta operacija. Tai gali būti arba sudėtis arba daugyba.  Operacijos duomenims gali būti atliktos neribotą kartą.  Šiek tiek homomorfinės sistemos (SHE) naudoja vieną operaciją iki tam tikro sudėtingumo. Šios operacijos gali būti atlikto ribotą kartų skaičių. Pilnai homomorfinės sistemos leidžia naudoti sudėtį ir daugybą vienu metu, neribotą kartų. 
 % https://cryptosith.org/michael/data/talks/2012-01-10-MSR-Cambridge.pdf %
-\par Homomorfinių sistemų saugumas yra paremtas žiedinio mokymo su klaidomis problema (\say{Ring learning with errors}).
+% https://cims.nyu.edu/~regev/papers/lwesurvey.pdf %
+\par Homomorfinių sistemų saugumas yra paremtas žiedinio mokymo su klaidomis problema (\say{Ring learning with errors}). Ši problema prašo atgaminti slaptą raktą $s$, pagal duotas aproksimuotas tiesinias lygtis, su slaptu raktu $s$ \cite{16}. Ši problema nebūtų sunki, jeigu nebūtų aproksimuotų lygčių. Jas išspręsti būtų galima ir su Gauso metodu, tačiau dėl galimos paklaidos, sprendimas yra sunkesnis. Vienas iš efektyviausių sprendimų yra pateiktas A. Blum, A. Kalai, ir H. Wasserman darbe \cite{15}. Pateiktas algoritmui reikia $2^{O(n)}$ duomenų ir laiko. Algoritmas padeda surasti rinkinį tiesinių lygčių $S$, kurio dydis $n$, tarp visų galimų lygčių $2^{O(n)}$. Susumavus šias lygtis turi gautis pirma slapto rakto $s$ koordinatė.
+\subsection{Paillier kriptografija}
+% https://www.sciencedirect.com/topics/computer-science/paillier-cryptosystem %
+Pallier algoritmas yra apgrįstas problema, kuri skaičiuoja reikšmės likutį. Skaičiavimas pateiktas lygtyje ().
+\begin{equation}
+    z \equiv y^{n} (mod n^{2})
+\end{equation}
+% https://cryptography.fandom.com/wiki/Decisional_composite_residuosity_assumption %
+\par Turint sudėtinę reikšmę $n$ ir sveiką skaičių $z$, yra sunku nuspręsti, ar z yra n-oji liekana modulio $n^{2}$ ar ne.
+\par Turinio šifravimui reikia sugalvoti atsitiktinį sveiką skaičių $r$. Tada galima galima rasti užšifruoti turinį $g$ pagal formulę ().
 
+\begin{equation}
+    c = g^{m} \cdot r_{n}
+\end{equation}
 
-
-
-
-
-
-
-
-
-
-
+\par Čia 
 
 \section{Federuotas mašininis mokymas}
 \subsection{Metodas}
