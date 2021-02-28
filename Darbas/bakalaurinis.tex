@@ -28,7 +28,7 @@
 \department{Programų sistemų katedra}
 \papertype{Baigiamasis bakalauro darbas}
 \title{Privačios informacijos išsaugojimas taikant dirbtinio intelekto technologijas}
-\titleineng{Privacy-preserving AI}
+\titleineng{Privacy-preserving artificial intelligence}
 \status{4 kurso 3 grupės studentas}
 \author{Paulius Milmantas}
 \supervisor{dr. Linas Petkevičius}
@@ -300,30 +300,88 @@ KMI & Gimdymų skaičius \\\cline{1-2}
 \par Homomorfinių sistemų saugumas yra paremtas žiedinio mokymo su klaidomis problema (\say{Ring learning with errors}). Ši problema prašo atgaminti slaptą raktą $s$, pagal duotas aproksimuotas tiesinias lygtis, su slaptu raktu $s$ \cite{16}. Ši problema nebūtų sunki, jeigu nebūtų aproksimuotų lygčių. Jas išspręsti būtų galima ir su Gauso metodu, tačiau dėl galimos paklaidos, sprendimas yra sunkesnis. Vienas iš efektyviausių sprendimų yra pateiktas A. Blum, A. Kalai, ir H. Wasserman darbe \cite{15}. Pateiktas algoritmui reikia $2^{O(n)}$ duomenų ir laiko. Algoritmas padeda surasti rinkinį tiesinių lygčių $S$, kurio dydis $n$, tarp visų galimų lygčių $2^{O(n)}$. Susumavus šias lygtis turi gautis pirma slapto rakto $s$ koordinatė.
 \subsection{Paillier kriptografija}
 % https://www.sciencedirect.com/topics/computer-science/paillier-cryptosystem %
-Pallier algoritmas yra apgrįstas problema, kuri skaičiuoja reikšmės likutį. Skaičiavimas pateiktas lygtyje ().
+\par Pallier kriptosistema yra dalinai homomorfinis šifras, kuris leidžia atlikti homomorfinės sudėties operaciją. Nors palaikoma yra sudėties operacija, norint atlikti veiksmus su užšifruotais duomenimis, reikia naudoti daugybą, nes duomenų užšifruoti duomenys yra pakelti laipsniu. Pallier algoritmas yra pagrįstas problema, kuri skaičiuoja reikšmės likutį. Skaičiavimas pateiktas lygtyje ().
 \begin{equation}
-    z \equiv y^{n} (mod n^{2})
+    z \equiv y^{n} * (mod n^{2})
 \end{equation}
 % https://cryptography.fandom.com/wiki/Decisional_composite_residuosity_assumption %
 \par Turint sudėtinę reikšmę $n$ ir sveiką skaičių $z$, yra sunku nuspręsti, ar z yra n-oji liekana modulio $n^{2}$ ar ne.
-\par Turinio šifravimui reikia sugalvoti atsitiktinį sveiką skaičių $r$. Tada galima galima rasti užšifruoti turinį $g$ pagal formulę ().
+\par Prieš duomenų šifravimą, reikia rasti viešą ir privatų raktą.
+
+\begin{enumerate}
+    \item Pasirinkti du didelius pirminius skaičius $p$ ir $q$, kad bendras didižiausias daliklis tarp $p \cdot q, (p - 1), (q - 1)$ būtų lygus 1.
+    \item Apskaičiuoti $n = p \cdot q$
+    \item Rasti didžiausią bendrą kartotinį skaičių \lambda, tarp $(p - 1), (q - 1)$
+    \item Pasirinkti atsitiktinį sveiką skaičių $g$.
+    \item Apskaičiuoti $u = (\frac{(g^{\lambda} mod (n^2)) - 1}{n})^{-1} mod (n)$
+    \item Viešas raktas ($n, g$), privatus raktas ($\lambda, u$).
+\end{enumerate}
+
+\par Turing viešą raktą, turinio šifravimui reikia sugalvoti atsitiktinį sveiką skaičių $r$. Tada galima galima turinį $M$ pagal formulę ().
 
 \begin{equation}
-    c = g^{m} \cdot r_{n}
+    c = g^{m} \cdot r^{n} mod(n^{2})
 \end{equation}
 
-\par Čia 
+\par Turinio $c$ iššifravimui naudojama formulė ().
+
+\begin{equation}
+    M = (\frac{c^{\lambda mod (n^{2})} - 1}{n} \cdot u) mod (n)
+\end{equation}
+
+\par Minėti skaičiavimai yra vykdomi su teigiamais sveikais skaičiais. Turi būti galima atlikti veiksmus ir su neigiamais skaičiais, nes neuroninių tinklų svoriai ir šališkumai gali būti neigiamos reikšmės. Originalus Paillier algoritmas neapima neigiamų reikšmių, todėl [] straipsnyje pateiktas skaičiavimo būdas, kuris leidžia atlikti veiksmus ir su neigiamais skaičiais.
+
+\begin{itemize}
+    \item Atšiftuojant duomenis, turi būti validi salyga ().
+    
+    \begin{equation}
+        2 \cdot sup(|M|) + 1 < N
+    \end{equation}
+
+    Čia $sup(.)$ - grąžina didžiausią reikšmę tekste, |M| - absoliuti teksto reikšmė, N - vienas iš viešų raktų.
+    \item Norint užšifruoti neigiamą reikšmę $-m$, reikia laikytis lygybės ()
+    
+    \begin{equation}
+        E(-m) = E(m)^{-1} = E(m)^{-1 mod(N)}
+    \end{equation}
+    
+    Čia $m$ yra teigiama reikšmė, N - vienas iš viešų raktų.
+\end{itemize}
+
+
+
+
+
+
+
+
+
 
 \section{Federuotas mašininis mokymas}
 \subsection{Metodas}
+% https://arxiv.org/pdf/1902.04885.pdf
+\par Duomenys, skirti mašininio mokymo modelio kūrimui, priklauso $N$ savininkų. Konvenciniai modeliai agreguoja visų savininkų duomenis ir su jais moko modelį. Asmuo kuriantis modelį mato visų savininkų duomenis. Šią problemą sprendžia federuotas mašininis mokymas. Kiekvienas savininkas moko modelį atskirai ir visi duomenys nėra agreguojami. Taip vienas iš duomenų savininkų nemato duomenų, kurie jam nepriklauso.
+
+\subsection{Galimos saugumo spragos}
+% https://arxiv.org/pdf/2004.10020.pdf
+\par Viena iš federuoto mašininio mokymosi modelių spragų yra duomenų nuodijimo ataka. Kenkėjas naudoja gradientinio nuolydžio algoritmą ir analizuoja modelio grąžinamą optimalų sprendinį. Taip kenkėjas gali gauti modelio gradientų reikšmes ir atskleisti modelio pradinius duomenis. Arba gali būti pakenkiama modelio tikslumui.
+\par 
+
+
+
 \subsection{Komunikacijos kaštų mažinimas}
 \subsection{Įrenginių heterogeniškumas}
+% https://arxiv.org/pdf/2101.00787.pdf %
+\par Prie federuoto mokymo tinklo gali būti prijungti labai įvairūs prietaisai. Jų galingumas ir surenkamų duomenų kiekis gali smarkiai skirtis. Gali tinkle atsirasti vienas įrenginys turintis daug išteklių, bet mažai duomenų, o kitas įrenginys su mažais ištekliais ir daug duomenų. Duomenys tarp įrenginių gali būti panašūs. Tarkime, jeigu yra renkami duomenys iš lėktuvų apie skristus maršrutus, neapsimoka analizuoti duomenų iš skirtingų lėktuvų, kurie skrido tuo pačiu maršrutu. Šiai problemai spręsti, straipsnyje [] pasiūlytas duomenų paskirstymo algoritmas.
+\par Straipsnyje pasiūlyta, kad federuoto mokymo tinkle esantis serveris, modelio kūrimui, neturėtų remtis atsitiktinai pasirinktais įrenginiais. Turi būti atsižvelgiama į jų parametrus. Pasiūlyta naudoti komunikaciją tarp pačių įrenginių. Taip jie tarpusavyje galėtų palyginti ar labai skiriasi jų duomenys ir išskirti tam tikras skirtingas charakteristikas. Pagal šias charakteristikas, pagrindinis serveris turėtų pasirinkti tik tam tikrus įrenginius. Jeigu duomenų charakteristikos tarp įrenginių yra labai panašios, įrenginiai turėtų apsikeisti duomenų skirtumais, pasidalinti bendrais duomenimis ir pagal resursus atitinkamai pasidalinti skaičiavimo kiekiu. 
+\par Pateiktas metodas yra skirtas sistemoms, kuriose yra apriboti resursai ir negalima analizuoti visų įrenginių. Serveris gali efektyviau sukurti geresnį bendrą modelį. Vykdant įrenginių analizę, būtų galima bandyti atskirti įrenginius, pagal duomenų skirtumų charakteristikas, kurie yra kenkėjiški ir bando pakenkti tinklui. Tinklo efektyvumas padidėja, tačiau atsiranda saugumo spraga, kai įrenginiai tarpusavyje pradeda lyginti duomenis ir jais apsikeisti. Šios spragos sprendimas yra naudoti homomorfinį šifravimą kiekviename įrenginyje. Jeigu tinkle atsirastų kenkėjiškas įrenginys ir jis sugebėtų surasti su juo komunikuojančių įrenginių homomorfinio šifro slaptą raktą, jis negalėtų perrimti viso tinklo duomenų, tik dalį jų,
+
 \subsection{Analizės heterogeniškumas}
-\subsection{Saugos problemos}
 
 \section{Blokų-grandinių technologija}
 
 \section{Saugus skirtingų pusių skaičiavimas}
+
 
 \section{Bendro įspūdžio privatus agregavimas}
 
