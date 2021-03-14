@@ -396,7 +396,30 @@ KMI & Gimdymų skaičius \\\cline{1-2}
 \section{Blokų-grandinių technologija}
 
 \section{Saugus skirtingų pusių skaičiavimas}
+\subsection{Apibrėžimas}
+%https://eprint.iacr.org/2020/300.pdf%
+\par Saugus skirtingų pusių skaičiavimo algoritmas („Secure Multiparty Computation“, trumpinys MPC) leidžia keliems įrenginiams skaičiuoti bendros funkcijos rezultatą, nesidalinant duomenimis tarpusavyje \cite{22}. Pagrindinis skirtumas, kuo  skiriasi MPC nuo kitų paskirstyto skaičiavimo algoritmų, yra didelis dėmesys saugumui. Kuriant MPC protokolą skaičiavimams atlikti, yra du reikalavimai: privatumas ir teisingumas. Privatumo reikalavimas reikalauja, kad įrenginiai, kurie vykdys skaičiavimus, sužinotų tik apskaičiuotą rezultatą ir nieko daugiau. Vienintelė papildomai sužinota informacija gali būti gauta tik išvedus ją iš gauto rezultato. Teisingumo reikalavimas reikalauja, kad kiekviena šalis turi gauti teisingai apskaičiuotą reikšmę. Jeigu vienas įrenginys apskaičiuos rezultatą klaidingai, visų įrenginių bendras skaičiavimo rezultatas bus irgi neteisingas. Paskirstyto skaičiavimo algoritmai irgi duotų neteisingą reikšmę, tačiau visų įrenginių bendras rezultatas nenukryptų daug.
+\par Per laiką atsirado MPC protokolo patobulinimų, norint apsaugoti algoritmą nuo kenkėjiškų įrenginių, ir dėl to sukurti dar trys reikalavimai: įvesties duomenų nepriklausomumas, garantuotas reikšmės grąžinimas ir lygumas. Įvesties duomenų nepriklausomumo reikalavimas reikalauja, kad kiekvienas įrenginys nieko nežinotų apie kitų įrenginių naudojamus duomenis ir atitinkamai nekeistų savo duomenų. Garantuoto reikšmės grąžinimo reikalavimas reikalauja, kad kenkėjiški įrenginiai negalėtų sutrikdyti kitų įrenginių skaičiavimų. Pavyzdžiui, jeigu skaičiavimams naudojamas interneto ryšys, negali būti sudaryta galimybė leisti kenkėjiškiems įrenginiams paveikti interneto ryšio. Lygumo reikalavimas reikalauja, kad jeigu įrenginys turi blogus duomenis ar gautas rezultatas yra sugadintas, šis įrenginys turi gauti savo apskaičiuotą reikšmę tik tokiu atveju, jeigu visų kitų įrenginių rezultatai nėra sugadinti.
+\subsection{Skaičiavimo algoritmai}
+%https://ericrafaloff.com/shamirs-secret-sharing-scheme/%
+\par MPC algoritmui paaiškinti, pirma reikia išsianalizuot atvejį, kai yra du įrenginiai su savo slaptais raktais ir viena paslaptis. Jeigu norime atgaminti paslaptį, reikia turėti abiejų įrenginių slaptus raktus ir taip galime atgaminti paslaptį. Pavyzdžiui, jeigu paslaptis yra skaičius 654321, tada reikia sugeneruoti atsitiktinį skaičių, kuris yra mažesnis už 654321. Tarkime tai yra 123456. Šis naujas atsitiktinis skaičiuos yra pirmo įrenginio slaptas raktas. Norint sukurti antro įrenginio raktą, galime iš slapto rakto atimti pirmo įrenginio raktą ir gauname 530865. Norint turėti daugiau įrenginių, kyla problema, kad siekiant atgaminti paslaptį, reikia visų įrenginių sutikimo. Jeigu vienas įrenginys bus prarastas, dings paslaptis. Tai nėra priimtinas sprendimas, todėl buvo sugalvotas algoritmas, kuris leidžia atgaminti paslaptį, turint tik dalį rakto dalių \cite{23}. Šis algoritmas vadinasi Shamir slapto rakto dalijimosi schema („Shamir‘s secret key sharing schema“), kitaip žinomas, kaip rakto skaldymo algoritmas. Slaptas raktas yra padalijamas yra kelias dalis. Kiekviena dalis pavieniui yra nepanaudojama. Slapto rakto atstatymui iš padalintų dalių, nebūtina turėti visas dalis. Pavyzdžiui, jeigu slaptas raktas yra padalijamas į penkias dalis, gali užtekti turėti tik tris dalis ir iš jų galima jau atstatyti pradinį slaptą raktą.
+\par Shamir pasiūlė skaičiuoti slapto rakto dalis grafiškai 2D erdvėje \cite{23}. Paslaptis gali būti laikoma Y koordinate pradinio taško, kurio X koordinatė yra 0. Tada pasirenkame atsitiktinį tašką grafike ir brėžiame liniją tarp slapto taško ir atsitiktinai sugeneruoto taško. Tai grafiškai pavaidzuota pav. \cite{fig:Slapto rakto dalijimas tiesėje} Ši linija yra slapta ir ją žinant, galima atgaminti pradinę paslaptį. Kiekviena rakto dalis yra atsitiktinis taškas slaptoje linijoje. Turint dvi dalis, galima atgaminti slaptą raktą.  
 
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=9cm,height=6cm,keepaspectratio]{img/2ngraph.png}
+  \caption{Slapto rakto dalijimas tiesėje}
+  \label{fig:Slapto rakto dalijimas tiesėje}
+\end{figure}
+
+\par Norint leisti, kad paslaptį būtų galima atskleisti su dviem raktais, reikia sugeneruoti du atsitiktinius taškus ir nubrėžti slaptą parabolę \cite{23}. Turint tris sugeneruotus raktus, galima atkurti pradinę parabolės lygtį ir atkurti paslaptį. Rakto dalijimas grafiškai pavaizduotas pav. \ref{fig:Slapto rakto dalijimas parabolėje} Norint, kad paslaptis būtų atgaminta iš keturių raktų, reikia sugeneruoti kubinę kreivę ir taip toliau. %Panašus algoritmas yra  Reed-Solomon code.%
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=11cm,height=8cm,keepaspectratio]{img/3ngraph.png}
+  \caption{Slapto rakto dalijimas parabolėje \cite{24}}
+  \label{fig:Slapto rakto dalijimas parabolėje}
+\end{figure}
 
 \section{Bendro įspūdžio privatus agregavimas}
 
@@ -427,7 +450,7 @@ Pallier homomorfiniu šifravimu grįstas modelis & 2185.37 & 63.52\% & 0.1416 \\
     \item Su visais modeliais, išskyrus PyTorch neuroninį tinklą, didėjant modelio tikslumui, didėja vidutinė maksimalaus nuokrypio reikšmė – modelis tampa saugesnis, o su PyTorch neuroniniu tinklu, mažėja - modelis tampa mažiau saugus. 
 \end{itemize}
 
-\par Tas pats tyrimas buvo atliktas su MNIST rašytinių skaitmenų nuotraukomis. Vienintelis PyTorch neuroninis tinklas konvergavo minimumo link. Pasiekus 74\% ir 82\% tikslumus, DMDK reikšmės išlieka vienoda - 0.04999, MSE nuostolių funkcijos reikšmės atitinkamai 266.66730 ir 203.6602.
+\par Tas pats tyrimas buvo atliktas su MNIST rašytinių skaitmenų nuotraukomis. Tik PyTorch neuroninis tinklas su vienu paslėptu sluoksniu ir VGG16 konvergavo minimumo link. Pasiekus 74\% ir 82\% tikslumus, PyTorch neuroninio tinklo DMDK reikšmės išlieka vienoda - 0.04999, MSE nuostolių funkcijos reikšmės atitinkamai 266.66730 ir 203.6602. VGG16 tinklui pasiekus 72\% tikslumą, MSE nuostolių funkcijos reikšmė - 2.59, DMDK reikšmė -  0.17. Reiškia VGG16 modelis yra saugesnis už paprastą vieno paslėpto sluoksnio PyTorch neuroninį tinklą.
 
 \par Kiekvienam modeliui atliktas atskiras nuostolių funkcijos (MSE), DMDK rodiklių ir modelio tikslumo, DMDK priklausomybės tyrimas.
 
