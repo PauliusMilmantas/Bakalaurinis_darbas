@@ -394,6 +394,29 @@ KMI & Gimdymų skaičius \\\cline{1-2}
 \par Čia $k$ - įrenginių skaičius, $F_{k}$ - tikslo funkcija, $\mu \in$ [0; 1]. Kuo $\mu$ yra mažesnis, tuo tikslesnis centrinio serverio tikslumas gaunasi.
 
 \section{Blokų-grandinių technologija}
+\par Dažna mašininio mokymosi modelių problema yra riboti resursai, centralizuotumas, duomenų rinkimas ir tikimybė, kad laikui bėgant, duomenys taps pasenę ir nebenaudingi. Šią problemą sprendžią Microsoft įmonė, pasitelkdama blokų-grandinių technologiją \cite{25}.  Minėta technologija leidžia vartotojams praplėsti duomenų rinkinį ir tobulinti modelį.
+\par Vieši modeliai yra laikomi išmaniusiose kontraktuose. Jie užtikrina, kad kodas esantis blokų-grandinių tinkle atitinka reikalavimus \cite{25}.  Išmanieji kontraktai yra protokolai, kurie užtikrina susitarimo tarp vartotojo ir tiekėjo teisingumą. Jie yra automatiškai blokų-grandinių tinkle automatiškai vykdomi ir leidžia kiekvieną transakciją atsekti, bei padaro ją grįžtama \cite{26}. Šiuos kontraktus vertina daug vartotojų ir juos yra sunku modifikuoti. Esant išmaniesiems kontraktas, tinkle galima atsekti, kurie pateikti nauji duomenys yra geri, ir galima vartotoją apdovanoti.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=9cm,height=6cm,keepaspectratio]{img/blockchain_1.png}
+  \caption{Blokų-grandinių technologijų pritaikymas \cite{25}}
+  \label{fig:Blokų-grandinių technologijų pritaikymas}
+\end{figure}
+
+\par Duomenų pridėjimas prie tinklo pavaizduotas pav. \ref{fig:Blokų-grandinių technologijų pritaikymas}. Procesas susideda iš trijų žingsnių \cite{25}:
+\begin{itemize}
+    \item Iniciatyvumo kūrimo mechanizmas. Jis skatina vartotojus teikti tik teisingus duomenis. Šiame žingsnyje pateikti duomenys yra validuojami, kaip transakcija. Iniciatyvumui gerinti yra daug būtų, vienas iš jų gali būti depozito sistema. Vartotojas pateikdamas duomenis tinklui, sumoka depozitą. Jeigu duomenys yra klaidinantys, depozitas nėra grąžinamas. Jeigu teisingi, depozitas grąžinamas ir, skatinimo tikslams, pridedama tam tikra suma. Duomenų teisingumas yra vertinamas pagal tai, kaip keičiasi modelio tikslumas su duotais duomenimis. Atitinkamai pagal modelio tikslumo pagerėjimą galima proporcingai vartotojui grąžinti daugiau pinigų.
+    \item Duomenys yra siunčiami į blokų-grandinių tinklą ir ten pridedami. Pridėjus duomenis, visi vartotojai juos mato.
+    \item Mašininio mokymosi modelis yra atnaujinamas pagal duomenis tinkle.
+\end{itemize}
+\par Esamas suprojektuotas karkasas geriausiai veikia tik nedideliems modeliams \cite{25}. Kol kas laukiama daugiau pasiūlymų, kaip būtų galima patobulinti blokų-grandinių technologijas, kad modelio mokymo procesas būtų efektyvesnis. Šiuo momentu pasiūlytas metodas neatsižvelgia į įrenginių ir duomenų heterogeniškumą, nėra efektyvaus mechanizmo nusakančio kaip tiksliai reikėtų apmokyti modelį su naujais duomenimis. Esantis sprendimas moko modelį su visais tinkle esančiais duomenimis. 
+
+\subsection{Privatumo išsaugojimas}	
+\par Pasiūlytas įmonės Microsoft sprendimas nėra saugus, nes kiekvieno vartotojo pateikti duomenys yra viešai matomi. Tačiau užtenka naudoti 4 skyriuje minimus homomorfinio šifravimo algoritmus ir problema yra išsprendžiama. Modelio saugumas tokiu atveju priklausytų tik nuo pasirinkto šifravimo algoritmo saugumo.
+\par Lyginant su federuotu mokymosi algoritmu, pateiktas blokų-grandinių sprendimas išsprendžia kenkėjiškų įrenginių problemą. Pasiūlytame sprendime, prieš priimant vartotojo duomenis, jie yra įvertinami. Tačiau duomenų įvertinimui, į blokų-grandinių tinklą yra pridedama 10\% duomenų, validumo tikrinimo tikslams. \par Kadangi yra naudojami išmanieji kontraktai, šiuos duomenis galima bandyti iškarto pašalinti iš tinklo. Jeigu kenkėjiškas vartotojas bandytų apkrauti tinklą blogais duomenimis, jam tai daug kainuotų, nes kiekvieno tikrinimo atveju, jis neatgautų sumokėto depozito.
+\parĮrenginių heterogeniškumo problema sprendime nėra sprendžiama ir duomenys yra lygiavertiškai imami iš visų įrenginių ir kiekvienas įrenginys gali vienodai prisidėti prie modelio kūrimo. Kadangi heterogeniškumas nėra tikrinimas, tinkle gali atsirasti daug duomenų, kurie turi labai mažą įtaką modelio tikslumui. Tai kainuoja daug skaičiavimo resursų modelio kūrimui.
+\par Sprendžiant, kurį metodą pasirinkti, ar federuoto mokymosi, ar blokų-grandinių, reikia atsižvelgti į būsimo tinklo planuojamą dydį. Jeigu planuojama turėti daug įrenginių tinkle, blokų grandinių metodas yra geresnis, nes jis apsaugo nuo kenkėjiškų įrenginių. Jeigu tokių įrenginių būtų daug, iš surenkamo depozito būtų galima atitinkamai apdovanoti teigiamai tinklą paveikiančius naudotojus. Tačiau kadangi nėra atsižvelgiama į įrenginių ir duomenų galimą heterogeniškumą, prarandamas didelė dalis tinklo apmokymo efektyvumo. Jeigu vartotojų bus mažai blokų-grandinių tinkle, atsiranda rizika, jog tinklas nebus toks saugus ir ne visada jis bus prieinamas visiems vartotojams. Jeigu planuojama turėti nedaug vartotojų tinkle, federuotas mokymasis yra geresnis variantas. Kadangi yra vienas centralizuotas serveris, nėra problemų dėl tinklo pasiekiamumo, esant mažam skaičiui vartotojų. Analizuojant įrenginių ir duomenų heterogeniškumą, tinklas yra efektyvesnis apmokant modelį.  
 
 \section{Saugus skirtingų pusių skaičiavimas}
 \subsection{Apibrėžimas}
@@ -422,6 +445,8 @@ KMI & Gimdymų skaičius \\\cline{1-2}
 \end{figure}
 
 \section{Bendro įspūdžio privatus agregavimas}
+
+\section{Tensorflow karkasas}
 
 \section{Tyrimas}
 \subsection{Modelių palyginimas}
