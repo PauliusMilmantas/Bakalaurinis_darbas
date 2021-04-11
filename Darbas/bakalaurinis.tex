@@ -73,7 +73,6 @@
 	\par Straipsnyje apie privatumą išsaugančius blokų-grandinių tinklus (\say{Privacy-Preserving Blockchain-Based Federated Learning for IoT Devices}) yra pateikiamas naujas paskirstyto mokymosi algoritmas, kuris yra paremtas
 blokų grandinių technologijomis \cite{5}. Šis modelis yra grafiškai pateiktas pav.1. Šią architektūrą pavyzdyje sudaro 3 komponentai: gamintojai, klientai ir blokų grandinių tinklas. Šiame pavyzdyje gamintojas pareiškia užklausą, kad reikia atlikti apklausą. Klientai, kurie sutinka su užklausa, išsiunčia savo sukurtą modelį. Blokų grandinių tinklas elgiasi kaip centralizuotas serveris ir surenka visus klientų modelius. Tuomet, pasirinktas kompiuteris, kuris atlieka visą darbą (\say{miner}) atlieka galutinį modelių sujungimą.
 
-
 \begin{figure}[ht]
   \centering
   \includegraphics[width=13cm,height=11cm,keepaspectratio]{img/paskirstytasMokymasis.png}
@@ -426,23 +425,17 @@ KMI & Gimdymų skaičius \\\cline{1-2}
 \subsection{Skaičiavimo algoritmai}
 %https://ericrafaloff.com/shamirs-secret-sharing-scheme/%
 \par MPC algoritmui paaiškinti, pirma reikia išsianalizuot atvejį, kai yra du įrenginiai su savo slaptais raktais ir viena paslaptis. Jeigu norime atgaminti paslaptį, reikia turėti abiejų įrenginių slaptus raktus ir taip galime atgaminti paslaptį. Pavyzdžiui, jeigu paslaptis yra skaičius 654321, tada reikia sugeneruoti atsitiktinį skaičių, kuris yra mažesnis už 654321. Tarkime tai yra 123456. Šis naujas atsitiktinis skaičiuos yra pirmo įrenginio slaptas raktas. Norint sukurti antro įrenginio raktą, galime iš slapto rakto atimti pirmo įrenginio raktą ir gauname 530865. Norint turėti daugiau įrenginių, kyla problema, kad siekiant atgaminti paslaptį, reikia visų įrenginių sutikimo. Jeigu vienas įrenginys bus prarastas, dings paslaptis. Tai nėra priimtinas sprendimas, todėl buvo sugalvotas algoritmas, kuris leidžia atgaminti paslaptį, turint tik dalį rakto dalių \cite{23}. Šis algoritmas vadinasi Shamir slapto rakto dalijimosi schema („Shamir‘s secret key sharing schema“), kitaip žinomas, kaip rakto skaldymo algoritmas. Slaptas raktas yra padalijamas yra kelias dalis. Kiekviena dalis pavieniui yra nepanaudojama. Slapto rakto atstatymui iš padalintų dalių, nebūtina turėti visas dalis. Pavyzdžiui, jeigu slaptas raktas yra padalijamas į penkias dalis, gali užtekti turėti tik tris dalis ir iš jų galima jau atstatyti pradinį slaptą raktą.
-\par Shamir pasiūlė skaičiuoti slapto rakto dalis grafiškai 2D erdvėje \cite{23}. Paslaptis gali būti laikoma Y koordinate pradinio taško, kurio X koordinatė yra 0. Tada pasirenkame atsitiktinį tašką grafike ir brėžiame liniją tarp slapto taško ir atsitiktinai sugeneruoto taško. Tai grafiškai pavaidzuota pav. \cite{fig:Slapto rakto dalijimas tiesėje} Ši linija yra slapta ir ją žinant, galima atgaminti pradinę paslaptį. Kiekviena rakto dalis yra atsitiktinis taškas slaptoje linijoje. Turint dvi dalis, galima atgaminti slaptą raktą.  
+\par Shamir pasiūlė skaičiuoti slapto rakto dalis grafiškai 2D erdvėje \cite{23}. Paslaptis gali būti laikoma Y koordinate pradinio taško, kurio X koordinatė yra 0. Tada pasirenkame atsitiktinį tašką grafike ir brėžiame liniją tarp slapto taško ir atsitiktinai sugeneruoto taško. Tai grafiškai pavaidzuota pav. \ref{fig:Slapto rakto dalijimas tiesėje} Ši linija yra slapta ir ją žinant, galima atgaminti pradinę paslaptį. Kiekviena rakto dalis yra atsitiktinis taškas slaptoje linijoje. Turint dvi dalis, galima atgaminti slaptą raktą.  
 
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=9cm,height=6cm,keepaspectratio]{img/2ngraph.png}
-  \caption{Slapto rakto dalijimas tiesėje}
-  \label{fig:Slapto rakto dalijimas tiesėje}
+\begin{figure}[ht]%
+ \centering
+ \subfloat[Slapto rakto dalijimas tiesėje]{\includegraphics[width=9cm,height=6cm,keepaspectratio]{img/2ngraph.png}\label{fig:Slapto rakto dalijimas tiesėje}}%
+ \subfloat[Slapto rakto dalijimas parabolėje \cite{24}]{\includegraphics[width=9cm,height=6cm,keepaspectratio]{img/3ngraph.png}\label{fig:Slapto rakto dalijimas parabolėje}}%
+ \caption{Slapto rakto dalijimas}%
+ \label{fig:Slapto rakto dalijimas}%
 \end{figure}
 
 \par Norint leisti, kad paslaptį būtų galima atskleisti su dviem raktais, reikia sugeneruoti du atsitiktinius taškus ir nubrėžti slaptą parabolę \cite{23}. Turint tris sugeneruotus raktus, galima atkurti pradinę parabolės lygtį ir atkurti paslaptį. Rakto dalijimas grafiškai pavaizduotas pav. \ref{fig:Slapto rakto dalijimas parabolėje} Norint, kad paslaptis būtų atgaminta iš keturių raktų, reikia sugeneruoti kubinę kreivę ir taip toliau. %Panašus algoritmas yra  Reed-Solomon code.%
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=11cm,height=8cm,keepaspectratio]{img/3ngraph.png}
-  \caption{Slapto rakto dalijimas parabolėje \cite{24}}
-  \label{fig:Slapto rakto dalijimas parabolėje}
-\end{figure}
 
 \section{Bendro įspūdžio privatus agregavimas}
 \par Bendro įspūdžio privatus agregavimas, angliškai \say{Private Aggregation of Teacher Ensembles} (PATE), leidžia skirtingiems įrenginiams prisidėti prie bendro mašininio mokymosi modelių tinklo. Tinklą sudaro daug skirtingų mašininio mokymosi modelių, kurie nepriklausomai priima sprendimus. Kiekvieno modelio sprendimą tinklas susumuoja, pritaiko Gauso filtrą ir galutinį rezultatą pateikia vartotojui \cite{27}. Kiekvienas įrenginys turi galimybę pasirinkti savo mašininio mokymosi algoritmą ir realizuoti savo būdu, nepriklausomai nuo kitų įrenginių ar tinklo. Ši galimybė padaro tinklą efektyvesniu, nes įrenginiai gali pasirinkti algoritmus, kurie yra efektyvesni už tinko kūrėjo parinktą algoritmą.
@@ -466,7 +459,20 @@ KMI & Gimdymų skaičius \\\cline{1-2}
 \par Lyginant PATE algoritmą su federuotu mokymu, PATE yra saugesnis, nes tinkle modelių yra nors keli ir jeigu duoti duomenys yra panašūs į vieno modelio pradinius duomenis, esant bendram modelių sutarimui, sunku atgaminti pradinius duomenis, iš tinklo išvesties. Pradinių duomenų atgaminimą taip pat apsunkina ir Gauso filtras. Optimaliu atveju, privatumas tinkle yra geriausiai išsaugomas, kai kiekvienas modelis grąžina panašius rezultatus su duotais viešais duomenimis, tada negalima atsekti kuris modelis tinkle yra už tai atsakingas. PATE yra taip pat ir efektyvesnis už federuotą mokymą, nes modelius kuria įrenginiai, kurie gali pasirinkti tam tikrai duomenų sričiai optimalius algoritmus, o federuotas mokymas apibrėžia tik vienodų algoritmų naudojimą. PATE taip pat išsprendžia įrenginių ir duomenų heterogeniškumo problemas. Vienintelis federuoto mokymosi pranašumas yra, kad nereikia dalintis pradiniais duomenimis. Jeigu jie yra svarbūs, o įrenginiai nėra patikimi, atsiranda rizika, kad įrenginiai gali atskleisti duomenis. Tačiau ši problema gali būti išspręsta su 4 skyriuje minimais šifravimo algoritmais, kurie leistų paslėpti duomenis nuo pačių įrenginių.
 
 \section{Tensorflow karkasas}
-\par Kalbėsiu apie privatumo išsaugojimą Tensorflow karkase...
+\par \say{Tensorflow} karkasas - Google technologijų įmonės atviro kodo, mašininio mokymosi karkasas. Šiame karkase yra realizuota daug algoritmų ir mašininio mokymosi modelių. 2019 metais kovo mėnesį \say{Tensorflow} karkaso puslapyje buvo pristatytas straipsnis apie diferencinį privatumą. Prie \say{Tensorflow} karkaso buvo pridėta Tensorflow Privacy biblioteka, kuri realizuoja mašininio mokymosi modelius, naudojančius diferencinį privatumą \cite{29}. Iki to laiko, \say{Tensorflow} karkasas neatsižvelgdavo į duomenų išsaugojimą. 4 skyriuje aprašytus homomorfinio šifravimo algoritmus nebuvo galima taikyti karkase. Vienintelis būdas išsaugoti privatumą buvo naudoti skirtingų mašininių modelių tinklą, pavyzdžiui 5 skyriuje aprašytą federuotą mašininį mokymąsi arba 8 skyriuje aprašytą bendro įspūdžio agregavimo algoritmą.
+\par Atsitiktinai parinktos reikšmės $M : D $\rightarrow$ R$ tenkina diferencinio privatumo sąlygą, kai du duomenų rinkiniai $X ir X' \in D$, išvestys $\Upsilon \in R$ ir tenkinama sąlyga lygybėje \ref{eq:Diferencinio privaluto sąlyga} \cite{30}. Čia $Pr[X]$ - tikimybė, kad įvyks įvykis $X$. Ši sąlyga užtikrina, kad parinkti du duomenų rinkiniai $X$ ir $X'$, kurie skiriasi tik vienu įrašu, duos labai panašius rezultatus, kurių neis atskirti.
+
+\begin{equation}
+    Pr[M(X) \in \Upsilon] \leq e^{\epsilon} Pr[M(X') \in \Upsilon] + \delta
+    \label{eq:Diferencinio privaluto sąlyga}
+\end{equation}
+
+\par Pagrindinė pasiūlyto algoritmo idėja - vykdant stochastinio gradiento nuolydžio algoritmą, modifikuoti gradientų reikšmes. Tai yra atliekama su dviem algoritmo pakeitimais:
+
+\begin{itemize}
+    \item Kiekvieno gradiento jautrumas pokyčiams turi būti apribotas. Reikia nurodyti, kiek kiekviena duomenų eilutė gali paveikti kiekvieną gradientą. Šiam tikslui yra taikoma procedūra \say{Clipping}, kuri nusako maksimalų galimą gradientų pokytį.
+    \item Siekiant išsaugoti privatumą, pridedamas triukšmas prie reikšmės, gautos iš \say{Clipping} metodo. Triukšmas yra gaunamas su Gauso filtru. Taikant filtrą nustatomos ir apribojamos reikšmės kiekvienam gradientui atsitiktinai, taip išsaugomas privatumas
+\end{itemize}
 
 \section{Tyrimas}
 \subsection{Modelių palyginimas}
@@ -504,7 +510,7 @@ Pallier homomorfiniu šifravimu grįstas modelis & 2185.37 & 63.52\% & 0.1416 \\
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=11cm,height=8cm,keepaspectratio]{img/pal_tyr_1.png}
+  \includegraphics[width=14cm,height=11cm,keepaspectratio]{img/pal_tyr_1.png}
   \caption{Palliers DMDK rodiklio reikšmių priklausomybė nuo MSE nuostolių funkcijos reikšmių}
   \label{fig:Palliers DMDK rodiklio reikšmių priklausomybė nuo MSE nuostolių funkcijos reikšmių}
 \end{figure}
@@ -513,7 +519,7 @@ Pallier homomorfiniu šifravimu grįstas modelis & 2185.37 & 63.52\% & 0.1416 \\
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=11cm,height=8cm,keepaspectratio]{img/pal_tyr_2.png}
+  \includegraphics[width=14cm,height=11cm,keepaspectratio]{img/pal_tyr_2.png}
   \caption{Palliers DMDK rodiklio reikšmių priklausomybė nuo MSE nuostolių funkcijos reikšmių}
   \label{fig:Palliers DMDK rodiklio reikšmių priklausomybė nuo MSE nuostolių funkcijos reikšmių}
 \end{figure}
