@@ -1,0 +1,61 @@
+data + 0
+Epoch: 249 Training loss: 116.58795829966039 Accuracy: 73.96449704142012
+0th collumn maximum epsilon: 90.56353467561408
+1th collumn maximum epsilon: 100.09999999999856
+2th collumn maximum epsilon: 100.09999999999856
+3th collumn maximum epsilon: 100.09999999999856
+4th collumn maximum epsilon: 100.09999999999856
+Model maximum epsilon: 98.19270693512166
+
+data + 50
+Epoch: 249 Training loss: 125.95606047054753 Accuracy: 72.18934911242604
+0th collumn maximum epsilon: 93.4792710706138
+1th collumn maximum epsilon: 100.09999999999856
+2th collumn maximum epsilon: 100.09999999999856
+3th collumn maximum epsilon: 100.09999999999856
+4th collumn maximum epsilon: 100.09999999999856
+Model maximum epsilon: 98.77585421412161
+
+data + 100
+Epoch: 249 Training loss: 131.68089673784561 Accuracy: 73.37278106508876
+0th collumn maximum epsilon: 85.52258064516055
+1th collumn maximum epsilon: 100.09999999999856
+2th collumn maximum epsilon: 100.09999999999856
+3th collumn maximum epsilon: 100.09999999999856
+4th collumn maximum epsilon: 100.09999999999856
+Model maximum epsilon: 97.18451612903095
+
+data + 150
+
+Epoch: 249 Training loss: 145.07512587241945 Accuracy: 73.96449704142012
+0th collumn maximum epsilon: 96.56999999999879
+1th collumn maximum epsilon: 100.09999999999857
+2th collumn maximum epsilon: 100.09999999999857
+3th collumn maximum epsilon: 100.09999999999857
+4th collumn maximum epsilon: 100.09999999999857
+Model maximum epsilon: 99.3939999999986
+
+data + 200
+Epoch: 249 Training loss: 148.8703553757041 Accuracy: 74.55621301775149
+0th collumn maximum epsilon: 93.25319634703081
+1th collumn maximum epsilon: 100.09999999999856
+2th collumn maximum epsilon: 100.09999999999856
+3th collumn maximum epsilon: 100.09999999999856
+4th collumn maximum epsilon: 100.09999999999856
+Model maximum epsilon: 98.730639269405
+
+
+data + 250
+Epoch: 249 Training loss: 164.14851066563278 Accuracy: 75.14792899408283
+0th collumn maximum epsilon: 94.80993071593403
+1th collumn maximum epsilon: 100.09999999999856
+2th collumn maximum epsilon: 100.09999999999856
+3th collumn maximum epsilon: 100.09999999999856
+4th collumn maximum epsilon: 100.09999999999856
+Model maximum epsilon: 99.04198614318565
+
+
+
+
+
+

@@ -25,13 +25,14 @@
 % Titulinio aprašas
 \university{Vilniaus universitetas}
 \faculty{Matematikos ir informatikos fakultetas}
-\department{Programų sistemų katedra}
+\department{Programų sistemų studijų programa}
 \papertype{Baigiamasis bakalauro darbas}
 \title{Privačios informacijos išsaugojimas taikant dirbtinio intelekto technologijas}
 \titleineng{Privacy-preserving artificial intelligence}
 \status{4 kurso 3 grupės studentas}
 \author{Paulius Milmantas}
-\supervisor{dr. Linas Petkevičius}
+\supervisor{Dr. Linas Petkevičius}
+\reviewer{Dr. Tomas Plankis}
 \date{Vilnius \\ \the\year}
 
 % Nustatymai
@@ -62,7 +63,7 @@
 		\item Išanalizuoti esamus algoritmus pagal jų saugumą ir panaudojamumą.
 		\item Identifikuoti kriterijus, kurių pagalba galima įvertinti privatumo išsaugojimą, bei palyginti algoritmus tarpusavyje.
 		\item Ištirti kurie algoritmai yra realizuoti realizuoti algoritmus, kurie nėra atvirai prieinami.
-		\item Palyginti algoritmus pagal našumą.
+		\item Palyginti algoritmus pagal našumą ir pateikti rekomendacijas.
 	\end{itemize}
 \section{Asmens duomenų privatumas mašininio mokymo kontekste}
 	\par Vienas iš būdų apsaugoti duomenis yra decentralizuoti modelį ir naudoti paskirstyto mokymo algoritmus. Paprastai mašininiam mokymui yra naudojamas centralizuotas serveris. Yra surenkami duomenys į vieną vietą ir modelį moko vienas kompiuteris. Jeigu norima pridėti daugiau duomenų arba papildomą klasifikatorių, modelį reikia apmokyti iš naujo. Taip pat, kas kuria šį modelį, turi visą prieigą prie duomenų, šie modeliai nėra saugūs \cite{13}. 
@@ -166,7 +167,7 @@ atvirumas(s[r])_{\theta} = \log_2 | R | - \log_2 rangas_{\theta}(s[r])
 \label{eq:Atvirumo metrika}
 \end{equation}
 \subsection{Skaičiavimas praktikoje}
-\par Pažeidžiamumo metrika \say{Atvirumas} yra naudojama tikrinant mašininio mokymo algoritmų duomenų įsiminimą. Atlikus šiuos skaičiavimus, programuotojai gali spręsti dėl tolimesnių veiksmų: tęsti kūrimą ar dirbti ties duomenų anonimizavimu.
+\par Pažeidžiamumo metrika \say{Atvirumas} (angliškai \say{Exposure}) yra naudojama tikrinant mašininio mokymo algoritmų duomenų įsiminimą. Atlikus šiuos skaičiavimus, programuotojai gali spręsti dėl tolimesnių veiksmų: tęsti kūrimą ar dirbti ties duomenų anonimizavimu.
 \par Mašininio mokymo algoritmo tikrinimui su atvirumo metrika, pirma reikia pasiruošti duomenų rinkinį s[r]. Sudarius šį rinkinį, reikia sukurti mašininio mokymo modelį. Turint gautą modelį ir duomenis, kurie buvo naudojami modelio gavimui, galima skaičiuoti atvirumo metriką. Siekiant daugiau sužinoti apie modelį, galima savo duomenis įterpti daugiau nei vieną kartą. Pavyzdžiui, jeigu vienus duomenis įterpsime kelis kartus, o kitus duomenis šimtą kartų, galima analizuoti atvirumo metriką su šiais duomenimis. Taip galima gauti abstrakčią koreliaciją tarp duomenų kiekio ir modelio atsiminimo. Kad šie eksperimentai būtų tikslūs, būtina kiekvieno modelio kūrimo metu naudoti tuos pačius parametrus: optimizavimo funkcijas, hiperparametrus ir kitus duomenis. Taip su kiekvienu pavyzdiniu duomenų rinkiniu, turi būti atlikta atskira analizė. Jeigu galima, turi būti didinamas vienodų duomenų kiekis ir tikrinama atvirumo ir žinomų duomenų kiekio koreliacija.
 \par Atvirumui sužinoti, reikia skaičiuoti rangą. Tikslaus jo radimo procedūros nėra. Todėl reikia naudotis analitiniais metodais. Vienas iš būdų, tikimybiškai vertinti aproksimuotą skirstinį. Tarkime, turime duomenis, kurių entropija yra didesnė, nei s[r] duomenų. Reikia rasti kiek yra tokių duomenų, kurių entropija yra mažesnė. Taip pat, tarkime, kad s[r] entropija yra $\rho(.)$ pasiskirstymo distribucijos. Atvirumą galima aproksimuoti skaičiuojant šio skirstinio plotą grafike, iki testavimo duomenų, ir dauginant iš logaritmo.
 Taip gauname formulę \eqref{eq:Atvirumo skaičiavimas sumuojant}.
@@ -568,6 +569,9 @@ Pallier homomorfiniu šifravimu grįstas modelis & 2185.37 & 63.52\% & 0.1416 \\
   \label{fig:Modelio tikslumo priklausomybė nuo pridėto triukšmo}
 \end{figure}
 
+\subsection{Duomenų kiekio ir DMDK tyrimas}
+\par Buvo atliktas bandymas generuoti duomenis ir tikrinti, kaip keičiasi DMDK reikšmė kintant duomenų kiekiui. Tyrimas buvo atliekant generuojant duomenis panašius į esančius Sklearn žmonių sergančiu cukriniu diabetu, duomenų rinkinyje. Tiriant nebuvo rasta koreliacija tarp sugeneruoto duomenų kiekio ir DMDK reikšmės. Tai reiškia, kad didinant pradinių duomenų kiekį, modelio saugumas nekinta.
+
 \subsection{Tyrimo išvados}
 
 \begin{itemize}
@@ -576,13 +580,14 @@ Pallier homomorfiniu šifravimu grįstas modelis & 2185.37 & 63.52\% & 0.1416 \\
     \item Pallier homomorfiniu šifravimu grįstas modelis, naudojantis gradientinio nuolydžio algoritmą, diverguoja su MNIST rašytinių skaičių nuotraukomis.
     \item Paprastas PyTorch neuroninis tinklas vienintelis iš minėtų modelių konverguoja minimumo link, su MNIST rašytinių skaičių nuotraukomis. Šiuo atveju, DMDK rodiklis vidutiniškai nukrenta iki 0.049 ir modelis tampa mažiau saugus, nei Pallier algoritmu grįstas modelis.
     \item Didinant duomenų triukšmą, didėja DMDK reikšmė ir modelis tampa saugesnis, tačiau sumažėja modelio tikslumas.
+    \item Pradinių duomenų kiekis neturi įtakos modelio duomenų saugumui.
 \end{itemize}
 
 \section{Išvados}
 \par Darbe buvo išanalizuoti algoritmai, kurie yra skirti duomenų privatumo išsaugojimui mašininiame mokymesi.  Darbe buvo realizuotas vienas iš homomorfinio šifravimo algoritmų - Paillier sistema. Atlikti saugumo tyrimai parodė, kad naudojant gradientinį nuolydį ir Paillier sistemą, pradiniai modelio duomenys yra saugesni, nei tik naudojant gradientinį nuolydį be jokio šifravimo. Nustatyta, kad modelio tikslumui artėjant 100\%, greitai kyla ir DMDK reikšmė. Tai reiškia, kad modelio pradiniai duomenys tampa saugesni. Planuojant, kad modelio tikslumas bus arti 100\%, modelio duomenų saugumui pagerinti reikia naudoti homomorfinį šifravimą.
 \par Buvo atliktas duomenų saugumo tyrimas su PyTorch 3-jų sluoksnių neuroniniu modeliu. Analizuojant Sklearn bibliotekoje esančius cukriniu diabetu sergančių žmonių duomenis, paaiškėjo, kad PyTorch neuroninis modelis yra ~20 kartų saugesnis nei Paillier kriptogravifos taikymas su gradientiniu nuolydžio algoritmu. Pastebėta tendencija, kad modelio tikslumui artėjant 100\%, mažėja DMDK reikšmė ir modelis tampa mažiau saugus. Jis labiau prisiriša prie pradinių duomenų ir linksta link jų atskleidimo. Planuojant, kad modelio tikslumas nebus didelis ir siek tik ~60\% tikslumą, reiktų apsvarstyti homomorfinio šifravimo saugumą su tokiu uždaviniu.
 \par Minėtas PyTorch tyrimas su cukriniu diabetu sergančiais duomenimis parodė, kad esant ~15 parametrų, modelis yra saugesnis už homomorfinį šifravimą. Kitas atliktas tyrimas buvo su MNIST duomenų rinkiniu. Šiame rinkynyje yra ranka rašyti skaitmenys. Esant dideliam modelio paramentrų skaičiui, PyTorch prarado savo pradinių duomenų saugumą, jis tapo mažesnis už Paillier kriptografijos saugumą. Esant didesniam parametrų skaičiui, PyTorch 3-jų sluoksnių modelis yra labiau linkęs \say{prisirišti} prie pradinių duomenų. Prieš kuriant modelį ir pasirenkant algoritmą reikia apsvarstyti kokio tikslumo modelio galima tikėtis gauti ir kiek parametrų modelis priims, nes nuo to priklauso ar naudoti neuronininus tinklus ar homomorfinį šifravimą.
-[nebaigta]
+\par Kitame tyrime pastebėta koreliacija tarp modelio saugumo metrikos DMDK ir pridedamo triukšmo. Kuo pridedamas triukšmas yra didesnis, tuo DMDK metrika yra didesnė ir modelio pradiniai duomenys yra saugesnis, tačiau didinant pridedamą triukšmą, mažėja modelio tikslumas. Planuojant, kad bus naudojami neuroniniai tinklai be homomorfinio šifravimo ir tikimasi didesnio nei 80\% modelio tikslumo, vertėtų pridėti triukšmą prie pradinių modelio duomenų.
 
 %\printbibliography[heading=bibintoc]
 \bibliographystyle{alpha}
