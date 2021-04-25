@@ -25,13 +25,14 @@
 % Titulinio aprašas
 \university{Vilniaus universitetas}
 \faculty{Matematikos ir informatikos fakultetas}
-\department{Programų sistemų katedra}
+\department{Programų sistemų studijų programa}
 \papertype{Baigiamasis bakalauro darbas}
 \title{Privačios informacijos išsaugojimas taikant dirbtinio intelekto technologijas}
 \titleineng{Privacy-preserving artificial intelligence}
 \status{4 kurso 3 grupės studentas}
 \author{Paulius Milmantas}
-\supervisor{dr. Linas Petkevičius}
+\supervisor{Dr. Linas Petkevičius}
+\reviewer{Dr. Tomas Plankis}
 \date{Vilnius \\ \the\year}
 
 % Nustatymai
@@ -61,8 +62,8 @@
 	\begin{itemize}
 		\item Išanalizuoti esamus algoritmus pagal jų saugumą ir panaudojamumą.
 		\item Identifikuoti kriterijus, kurių pagalba galima įvertinti privatumo išsaugojimą, bei palyginti algoritmus tarpusavyje.
-		\item Ištirti kurie algoritmai yra realizuoti realizuoti algoritmus, kurie nėra atvirai prieinami.
-		\item Palyginti algoritmus pagal našumą.
+		\item Ištirti kurie algoritmai yra realizuoti ir realizuoti dalį algoritmų, kurie nėra atvirai prieinami.
+		\item Palyginti algoritmus pagal našumą ir pateikti rekomendacijas.
 	\end{itemize}
 \section{Asmens duomenų privatumas mašininio mokymo kontekste}
 	\par Vienas iš būdų apsaugoti duomenis yra decentralizuoti modelį ir naudoti paskirstyto mokymo algoritmus. Paprastai mašininiam mokymui yra naudojamas centralizuotas serveris. Yra surenkami duomenys į vieną vietą ir modelį moko vienas kompiuteris. Jeigu norima pridėti daugiau duomenų arba papildomą klasifikatorių, modelį reikia apmokyti iš naujo. Taip pat, kas kuria šį modelį, turi visą prieigą prie duomenų, šie modeliai nėra saugūs \cite{13}. 
@@ -72,7 +73,6 @@
 	% https://arxiv.org/pdf/1906.10893.pdfmif
 	\par Straipsnyje apie privatumą išsaugančius blokų-grandinių tinklus (\say{Privacy-Preserving Blockchain-Based Federated Learning for IoT Devices}) yra pateikiamas naujas paskirstyto mokymosi algoritmas, kuris yra paremtas
 blokų grandinių technologijomis \cite{5}. Šis modelis yra grafiškai pateiktas pav.1. Šią architektūrą pavyzdyje sudaro 3 komponentai: gamintojai, klientai ir blokų grandinių tinklas. Šiame pavyzdyje gamintojas pareiškia užklausą, kad reikia atlikti apklausą. Klientai, kurie sutinka su užklausa, išsiunčia savo sukurtą modelį. Blokų grandinių tinklas elgiasi kaip centralizuotas serveris ir surenka visus klientų modelius. Tuomet, pasirinktas kompiuteris, kuris atlieka visą darbą (\say{miner}) atlieka galutinį modelių sujungimą.
-
 
 \begin{figure}[ht]
   \centering
@@ -167,7 +167,7 @@ atvirumas(s[r])_{\theta} = \log_2 | R | - \log_2 rangas_{\theta}(s[r])
 \label{eq:Atvirumo metrika}
 \end{equation}
 \subsection{Skaičiavimas praktikoje}
-\par Pažeidžiamumo metrika \say{Atvirumas} yra naudojama tikrinant mašininio mokymo algoritmų duomenų įsiminimą. Atlikus šiuos skaičiavimus, programuotojai gali spręsti dėl tolimesnių veiksmų: tęsti kūrimą ar dirbti ties duomenų anonimizavimu.
+\par Pažeidžiamumo metrika \say{Atvirumas} (angliškai \say{Exposure}) yra naudojama tikrinant mašininio mokymo algoritmų duomenų įsiminimą. Atlikus šiuos skaičiavimus, programuotojai gali spręsti dėl tolimesnių veiksmų: tęsti kūrimą ar dirbti ties duomenų anonimizavimu.
 \par Mašininio mokymo algoritmo tikrinimui su atvirumo metrika, pirma reikia pasiruošti duomenų rinkinį s[r]. Sudarius šį rinkinį, reikia sukurti mašininio mokymo modelį. Turint gautą modelį ir duomenis, kurie buvo naudojami modelio gavimui, galima skaičiuoti atvirumo metriką. Siekiant daugiau sužinoti apie modelį, galima savo duomenis įterpti daugiau nei vieną kartą. Pavyzdžiui, jeigu vienus duomenis įterpsime kelis kartus, o kitus duomenis šimtą kartų, galima analizuoti atvirumo metriką su šiais duomenimis. Taip galima gauti abstrakčią koreliaciją tarp duomenų kiekio ir modelio atsiminimo. Kad šie eksperimentai būtų tikslūs, būtina kiekvieno modelio kūrimo metu naudoti tuos pačius parametrus: optimizavimo funkcijas, hiperparametrus ir kitus duomenis. Taip su kiekvienu pavyzdiniu duomenų rinkiniu, turi būti atlikta atskira analizė. Jeigu galima, turi būti didinamas vienodų duomenų kiekis ir tikrinama atvirumo ir žinomų duomenų kiekio koreliacija.
 \par Atvirumui sužinoti, reikia skaičiuoti rangą. Tikslaus jo radimo procedūros nėra. Todėl reikia naudotis analitiniais metodais. Vienas iš būdų, tikimybiškai vertinti aproksimuotą skirstinį. Tarkime, turime duomenis, kurių entropija yra didesnė, nei s[r] duomenų. Reikia rasti kiek yra tokių duomenų, kurių entropija yra mažesnė. Taip pat, tarkime, kad s[r] entropija yra $\rho(.)$ pasiskirstymo distribucijos. Atvirumą galima aproksimuoti skaičiuojant šio skirstinio plotą grafike, iki testavimo duomenų, ir dauginant iš logaritmo.
 Taip gauname formulę \eqref{eq:Atvirumo skaičiavimas sumuojant}.
@@ -218,7 +218,7 @@ atvirumas(s[2]) = log_{2} 10153350000 - log_{2} 170188149 = 5.89868142
 \subsection{Lyginimas pagal duomenų nuokrypį}
 
 \par Siekiant palyginti, kaip modeliai gerai saugo privačius duomenis, apibrėžiame metriką DMDK (didžiausias modelio duomenų nuokrypis). Kuo metrika yra mažesnė, tuo tiksliau galima nuspėti, kokie duomenys buvo naudojami modelio mokymui. Kuo metrika didesnė, tuo yra sunkiau nuspėti, kokie duomenys buvo naudojami mokymui. Ši metrika leidžia lyginti skirtingus modelius su skirtingais duomenimis. Metrika buvo pasiūlyta specialiai šiam darbui, siekiant palyginti skirtingus modelius.
-\par DMDK yra išvestas lygtyje \eqref{eq:DMDK lygtis}. Prieš DMDK skaičiavimą reikia paimti visus modelio mokymui skirtus duomenis ir kiekvienai duomenų eilutei apskaičiuoti modelio išvestį. Skaičiavimus reikia atlikti tik su tomis eilutėmis, su kuriomis modelis išvedė teisingą atsakymą. Turint tik tas eilutes, su kuriomis modelis išvedė teisingą atsakymą, galima į nelygybę įstatyti kintamuosius. Lygtyje yra naudojami tokie kintamieji: m - duomenų eilučių skaičius, h - parametrų skaičius (stulpeliai), $\epsilon$ - ieškomas didžiausias galimas kintamasis, su kuriuo modelis nepakeičia išvesties rezultatų, $D_{eilut.:n, stulp.:k}$ - duomenys n eilutėje ir k stulpelyje.
+\par DMDK yra išvestas lygtyje \eqref{eq:DMDK lygtis}. Prieš DMDK skaičiavimą reikia paimti visus modelio mokymui skirtus duomenis ir kiekvienai duomenų eilutei apskaičiuoti modelio išvestį. Skaičiavimus reikia atlikti tik su tomis eilutėmis, su kuriomis modelis išvedė teisingą atsakymą. Teisingas atsakymas yra laikomas tas, kuris sutampa su atsakymu pradiniuose duomenyse. Pavyzdžiui, su duotais duomenimis modelis grąžina tam tikrą atsakymą, jeigu pradiniuose duomenyse yra nurodyta, kad su šiais parametrais atsakymas yra toks pats, tai reiškia, kad modelis grąžino teisingą atsakymą. Tyrimui reikia imti tik tas duomenų eilutes, su kuriomis buvo grąžinamas teisingas atsakymas, nes šio tyrimo tikslas yra patikrinti, kaip modelis yra prisirišęs prie pradinių duomenų. Prisirišimą testuoja DMDK metrika. Eilutės su neteisingais atsakymais negali būti įtraukiamos į tyrimą, nes prie jų modelis ir taip nėra prisirišęs. Turint tik tas eilutes, su kuriomis modelis išvedė teisingą atsakymą, galima į nelygybę įstatyti kintamuosius. Lygtyje yra naudojami tokie kintamieji: m - duomenų eilučių skaičius, h - parametrų skaičius (stulpeliai), $\epsilon$ - ieškomas didžiausias galimas kintamasis, su kuriuo modelis nepakeičia išvesties rezultatų, $D_{eilut.:n, stulp.:k}$ - duomenys n eilutėje ir k stulpelyje, R - realiųjų skaičių aibė.
 
 \begin{equation}
 DMDK = {\sum_{n=0}^{m} ({\sum_{k=0}^{h} (max((|\epsilon| + D_{eilut.:n, stulp.:k}) : \epsilon \in R))}/{h})}/{m}
@@ -306,7 +306,7 @@ KMI & Gimdymų skaičius \\\cline{1-2}
 \section{Homomorfinis šifravimas}
 \subsection{Metodas}
 % https://www.venafi.com/blog/homomorphic-encryption-what-it-and-how-it-used %
-\par Homomorfinis šifravimas, yra šifravimo algoritmų klasė, kuri yra grindžiama principu, leidžiančiu atlikti skaičiavimus su užšifruotais duomenimis, jų neatšifruojant. Šie algoritmai yra šiek tiek panašūs į viešo šifravimo algoritmus, kurie yra paplitę tinklalapių apsaugoje. Yra naudojamas viešas ir privatus raktas. Su viešu raktu duomenys yra užšifruojami, o su privačiu, atšifruojami. Momomorfinis šifravimas skiriasi nuo viešo šifravimo tuo, kad naudoja algebrainę sistemą, kuri leidžia atlikti skaičiavimus su užšifruotais duomenimis \cite{14}. Algebrainė sistema yra duomenų rinkinys kartu su savo matematinėmis operacijomis.
+\par Homomorfinis šifravimas, yra šifravimo algoritmų klasė, kuri yra grindžiama principu, leidžiančiu atlikti skaičiavimus su užšifruotais duomenimis, jų neatšifruojant. Homomorfizmas matematikoje yra dviejų vienodo tipo objektų struktūra, kurioje vienas objektas yra kito atspindys.  Šie algoritmai yra šiek tiek panašūs į viešo šifravimo algoritmus, kurie yra paplitę tinklalapių apsaugoje. Yra naudojamas viešas ir privatus raktas. Su viešu raktu duomenys yra užšifruojami, o su privačiu, atšifruojami. Momomorfinis šifravimas skiriasi nuo viešo šifravimo tuo, kad naudoja algebrainę sistemą, kuri leidžia atlikti skaičiavimus su užšifruotais duomenimis \cite{14}. Algebrainė sistema yra duomenų rinkinys kartu su savo matematinėmis operacijomis.
   % https://planetmath.org/algebraicsystem %
 \par Yra trijų tipų homomorfiniai šifrai: dalinai homomorfiniai (PHE), šiek tiek homomorfiniai (SHE) ir pilnai homomorfiniai šifrai (FHE). Dalinai homomorfinės sistemos leidžia atlikti skaičiavimus visiems duomenims, tik su pasirinkta operacija. Tai gali būti arba sudėtis arba daugyba.  Operacijos duomenims gali būti atliktos neribotą kartą.  Šiek tiek homomorfinės sistemos (SHE) naudoja vieną operaciją iki tam tikro sudėtingumo. Šios operacijos gali būti atlikto ribotą kartų skaičių. Pilnai homomorfinės sistemos leidžia naudoti sudėtį ir daugybą vienu metu, neribotą kartų. 
 % https://cryptosith.org/michael/data/talks/2012-01-10-MSR-Cambridge.pdf %
@@ -426,23 +426,17 @@ KMI & Gimdymų skaičius \\\cline{1-2}
 \subsection{Skaičiavimo algoritmai}
 %https://ericrafaloff.com/shamirs-secret-sharing-scheme/%
 \par MPC algoritmui paaiškinti, pirma reikia išsianalizuot atvejį, kai yra du įrenginiai su savo slaptais raktais ir viena paslaptis. Jeigu norime atgaminti paslaptį, reikia turėti abiejų įrenginių slaptus raktus ir taip galime atgaminti paslaptį. Pavyzdžiui, jeigu paslaptis yra skaičius 654321, tada reikia sugeneruoti atsitiktinį skaičių, kuris yra mažesnis už 654321. Tarkime tai yra 123456. Šis naujas atsitiktinis skaičiuos yra pirmo įrenginio slaptas raktas. Norint sukurti antro įrenginio raktą, galime iš slapto rakto atimti pirmo įrenginio raktą ir gauname 530865. Norint turėti daugiau įrenginių, kyla problema, kad siekiant atgaminti paslaptį, reikia visų įrenginių sutikimo. Jeigu vienas įrenginys bus prarastas, dings paslaptis. Tai nėra priimtinas sprendimas, todėl buvo sugalvotas algoritmas, kuris leidžia atgaminti paslaptį, turint tik dalį rakto dalių \cite{23}. Šis algoritmas vadinasi Shamir slapto rakto dalijimosi schema („Shamir‘s secret key sharing schema“), kitaip žinomas, kaip rakto skaldymo algoritmas. Slaptas raktas yra padalijamas yra kelias dalis. Kiekviena dalis pavieniui yra nepanaudojama. Slapto rakto atstatymui iš padalintų dalių, nebūtina turėti visas dalis. Pavyzdžiui, jeigu slaptas raktas yra padalijamas į penkias dalis, gali užtekti turėti tik tris dalis ir iš jų galima jau atstatyti pradinį slaptą raktą.
-\par Shamir pasiūlė skaičiuoti slapto rakto dalis grafiškai 2D erdvėje \cite{23}. Paslaptis gali būti laikoma Y koordinate pradinio taško, kurio X koordinatė yra 0. Tada pasirenkame atsitiktinį tašką grafike ir brėžiame liniją tarp slapto taško ir atsitiktinai sugeneruoto taško. Tai grafiškai pavaidzuota pav. \cite{fig:Slapto rakto dalijimas tiesėje} Ši linija yra slapta ir ją žinant, galima atgaminti pradinę paslaptį. Kiekviena rakto dalis yra atsitiktinis taškas slaptoje linijoje. Turint dvi dalis, galima atgaminti slaptą raktą.  
+\par Shamir pasiūlė skaičiuoti slapto rakto dalis grafiškai 2D erdvėje \cite{23}. Paslaptis gali būti laikoma Y koordinate pradinio taško, kurio X koordinatė yra 0. Tada pasirenkame atsitiktinį tašką grafike ir brėžiame liniją tarp slapto taško ir atsitiktinai sugeneruoto taško. Tai grafiškai pavaidzuota pav. \ref{fig:Slapto rakto dalijimas tiesėje} Ši linija yra slapta ir ją žinant, galima atgaminti pradinę paslaptį. Kiekviena rakto dalis yra atsitiktinis taškas slaptoje linijoje. Turint dvi dalis, galima atgaminti slaptą raktą.  
 
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=9cm,height=6cm,keepaspectratio]{img/2ngraph.png}
-  \caption{Slapto rakto dalijimas tiesėje}
-  \label{fig:Slapto rakto dalijimas tiesėje}
+\begin{figure}[ht]%
+ \centering
+ \subfloat[Slapto rakto dalijimas tiesėje]{\includegraphics[width=9cm,height=6cm,keepaspectratio]{img/2ngraph.png}\label{fig:Slapto rakto dalijimas tiesėje}}%
+ \subfloat[Slapto rakto dalijimas parabolėje \cite{24}]{\includegraphics[width=9cm,height=6cm,keepaspectratio]{img/3ngraph.png}\label{fig:Slapto rakto dalijimas parabolėje}}%
+ \caption{Slapto rakto dalijimas}%
+ \label{fig:Slapto rakto dalijimas}%
 \end{figure}
 
 \par Norint leisti, kad paslaptį būtų galima atskleisti su dviem raktais, reikia sugeneruoti du atsitiktinius taškus ir nubrėžti slaptą parabolę \cite{23}. Turint tris sugeneruotus raktus, galima atkurti pradinę parabolės lygtį ir atkurti paslaptį. Rakto dalijimas grafiškai pavaizduotas pav. \ref{fig:Slapto rakto dalijimas parabolėje} Norint, kad paslaptis būtų atgaminta iš keturių raktų, reikia sugeneruoti kubinę kreivę ir taip toliau. %Panašus algoritmas yra  Reed-Solomon code.%
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=11cm,height=8cm,keepaspectratio]{img/3ngraph.png}
-  \caption{Slapto rakto dalijimas parabolėje \cite{24}}
-  \label{fig:Slapto rakto dalijimas parabolėje}
-\end{figure}
 
 \section{Bendro įspūdžio privatus agregavimas}
 \par Bendro įspūdžio privatus agregavimas, angliškai \say{Private Aggregation of Teacher Ensembles} (PATE), leidžia skirtingiems įrenginiams prisidėti prie bendro mašininio mokymosi modelių tinklo. Tinklą sudaro daug skirtingų mašininio mokymosi modelių, kurie nepriklausomai priima sprendimus. Kiekvieno modelio sprendimą tinklas susumuoja, pritaiko Gauso filtrą ir galutinį rezultatą pateikia vartotojui \cite{27}. Kiekvienas įrenginys turi galimybę pasirinkti savo mašininio mokymosi algoritmą ir realizuoti savo būdu, nepriklausomai nuo kitų įrenginių ar tinklo. Ši galimybė padaro tinklą efektyvesniu, nes įrenginiai gali pasirinkti algoritmus, kurie yra efektyvesni už tinko kūrėjo parinktą algoritmą.
@@ -466,7 +460,22 @@ KMI & Gimdymų skaičius \\\cline{1-2}
 \par Lyginant PATE algoritmą su federuotu mokymu, PATE yra saugesnis, nes tinkle modelių yra nors keli ir jeigu duoti duomenys yra panašūs į vieno modelio pradinius duomenis, esant bendram modelių sutarimui, sunku atgaminti pradinius duomenis, iš tinklo išvesties. Pradinių duomenų atgaminimą taip pat apsunkina ir Gauso filtras. Optimaliu atveju, privatumas tinkle yra geriausiai išsaugomas, kai kiekvienas modelis grąžina panašius rezultatus su duotais viešais duomenimis, tada negalima atsekti kuris modelis tinkle yra už tai atsakingas. PATE yra taip pat ir efektyvesnis už federuotą mokymą, nes modelius kuria įrenginiai, kurie gali pasirinkti tam tikrai duomenų sričiai optimalius algoritmus, o federuotas mokymas apibrėžia tik vienodų algoritmų naudojimą. PATE taip pat išsprendžia įrenginių ir duomenų heterogeniškumo problemas. Vienintelis federuoto mokymosi pranašumas yra, kad nereikia dalintis pradiniais duomenimis. Jeigu jie yra svarbūs, o įrenginiai nėra patikimi, atsiranda rizika, kad įrenginiai gali atskleisti duomenis. Tačiau ši problema gali būti išspręsta su 4 skyriuje minimais šifravimo algoritmais, kurie leistų paslėpti duomenis nuo pačių įrenginių.
 
 \section{Tensorflow karkasas}
-\par Kalbėsiu apie privatumo išsaugojimą Tensorflow karkase...
+\par \say{Tensorflow} karkasas - Google technologijų įmonės atviro kodo, mašininio mokymosi karkasas. Šiame karkase yra realizuota daug algoritmų ir mašininio mokymosi modelių. 2019 metais kovo mėnesį \say{Tensorflow} karkaso puslapyje buvo pristatytas straipsnis apie diferencinį privatumą. Prie \say{Tensorflow} karkaso buvo pridėta Tensorflow Privacy biblioteka, kuri realizuoja mašininio mokymosi modelius, naudojančius diferencinį privatumą \cite{29}. Iki to laiko, \say{Tensorflow} karkasas neatsižvelgdavo į duomenų išsaugojimą. 4 skyriuje aprašytus homomorfinio šifravimo algoritmus nebuvo galima taikyti karkase. Vienintelis būdas išsaugoti privatumą buvo naudoti skirtingų mašininių modelių tinklą, pavyzdžiui 5 skyriuje aprašytą federuotą mašininį mokymąsi arba 8 skyriuje aprašytą bendro įspūdžio agregavimo algoritmą.
+\par Atsitiktinai parinktos reikšmės $M : D $\rightarrow$ R$ tenkina diferencinio privatumo sąlygą, kai du duomenų rinkiniai $X ir X' \in D$, išvestys $\Upsilon \in R$ ir tenkinama sąlyga lygybėje \ref{eq:Diferencinio privaluto sąlyga} \cite{30}. Čia $Pr[X]$ - tikimybė, kad įvyks įvykis $X$. Ši sąlyga užtikrina, kad parinkti du duomenų rinkiniai $X$ ir $X'$, kurie skiriasi tik vienu įrašu, duos labai panašius rezultatus, kurių neis atskirti. Šioje lygtyje $\epsilon$ yra vadinamas privatumo biudžetu - kuo mažesnis yra $\epsilon$, tuo gaunamas didesnis duomenų saugumas.
+
+\begin{equation}
+    Pr[M(X) \in \Upsilon] \leq e^{\epsilon} Pr[M(X') \in \Upsilon] + \delta
+    \label{eq:Diferencinio privaluto sąlyga}
+\end{equation}
+
+\par Pagrindinė pasiūlyto algoritmo idėja - vykdant stochastinio gradiento nuolydžio algoritmą, modifikuoti gradientų reikšmes. Tai yra atliekama su dviem algoritmo pakeitimais:
+
+\begin{itemize}
+    \item Kiekvieno gradiento jautrumas pokyčiams turi būti apribotas. Reikia nurodyti, kiek kiekviena duomenų eilutė gali paveikti kiekvieną gradientą. Šiam tikslui yra taikoma cenzūravimo procedūra \say{Clipping}, kuri nusako maksimalų galimą gradientų pokytį.
+    \item Siekiant išsaugoti privatumą, pridedamas triukšmas prie reikšmės, gautos iš cenzūravimo metodo. Triukšmas yra gaunamas su Gauso filtru. Taikant filtrą nustatomos ir apribojamos reikšmės kiekvienam gradientui atsitiktinai, taip išsaugomas privatumas
+\end{itemize}
+
+\par \say{Tensorflow Privacy} leidžia saugumo prasme optimizuoti modelį, nekuriant jo iš naujo ir nekeičiant pradinių modelio parametrų. Tai yra verslui geras sprendimas, nes kuriant sprendimą yra daugiausiai skiriama dėmesio į modelio tikslumą ir mažai investuojama laiko galvojant apie modelio saugumą. Šį funkcionalumą atlieka du paketai esantys \say{Tensorflow Privacy} karkase. Vienas iš jų yra \say{Bolt-on} paketas, kuris modifikuoja sukurtą modelį prieš jo naudojimą gamybinėje aplinkoje. Jis prie kiekvieno modelio svorio prideda triukšmo.
 
 \section{Tyrimas}
 \subsection{Modelių palyginimas}
@@ -541,6 +550,28 @@ Pallier homomorfiniu šifravimu grįstas modelis & 2185.37 & 63.52\% & 0.1416 \\
 
 \par Iš atlikto tyrimo nesimato jokios stiprios koreliacijos tarp DMDK rodiklio ir MSE nuostolių funkcijos reikšmių ar modelio tikslumo.
 
+\subsection{Duomenų triukšmo įtakos tyrimas}
+
+\par Atliktas tyrimas su PyTorch 3-jų sluoksnių neuroniniu tinklu ir duomenų triukšmu. Modelis kiekvieno bandymo metu atlieka 250 iteracijų. Kiekvieną kartą kai yra nuskaitomi duomenys, pridedamas atsitiktinis triukšmas, kuris neviršija nurodytos reikšmės. Tyrime buvo keičiamas maksimalus generuojamas duomenų triukšmas ir stebima, kokią įtaką tai turi sukurtam modeliui.
+\par Tyrime pastebėta, kad tarp triukšmo ir modelio duomenų saugumo rodiklio DMDK yra koreliacija, kuri matoma pav. \ref{fig:DMDK priklausomybė nuo pridėto triukšmo}. Didinant atsitiktinį duomenų triukšmą, gerėja modelio duomenų saugumas. Pastebėta taip pat ir koreliacija tarp modelio tikslumo ir pridėto triukšmo prie duomenų. Pav. \ref{fig:Modelio tikslumo priklausomybė nuo pridėto triukšmo} parodyta, kad didinant modelio duomenų triukšmą, mažėja modelio tikslumas.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=13cm,height=9cm,keepaspectratio]{img/tr_tyr_dmdk.png}
+  \caption{DMDK priklausomybė nuo pridėto triukšmo}
+  \label{fig:DMDK priklausomybė nuo pridėto triukšmo}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=13cm,height=9cm,keepaspectratio]{img/tr_tyr_acc.png}
+  \caption{Modelio tikslumo priklausomybė nuo pridėto triukšmo}
+  \label{fig:Modelio tikslumo priklausomybė nuo pridėto triukšmo}
+\end{figure}
+
+\subsection{Duomenų kiekio ir DMDK tyrimas}
+\par Buvo atliktas bandymas generuoti duomenis ir tikrinti, kaip keičiasi DMDK reikšmė kintant duomenų kiekiui. Tyrimas buvo atliekant generuojant duomenis panašius į esančius Sklearn žmonių sergančiu cukriniu diabetu, duomenų rinkinyje. Tiriant nebuvo rasta koreliacija tarp sugeneruoto duomenų kiekio ir DMDK reikšmės. Tai reiškia, kad didinant pradinių duomenų kiekį, modelio saugumas nekinta.
+
 \subsection{Tyrimo išvados}
 
 \begin{itemize}
@@ -548,7 +579,15 @@ Pallier homomorfiniu šifravimu grįstas modelis & 2185.37 & 63.52\% & 0.1416 \\
     \item Naudojant Pallier homomorfiniu šifravimu grįstą modelį, egzistuoja koreliacija tarp modelio nuostolių funkcijos reikšmės ir DMDK rodiklio. Vidutiniškai, kuo nuostolių funkcijos reikšmė yra mažesnė, tuo DMDK rodiklis yra didesnis ir modelis yra saugesnis.
     \item Pallier homomorfiniu šifravimu grįstas modelis, naudojantis gradientinio nuolydžio algoritmą, diverguoja su MNIST rašytinių skaičių nuotraukomis.
     \item Paprastas PyTorch neuroninis tinklas vienintelis iš minėtų modelių konverguoja minimumo link, su MNIST rašytinių skaičių nuotraukomis. Šiuo atveju, DMDK rodiklis vidutiniškai nukrenta iki 0.049 ir modelis tampa mažiau saugus, nei Pallier algoritmu grįstas modelis.
+    \item Didinant duomenų triukšmą, didėja DMDK reikšmė ir modelis tampa saugesnis, tačiau sumažėja modelio tikslumas.
+    \item Pradinių duomenų kiekis neturi įtakos modelio duomenų saugumui.
 \end{itemize}
+
+\section{Išvados}
+\par Darbe buvo išanalizuoti algoritmai, kurie yra skirti duomenų privatumo išsaugojimui mašininiame mokymesi.  Darbe buvo realizuotas vienas iš homomorfinio šifravimo algoritmų - Paillier sistema. Atlikti saugumo tyrimai parodė, kad naudojant gradientinį nuolydį ir Paillier sistemą, pradiniai modelio duomenys yra saugesni, nei tik naudojant gradientinį nuolydį be jokio šifravimo. Nustatyta, kad modelio tikslumui artėjant 100\%, greitai kyla ir DMDK reikšmė. Tai reiškia, kad modelio pradiniai duomenys tampa saugesni. Planuojant, kad modelio tikslumas bus arti 100\%, modelio duomenų saugumui pagerinti reikia naudoti homomorfinį šifravimą.
+\par Buvo atliktas duomenų saugumo tyrimas su PyTorch 3-jų sluoksnių neuroniniu modeliu. Analizuojant Sklearn bibliotekoje esančius cukriniu diabetu sergančių žmonių duomenis, paaiškėjo, kad PyTorch neuroninis modelis yra ~20 kartų saugesnis nei Paillier kriptogravifos taikymas su gradientiniu nuolydžio algoritmu. Pastebėta tendencija, kad modelio tikslumui artėjant 100\%, mažėja DMDK reikšmė ir modelis tampa mažiau saugus. Jis labiau prisiriša prie pradinių duomenų ir linksta link jų atskleidimo. Planuojant, kad modelio tikslumas nebus didelis ir siek tik ~60\% tikslumą, reiktų apsvarstyti homomorfinio šifravimo saugumą su tokiu uždaviniu.
+\par Minėtas PyTorch tyrimas su cukriniu diabetu sergančiais duomenimis parodė, kad esant ~15 parametrų, modelis yra saugesnis už homomorfinį šifravimą. Kitas atliktas tyrimas buvo su MNIST duomenų rinkiniu. Šiame rinkynyje yra ranka rašyti skaitmenys. Esant dideliam modelio paramentrų skaičiui, PyTorch prarado savo pradinių duomenų saugumą, jis tapo mažesnis už Paillier kriptografijos saugumą. Esant didesniam parametrų skaičiui, PyTorch 3-jų sluoksnių modelis yra labiau linkęs \say{prisirišti} prie pradinių duomenų. Prieš kuriant modelį ir pasirenkant algoritmą reikia apsvarstyti kokio tikslumo modelio galima tikėtis gauti ir kiek parametrų modelis priims, nes nuo to priklauso ar naudoti neuronininus tinklus ar homomorfinį šifravimą.
+\par Kitame tyrime pastebėta koreliacija tarp modelio saugumo metrikos DMDK ir pridedamo triukšmo. Kuo pridedamas triukšmas yra didesnis, tuo DMDK metrika yra didesnė ir modelio pradiniai duomenys yra saugesnis, tačiau didinant pridedamą triukšmą, mažėja modelio tikslumas. Planuojant, kad bus naudojami neuroniniai tinklai be homomorfinio šifravimo ir tikimasi didesnio nei 80\% modelio tikslumo, vertėtų pridėti triukšmą prie pradinių modelio duomenų.
 
 %\printbibliography[heading=bibintoc]
 \bibliographystyle{alpha}
