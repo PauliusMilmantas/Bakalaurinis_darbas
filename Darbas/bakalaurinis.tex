@@ -43,6 +43,16 @@
 
 \tableofcontents
 
+\sectionnonumnocontent{Santrauka}
+Darbe yra tiriami ir lyginami privatumą saugantys dirbtinio intelekto algoritmai pagal jų saugumą, našumą ir panaudojamumą, bei pateikiamos rekomendacijos. Algoritmų lyginimui darbe pateikta metrika, kuri leidžia palyginti skirtingus mašininio mokymosi modelius pagal tai, kiek jie atskleidžia pradinius duomenis. Tyrimų tikslams buvo sukurti ir lyginti \say{PyTorch} neuroninis tinklas, gradientinio nuolydžio metodas ir homomorfinis šifravimas su gradientinio nuolydžio metodu. Tyrime pastebėta, kad mašininio mokymosi modeliams pasiekus ~70\% tikslumą, \say{PyTorch} neuroninio tinklo modelis yra saugesnis už gradientinio nuolydžio metodą ir homomorfinį šifravimą. Modelių tikslumui artėjant 100\%, \say{PyTorch} neuroninio tinklo modelis labiau prisiriša prie pradinių duomenį, o gradientinio nuolydžio metodas ir homomorfinio šifravimo algoritmas didėjant modelio tikslumui, mažiau prisiriša prie pradinių duomenų ir tampa saugesnis.
+
+\raktiniaizodziai{Mašininis mokymasis, duomenų saugumas, homomorfinis šifravimas}
+
+\sectionnonumnocontent{Summary}
+The work is evaluating privacy-preserving artificial intelligence algorithms by their security, performance, usability and provides recommendations. For evaluating algorithms, a metric was proposed, which allows to compare different machine learning models by how much they reveal training data. For experiments, \say{PyTorch} neural network, gradient descent algorithm and homomorphic encryption models were created. The conclusion was that when machine learning models reach ~70\% accuracy, \say{PyTorch} neural network model is more secure than gradient descent method and homomorphic encryption with gradient descent. When model accuracy is close to 100\%, \say{PyTorch} neural network starts to reveal more information, gradient descent method and homomorphic encryption with gradient descent becomes more secure and reveals less data.
+
+\keywords{Machine learning, data privacy, homomorphic encryption}
+
 \sectionnonum{Įvadas}
 	%(https://eur-lex.europa.eu/legal-content/LT/TXT/?uri=celex%3A32016R0679)	
 	\par Mašininis mokymas yra dirbtinio intelekto sritis, kuri pasitelkia statistinius algoritmus, kad apibrėžtų duomenų generavimo mechanizmą, ar egzistuojančius sąryšius, priklausomybes. Modelis dažnai turi didelį kiekį nežinomų parametrų, kuriuos reikia įvertinti iš duomenų, todėl modelio apmokymui dažniausiai reikia turėti daug duomenų. Kai kurie uždaviniai reikalauja duomenų, kurie nėra laisvai prieinami ir yra privatūs. Mašininio mokymo tyrimų srityje yra kilusi problema dėl jų saugojimo \cite{10}. Vienas iš faktorių, kuris lėmė šį susidomėjimą yra 2016 metais Europos Sąjungoje priimtas duomenų apsaugos reglamentas (GDPR). Pagal jį, fizinių asmenų duomenys turi būti saugomi naudojantis tam tikromis taisyklėmis ir negali būti atskleisti trečiosioms šalims, be asmens sutikimo \cite{1}.
@@ -62,7 +72,7 @@
 	\begin{itemize}
 		\item Išanalizuoti esamus algoritmus pagal jų saugumą ir panaudojamumą.
 		\item Identifikuoti kriterijus, kurių pagalba galima įvertinti privatumo išsaugojimą, bei palyginti algoritmus tarpusavyje.
-		\item Ištirti kurie algoritmai yra realizuoti realizuoti algoritmus, kurie nėra atvirai prieinami.
+		\item Ištirti kurie algoritmai yra realizuoti ir realizuoti dalį algoritmų, kurie nėra atvirai prieinami.
 		\item Palyginti algoritmus pagal našumą ir pateikti rekomendacijas.
 	\end{itemize}
 \section{Asmens duomenų privatumas mašininio mokymo kontekste}
@@ -218,7 +228,7 @@ atvirumas(s[2]) = log_{2} 10153350000 - log_{2} 170188149 = 5.89868142
 \subsection{Lyginimas pagal duomenų nuokrypį}
 
 \par Siekiant palyginti, kaip modeliai gerai saugo privačius duomenis, apibrėžiame metriką DMDK (didžiausias modelio duomenų nuokrypis). Kuo metrika yra mažesnė, tuo tiksliau galima nuspėti, kokie duomenys buvo naudojami modelio mokymui. Kuo metrika didesnė, tuo yra sunkiau nuspėti, kokie duomenys buvo naudojami mokymui. Ši metrika leidžia lyginti skirtingus modelius su skirtingais duomenimis. Metrika buvo pasiūlyta specialiai šiam darbui, siekiant palyginti skirtingus modelius.
-\par DMDK yra išvestas lygtyje \eqref{eq:DMDK lygtis}. Prieš DMDK skaičiavimą reikia paimti visus modelio mokymui skirtus duomenis ir kiekvienai duomenų eilutei apskaičiuoti modelio išvestį. Skaičiavimus reikia atlikti tik su tomis eilutėmis, su kuriomis modelis išvedė teisingą atsakymą. Turint tik tas eilutes, su kuriomis modelis išvedė teisingą atsakymą, galima į nelygybę įstatyti kintamuosius. Lygtyje yra naudojami tokie kintamieji: m - duomenų eilučių skaičius, h - parametrų skaičius (stulpeliai), $\epsilon$ - ieškomas didžiausias galimas kintamasis, su kuriuo modelis nepakeičia išvesties rezultatų, $D_{eilut.:n, stulp.:k}$ - duomenys n eilutėje ir k stulpelyje.
+\par DMDK yra išvestas lygtyje \eqref{eq:DMDK lygtis}. Prieš DMDK skaičiavimą reikia paimti visus modelio mokymui skirtus duomenis ir kiekvienai duomenų eilutei apskaičiuoti modelio išvestį. Skaičiavimus reikia atlikti tik su tomis eilutėmis, su kuriomis modelis išvedė teisingą atsakymą. Teisingas atsakymas yra laikomas tas, kuris sutampa su atsakymu pradiniuose duomenyse. Pavyzdžiui, su duotais duomenimis modelis grąžina tam tikrą atsakymą, jeigu pradiniuose duomenyse yra nurodyta, kad su šiais parametrais atsakymas yra toks pats, tai reiškia, kad modelis grąžino teisingą atsakymą. Tyrimui reikia imti tik tas duomenų eilutes, su kuriomis buvo grąžinamas teisingas atsakymas, nes šio tyrimo tikslas yra patikrinti, kaip modelis yra prisirišęs prie pradinių duomenų. Prisirišimą testuoja DMDK metrika. Eilutės su neteisingais atsakymais negali būti įtraukiamos į tyrimą, nes prie jų modelis ir taip nėra prisirišęs. Turint tik tas eilutes, su kuriomis modelis išvedė teisingą atsakymą, galima į nelygybę įstatyti kintamuosius. Lygtyje yra naudojami tokie kintamieji: m - duomenų eilučių skaičius, h - parametrų skaičius (stulpeliai), $\epsilon$ - ieškomas didžiausias galimas kintamasis, su kuriuo modelis nepakeičia išvesties rezultatų, $D_{eilut.:n, stulp.:k}$ - duomenys n eilutėje ir k stulpelyje, R - realiųjų skaičių aibė.
 
 \begin{equation}
 DMDK = {\sum_{n=0}^{m} ({\sum_{k=0}^{h} (max((|\epsilon| + D_{eilut.:n, stulp.:k}) : \epsilon \in R))}/{h})}/{m}
@@ -471,8 +481,8 @@ KMI & Gimdymų skaičius \\\cline{1-2}
 \par Pagrindinė pasiūlyto algoritmo idėja - vykdant stochastinio gradiento nuolydžio algoritmą, modifikuoti gradientų reikšmes. Tai yra atliekama su dviem algoritmo pakeitimais:
 
 \begin{itemize}
-    \item Kiekvieno gradiento jautrumas pokyčiams turi būti apribotas. Reikia nurodyti, kiek kiekviena duomenų eilutė gali paveikti kiekvieną gradientą. Šiam tikslui yra taikoma procedūra \say{Clipping}, kuri nusako maksimalų galimą gradientų pokytį.
-    \item Siekiant išsaugoti privatumą, pridedamas triukšmas prie reikšmės, gautos iš \say{Clipping} metodo. Triukšmas yra gaunamas su Gauso filtru. Taikant filtrą nustatomos ir apribojamos reikšmės kiekvienam gradientui atsitiktinai, taip išsaugomas privatumas
+    \item Kiekvieno gradiento jautrumas pokyčiams turi būti apribotas. Reikia nurodyti, kiek kiekviena duomenų eilutė gali paveikti kiekvieną gradientą. Šiam tikslui yra taikoma cenzūravimo procedūra \say{Clipping}, kuri nusako maksimalų galimą gradientų pokytį.
+    \item Siekiant išsaugoti privatumą, pridedamas triukšmas prie reikšmės, gautos iš cenzūravimo metodo. Triukšmas yra gaunamas su Gauso filtru. Taikant filtrą nustatomos ir apribojamos reikšmės kiekvienam gradientui atsitiktinai, taip išsaugomas privatumas
 \end{itemize}
 
 \par \say{Tensorflow Privacy} leidžia saugumo prasme optimizuoti modelį, nekuriant jo iš naujo ir nekeičiant pradinių modelio parametrų. Tai yra verslui geras sprendimas, nes kuriant sprendimą yra daugiausiai skiriama dėmesio į modelio tikslumą ir mažai investuojama laiko galvojant apie modelio saugumą. Šį funkcionalumą atlieka du paketai esantys \say{Tensorflow Privacy} karkase. Vienas iš jų yra \say{Bolt-on} paketas, kuris modifikuoja sukurtą modelį prieš jo naudojimą gamybinėje aplinkoje. Jis prie kiekvieno modelio svorio prideda triukšmo.
