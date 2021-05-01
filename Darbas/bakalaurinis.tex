@@ -44,12 +44,12 @@
 \tableofcontents
 
 \sectionnonumnocontent{Santrauka}
-Darbe yra tiriami ir lyginami privatumą saugantys dirbtinio intelekto algoritmai pagal jų saugumą, našumą ir panaudojamumą, bei pateikiamos rekomendacijos. Algoritmų lyginimui darbe pateikta metrika, kuri leidžia palyginti skirtingus mašininio mokymosi modelius pagal tai, kiek jie atskleidžia pradinius duomenis. Tyrimų tikslams buvo sukurti ir lyginti \say{PyTorch} neuroninis tinklas, gradientinio nuolydžio metodas ir homomorfinis šifravimas su gradientinio nuolydžio metodu. Tyrime pastebėta, kad mašininio mokymosi modeliams pasiekus ~70\% tikslumą, \say{PyTorch} neuroninio tinklo modelis yra saugesnis už gradientinio nuolydžio metodą ir homomorfinį šifravimą. Modelių tikslumui artėjant 100\%, \say{PyTorch} neuroninio tinklo modelis labiau prisiriša prie pradinių duomenį, o gradientinio nuolydžio metodas ir homomorfinio šifravimo algoritmas didėjant modelio tikslumui, mažiau prisiriša prie pradinių duomenų ir tampa saugesnis.
+Mašininio mokymo tyrimų srityje yra kilusi problema dėl jų saugojimo: nesaugūs modeliai gali atskleisti jautrius pradinius mokymosi duomenis. Darbe yra tiriami ir lyginami privatumą saugantys dirbtinio intelekto algoritmai pagal jų saugumą, našumą ir panaudojamumą, bei pateikiamos rekomendacijos. Algoritmų lyginimui darbe pateikta metrika, kuri leidžia palyginti skirtingus mašininio mokymosi modelius pagal tai, kiek jie atskleidžia pradinius duomenis. Tyrimų tikslams buvo sukurti ir lyginti \say{PyTorch} neuroninis tinklas, gradientinio nuolydžio metodas ir homomorfinis šifravimas su gradientinio nuolydžio metodu. Tyrime pastebėta, kad mašininio mokymosi modeliams pasiekus ~70\% tikslumą, \say{PyTorch} neuroninio tinklo modelis yra saugesnis už gradientinio nuolydžio metodą ir homomorfinį šifravimą. Modelių tikslumui artėjant 100\%, \say{PyTorch} neuroninio tinklo modelis labiau prisiriša prie pradinių duomenį, o gradientinio nuolydžio metodas ir homomorfinio šifravimo algoritmas didėjant modelio tikslumui, mažiau prisiriša prie pradinių duomenų ir tampa saugesnis.
 
 \raktiniaizodziai{Mašininis mokymasis, duomenų saugumas, homomorfinis šifravimas}
 
 \sectionnonumnocontent{Summary}
-The work is evaluating privacy-preserving artificial intelligence algorithms by their security, performance, usability and provides recommendations. For evaluating algorithms, a metric was proposed, which allows to compare different machine learning models by how much they reveal training data. For experiments, \say{PyTorch} neural network, gradient descent algorithm and homomorphic encryption models were created. The conclusion was that when machine learning models reach ~70\% accuracy, \say{PyTorch} neural network model is more secure than gradient descent method and homomorphic encryption with gradient descent. When model accuracy is close to 100\%, \say{PyTorch} neural network starts to reveal more information, gradient descent method and homomorphic encryption with gradient descent becomes more secure and reveals less data.
+Machine learning has a security problem: unsafe machine learning models can reveal sensitive training data. The work is evaluating privacy-preserving artificial intelligence algorithms by their security, performance, usability and provides recommendations. For evaluating algorithms, a metric was proposed, which allows to compare different machine learning models by how much they reveal training data. For experiments, \say{PyTorch} neural network, gradient descent algorithm and homomorphic encryption models were created. The conclusion was that when machine learning models reach ~70\% accuracy, \say{PyTorch} neural network model is more secure than gradient descent method and homomorphic encryption with gradient descent. When model accuracy is close to 100\%, \say{PyTorch} neural network starts to reveal more information, gradient descent method and homomorphic encryption with gradient descent becomes more secure and reveals less data.
 
 \keywords{Machine learning, data privacy, homomorphic encryption}
 
@@ -582,7 +582,7 @@ Pallier homomorfiniu šifravimu grįstas modelis & 2185.37 & 63.52\% & 0.1416 \\
 \subsection{Duomenų kiekio ir DMDK tyrimas}
 \par Buvo atliktas bandymas generuoti duomenis ir tikrinti, kaip keičiasi DMDK reikšmė kintant duomenų kiekiui. Tyrimas buvo atliekant generuojant duomenis panašius į esančius Sklearn žmonių sergančiu cukriniu diabetu, duomenų rinkinyje. Tiriant nebuvo rasta koreliacija tarp sugeneruoto duomenų kiekio ir DMDK reikšmės. Tai reiškia, kad didinant pradinių duomenų kiekį, modelio saugumas nekinta.
 
-\subsection{Tyrimo išvados}
+\section{Rezultatai}
 
 \begin{itemize}
     \item Lyginant PyTorch neuroninį tinklą, paprastą gradientinio nuolydžio algoritmą ir Pallier homomorfiniu šifravimu grįstą modelį, jeigu visi minėti modeliai vykdant tyrimą konverguoja minimumo link, pats saugiausias modelis yra PyTorch neuroninis modelis. Mažiausiai duomenis saugantis yra paprastas gradientinis metodas.
@@ -594,6 +594,14 @@ Pallier homomorfiniu šifravimu grįstas modelis & 2185.37 & 63.52\% & 0.1416 \\
 \end{itemize}
 
 \section{Išvados}
+
+\par Pagrindinės darbo išvados:
+\begin{itemize}
+    \item  Tikintis, kad modelio tikslumas bus aušktas, reikia naudoti homomorfinį šifravimą. Tikintis mažesnio modelio tikslumo, reikia naudoti PyTorch neuroninius tinklus.
+    \item Esant didesniam modelio parametrų skaičiui, PyTorch neuroniniai tinklai yra labiau linkę \say{prisirišti} prie pradinių duomenų.
+    \item Tikintis, kad bus naudojami neuroniniai tinklai be homomorfinio šifravimo ir tikimasi didesnio, nei 80\% modelio tikslumo, vertėtų pridėti triukšmą prie pradinių modelio duomenų.
+\end{itemize}
+
 \par Darbe buvo išanalizuoti algoritmai, kurie yra skirti duomenų privatumo išsaugojimui mašininiame mokymesi.  Darbe buvo realizuotas vienas iš homomorfinio šifravimo algoritmų - Paillier sistema. Atlikti saugumo tyrimai parodė, kad naudojant gradientinį nuolydį ir Paillier sistemą, pradiniai modelio duomenys yra saugesni, nei tik naudojant gradientinį nuolydį be jokio šifravimo. Nustatyta, kad modelio tikslumui artėjant 100\%, greitai kyla ir DMDK reikšmė. Tai reiškia, kad modelio pradiniai duomenys tampa saugesni. Planuojant, kad modelio tikslumas bus arti 100\%, modelio duomenų saugumui pagerinti reikia naudoti homomorfinį šifravimą.
 \par Buvo atliktas duomenų saugumo tyrimas su PyTorch 3-jų sluoksnių neuroniniu modeliu. Analizuojant Sklearn bibliotekoje esančius cukriniu diabetu sergančių žmonių duomenis, paaiškėjo, kad PyTorch neuroninis modelis yra ~20 kartų saugesnis nei Paillier kriptogravifos taikymas su gradientiniu nuolydžio algoritmu. Pastebėta tendencija, kad modelio tikslumui artėjant 100\%, mažėja DMDK reikšmė ir modelis tampa mažiau saugus. Jis labiau prisiriša prie pradinių duomenų ir linksta link jų atskleidimo. Planuojant, kad modelio tikslumas nebus didelis ir siek tik ~60\% tikslumą, reiktų apsvarstyti homomorfinio šifravimo saugumą su tokiu uždaviniu.
 \par Minėtas PyTorch tyrimas su cukriniu diabetu sergančiais duomenimis parodė, kad esant ~15 parametrų, modelis yra saugesnis už homomorfinį šifravimą. Kitas atliktas tyrimas buvo su MNIST duomenų rinkiniu. Šiame rinkynyje yra ranka rašyti skaitmenys. Esant dideliam modelio paramentrų skaičiui, PyTorch prarado savo pradinių duomenų saugumą, jis tapo mažesnis už Paillier kriptografijos saugumą. Esant didesniam parametrų skaičiui, PyTorch 3-jų sluoksnių modelis yra labiau linkęs \say{prisirišti} prie pradinių duomenų. Prieš kuriant modelį ir pasirenkant algoritmą reikia apsvarstyti kokio tikslumo modelio galima tikėtis gauti ir kiek parametrų modelis priims, nes nuo to priklauso ar naudoti neuronininus tinklus ar homomorfinį šifravimą.
