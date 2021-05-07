@@ -44,7 +44,7 @@
 \tableofcontents
 
 \sectionnonumnocontent{Santrauka}
-Mašininio mokymo tyrimų srityje yra kilusi problema dėl jų saugojimo: nesaugūs modeliai gali atskleisti jautrius pradinius mokymosi duomenis. Darbe yra tiriami ir lyginami privatumą saugantys dirbtinio intelekto algoritmai pagal jų saugumą, našumą ir panaudojamumą, bei pateikiamos rekomendacijos. Algoritmų lyginimui darbe pateikta metrika, kuri leidžia palyginti skirtingus mašininio mokymosi modelius pagal tai, kiek jie atskleidžia pradinius duomenis. Tyrimų tikslams buvo sukurti ir lyginti \say{PyTorch} neuroninis tinklas, gradientinio nuolydžio metodas ir homomorfinis šifravimas su gradientinio nuolydžio metodu. Tyrime pastebėta, kad mašininio mokymosi modeliams pasiekus ~70\% tikslumą, \say{PyTorch} neuroninio tinklo modelis yra saugesnis už gradientinio nuolydžio metodą ir homomorfinį šifravimą. Modelių tikslumui artėjant 100\%, \say{PyTorch} neuroninio tinklo modelis labiau prisiriša prie pradinių duomenį, o gradientinio nuolydžio metodas ir homomorfinio šifravimo algoritmas didėjant modelio tikslumui, mažiau prisiriša prie pradinių duomenų ir tampa saugesnis.
+Mašininio mokymo tyrimų srityje yra kilusi problema dėl duomenų saugojimo: nesaugūs modeliai gali atskleisti jautrius pradinius mokymosi duomenis. Darbe yra tiriami ir lyginami privatumą saugantys dirbtinio intelekto algoritmai pagal jų saugumą, našumą ir panaudojamumą, bei pateikiamos rekomendacijos. Algoritmų lyginimui darbe pateikta metrika, kuri leidžia palyginti skirtingus mašininio mokymosi modelius pagal tai, kiek jie atskleidžia pradinius duomenis. Tyrimų tikslams buvo sukurti ir lyginti \say{PyTorch} neuroninis tinklas, gradientinio nuolydžio metodas ir homomorfinis šifravimas su gradientinio nuolydžio metodu. Tyrime pastebėta, kad mašininio mokymosi modeliams pasiekus ~70\% tikslumą, \say{PyTorch} neuroninio tinklo modelis yra saugesnis už gradientinio nuolydžio metodą ir homomorfinį šifravimą. Modelių tikslumui artėjant 100\%, \say{PyTorch} neuroninio tinklo modelis labiau prisiriša prie pradinių duomenį, o gradientinio nuolydžio metodas ir homomorfinio šifravimo algoritmas didėjant modelio tikslumui, mažiau prisiriša prie pradinių duomenų ir tampa saugesnis.
 
 \raktiniaizodziai{Mašininis mokymasis, duomenų saugumas, homomorfinis šifravimas}
 
@@ -585,21 +585,21 @@ Pallier homomorfiniu šifravimu grįstas modelis & 2185.37 & 63.52\% & 0.1416 \\
 \section{Rezultatai}
 
 \begin{itemize}
-    \item Lyginant PyTorch neuroninį tinklą, paprastą gradientinio nuolydžio algoritmą ir Pallier homomorfiniu šifravimu grįstą modelį, jeigu visi minėti modeliai vykdant tyrimą konverguoja minimumo link, pats saugiausias modelis yra PyTorch neuroninis modelis. Mažiausiai duomenis saugantis yra paprastas gradientinis metodas.
-    \item Naudojant Pallier homomorfiniu šifravimu grįstą modelį, egzistuoja koreliacija tarp modelio nuostolių funkcijos reikšmės ir DMDK rodiklio. Vidutiniškai, kuo nuostolių funkcijos reikšmė yra mažesnė, tuo DMDK rodiklis yra didesnis ir modelis yra saugesnis.
+    \item Lyginant PyTorch neuroninį tinklą, paprastą gradientinio nuolydžio algoritmą ir Pallier homomorfiniu šifravimu grįstą modelį, jeigu visi minėti modeliai vykdant tyrimą konverguoja minimumo link, pats saugiausias modelis yra PyTorch neuroninis modelis. Mažiausiai duomenis saugantis yra paprastas gradientinis metodas. PyTorch DMDK funkcijos reikšmė - 87.419, Pallier homomorfiniu šifravimu grįsto modelio DMDK reikšmė - 0,1416, gradientinio nuolydžio algoritmo DMDK reikšmė - 0.051792.
+    \item Naudojant Pallier homomorfiniu šifravimu grįstą modelį, egzistuoja koreliacija tarp modelio nuostolių funkcijos reikšmės ir DMDK rodiklio. Pagal Spearman metodą, koreliacija yra -0.8969792, stiprus statistinis ryšys, p-reikšmė 3.661e-08 < 0.05 - statistiškai reikšminga. Vidutiniškai, kuo nuostolių funkcijos reikšmė yra mažesnė, tuo DMDK rodiklis yra didesnis ir modelis yra saugesnis.
     \item Pallier homomorfiniu šifravimu grįstas modelis, naudojantis gradientinio nuolydžio algoritmą, diverguoja su MNIST rašytinių skaičių nuotraukomis.
-    \item Paprastas PyTorch neuroninis tinklas vienintelis iš minėtų modelių konverguoja minimumo link, su MNIST rašytinių skaičių nuotraukomis. Šiuo atveju, DMDK rodiklis vidutiniškai nukrenta iki 0.049 ir modelis tampa mažiau saugus, nei Pallier algoritmu grįstas modelis.
-    \item Didinant duomenų triukšmą, didėja DMDK reikšmė ir modelis tampa saugesnis, tačiau sumažėja modelio tikslumas.
-    \item Pradinių duomenų kiekis neturi įtakos modelio duomenų saugumui.
+    \item Paprastas PyTorch neuroninis tinklas vienintelis iš minėtų modelių konverguoja minimumo link, su MNIST rašytinių skaičių nuotraukomis. Šiuo atveju, DMDK rodiklis vidutiniškai nukrenta iki 0.049 ir modelis tampa mažiau saugus, nei Pallier algoritmu grįstas modelis, kurio DMDK reikšmė - 0.1416.
+    \item Didinant duomenų triukšmą, didėja DMDK reikšmė ir modelis tampa saugesnis, tačiau sumažėja modelio tikslumas. Spearman korecialija yra 0.6978022, vidutiniškai statistiškai reikšminga, p-reikšmė 0.01033 < 0.05 - statistiškai reikšminga.
 \end{itemize}
 
 \section{Išvados}
 
 \par Pagrindinės darbo išvados:
 \begin{itemize}
-    \item  Tikintis, kad modelio tikslumas bus aušktas, reikia naudoti homomorfinį šifravimą. Tikintis mažesnio modelio tikslumo, reikia naudoti PyTorch neuroninius tinklus.
-    \item Esant didesniam modelio parametrų skaičiui, PyTorch neuroniniai tinklai yra labiau linkę \say{prisirišti} prie pradinių duomenų.
-    \item Tikintis, kad bus naudojami neuroniniai tinklai be homomorfinio šifravimo ir tikimasi didesnio, nei 80\% modelio tikslumo, vertėtų pridėti triukšmą prie pradinių modelio duomenų.
+    \item  Esant aukštam modelio tikslumui, rekomenduojama naudoti homomorfinį šifravimą. Esant mažesniam nei 80\% tikslumui, rekomenduojama naudoti PyTorch neuroninius tinklus.
+    \item Esant didesniam modelio parametrų skaičiui, PyTorch neuroniniai tinklai labiau prisimena pradinius mokymosi duomenis ir juos galima lengviau atskleisti.
+    \item Naudojant neuroninius tinklus be homomorfinio šifravimo ir modelio tikslumui esant daugiau nei 80\%, rekomenduojama pridėti triukšmą prie pradinių modelio duomenų.
+    \item Pradinių duomenų kiekis neturi įtakos modelio duomenų saugumui.
 \end{itemize}
 
 \par Darbe buvo išanalizuoti algoritmai, kurie yra skirti duomenų privatumo išsaugojimui mašininiame mokymesi.  Darbe buvo realizuotas vienas iš homomorfinio šifravimo algoritmų - Paillier sistema. Atlikti saugumo tyrimai parodė, kad naudojant gradientinį nuolydį ir Paillier sistemą, pradiniai modelio duomenys yra saugesni, nei tik naudojant gradientinį nuolydį be jokio šifravimo. Nustatyta, kad modelio tikslumui artėjant 100\%, greitai kyla ir DMDK reikšmė. Tai reiškia, kad modelio pradiniai duomenys tampa saugesni. Planuojant, kad modelio tikslumas bus arti 100\%, modelio duomenų saugumui pagerinti reikia naudoti homomorfinį šifravimą.
