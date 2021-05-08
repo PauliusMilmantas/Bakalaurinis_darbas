@@ -1,0 +1,17 @@
+\begin{table}[]
+\centering
+% \resizebox{0.7\textwidth}{!}{%
+
+\centering
+\begin{tabular}{lcccc}
+\toprule
+                 & \marktopleft{a1} \textbf{MSE} & \textbf{SSIM} & \marktopleft{a2}\textbf{GSSIM} & \textbf{MSSSIM} \\ \hline
+\textbf{DRN}     & 0.1569       & 0.4509        & 0.1598         & 0.1650          \\
+\textbf{U-Net}   & 0.2331       & 0.2308        & 0.2028         & 0.3791          \\
+\textbf{U-Net++} & 0.1996 \markbottomright{a1}      & 0.2437      & 0.2092 \markbottomright{a2}           & 0.3563          \\ \bottomrule
+\end{tabular}
+% }%
+
+\caption{Skaitiniai apmokytų dirbtinių neuroninių tinklų modelių rekonstrukcijos metrikų rezultatai}
+\label{tab:architecture-table-metrics}
+\end{table}

@@ -1,0 +1,148 @@
+\documentclass[aspectratio=169]{beamer}
+
+% \usetheme{CambridgeUS}
+% \usecolortheme{default}
+
+% PREVIOUS RED THEME
+% \usetheme{Madrid}
+% \usecolortheme{beaver}
+
+\setbeamertemplate{frametitle}[default][center] % Centering of slide heading
+
+%%%%%%%%% CUSTOM THEME %%%%%%%%%%
+% Found in: https://ramblingacademic.com/2015/12/08/how-to-quickly-overhaul-beamer-colors/
+
+\usetheme{Madrid}
+% \useoutertheme{miniframes} % Alternatively: miniframes, infolines, split
+\useinnertheme{circles}
+
+% ORIG COLORS
+% \definecolor{UBCblue}{rgb}{0.04706, 0.13725, 0.26667} % UBC Blue (primary)
+% \definecolor{UBCgrey}{rgb}{0.3686, 0.5255, 0.6235} % UBC Grey (secondary)
+
+\definecolor{UBCblue}{rgb}{0.4823, 0.0, 0.2471} % VU (primary)
+\definecolor{UBCgrey}{rgb}{0.8627, 0.8627, 0.8627} % VU (secondary)
+
+%R:123 G:0 B:63
+
+\setbeamercolor{palette primary}{bg=UBCblue,fg=white}
+\setbeamercolor{palette secondary}{bg=UBCblue,fg=white}
+\setbeamercolor{palette tertiary}{bg=UBCblue,fg=white}
+\setbeamercolor{palette quaternary}{bg=UBCblue,fg=white}
+\setbeamercolor{structure}{fg=UBCblue} % itemize, enumerate, etc
+\setbeamercolor{section in toc}{fg=UBCblue} % TOC sections
+
+% Override palette coloring with secondary
+\setbeamercolor{subsection in head/foot}{bg=UBCgrey,fg=white}
+
+% TODO LIST for conference
+% 1. unify colours
+% 2. use MIF colour palette or VU colour palette
+% 3. ...
+
+% \addtobeamertemplate{navigation symbols}{}{%
+%     \usebeamerfont{footline}%
+%     \usebeamercolor[fg]{footline}%
+%     \hspace{1em}%
+%     \insertframenumber/\inserttotalframenumber
+% }
+
+\usepackage[utf8x]{inputenc}
+\def\LTfontencoding{L7x}
+\PrerenderUnicode{ąčęėįšųūž}
+\usepackage{times}
+\usepackage[T1]{fontenc}
+\usepackage{color}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{fancyvrb}
+\usepackage{bm}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{textpos} % FOR LOGO
+% \usepackage[english]{babel} # THE SLIDES ARE IN LITHUANIAN
+\usepackage{LTPlius} % COMMENT IF ENGLISH
+\usepackage{tabularx,booktabs}
+% \usepackage{enumitem}% http://ctan.org/pkg/enumitem
+
+% set numbers to image, tables, ... captions.
+% From: https://tex.stackexchange.com/a/216437
+\setbeamertemplate{caption}[numbered]{}% Number float-like environments
+
+\usepackage{caption} % <<< does not include "figure ..."
+% \usepackage[labelformat=empty]{caption} % <<< includes "figure ..."
+%\usepackage{natbib}
+
+\usepackage{subfig}
+
+\providecommand{\btVFill}{\vskip0pt plus 1filll}
+
+% \newcommand{\todo}[1]{} % uncomment this before publishing
+\newcommand{\todo}[1]{\textcolor{red}{//\textbf{TODO: {#1}}} }
+
+\newcommand{\eng}[1] {(angl. \textit{#1})}
+\newcommand{\engp}[2] {(angl. \textit{#1}, toliau: #2)}
+
+\usetikzlibrary{matrix,shapes,arrows,fit,tikzmark}
+\newcolumntype{.}{D{.}{.}{-1}}
+
+% Some options common to all the nodes and paths
+\tikzset{   
+        every picture/.style={remember picture,baseline},
+        every node/.style={anchor=base,align=center,outer sep=1.5pt},
+        every path/.style={thick},
+        }
+
+\newcommand\marktopleft[1]{%
+    \tikz[overlay,remember picture] 
+        \node (marker-#1-a) at (.1em,.3em) {};%
+}
+\newcommand\markbottomright[1]{%
+    \tikz[overlay,remember picture] 
+        \node (marker-#1-b) at (.1em,.3em) {};%
+    \tikz[overlay,remember picture,inner sep=3pt]
+        \node[draw=red,rounded corners,fit=(marker-#1-a.north west) (marker-#1-b.south east)] {};%
+}
+
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+
+% TODO: attempt to remove the 1s
+\input{tex/0start}
+
+% Let's get started
+\begin{document}
+
+\addtobeamertemplate{frametitle}{}{%
+\begin{textblock*}{100mm}(.95\textwidth,-0.95cm)
+\includegraphics[height=1cm,width=1cm]{VU_Logo_pilkas.png}
+\end{textblock*}
+}
+
+%
+\begin{frame}
+  \titlepage
+\end{frame}
+%
+
+% \begin{frame}[c]{Turinys}
+%   \setcounter{tocdepth}{1}    
+%   \tableofcontents
+% \end{frame}
+
+
+% Tiriama sritis
+\input{tex/00content}
+% Problematika
+\input{tex/Problematika}
+% Modelių duomenų lyginimas (1)
+\input{tex/DuomenuLyginimas1}
+% Modelių duomenų lyginimas (2)
+\input{tex/DuomenuLyginimas2}
+% Tyrimo metodika
+\input{tex/TyrimoMetodika}
+
+% \appendix
+
+\end{document}
