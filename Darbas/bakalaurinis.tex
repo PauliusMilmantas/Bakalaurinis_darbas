@@ -232,7 +232,7 @@ atvirumas(s[2]) = log_{2} 10153350000 - log_{2} 170188149 = 5.89868142
 \par DMDK yra išvestas \eqref{eq:DMDK lygtis} lygtyje. Prieš DMDK skaičiavimą reikia paimti visus modelio mokymui skirtus duomenis ir kiekvienai duomenų eilutei apskaičiuoti modelio išvestį. Skaičiavimus reikia atlikti tik su tomis eilutėmis, su kuriomis modelis išvedė teisingą atsakymą. Teisingas atsakymas yra laikomas tas, kuris sutampa su atsakymu pradiniuose duomenyse. Pavyzdžiui, su duotais duomenimis modelis grąžina tam tikrą atsakymą, jeigu pradiniuose duomenyse yra nurodyta, kad su šiais parametrais atsakymas yra toks pats, tai reiškia, kad modelis grąžino teisingą atsakymą. Tyrimui reikia imti tik tas duomenų eilutes, su kuriomis buvo grąžinamas teisingas atsakymas, nes šio tyrimo tikslas yra patikrinti, kaip modelis yra prisirišęs prie pradinių duomenų. Prisirišimą testuoja DMDK metrika. Eilutės su neteisingais atsakymais negali būti įtraukiamos į tyrimą, nes prie jų modelis ir taip nėra prisirišęs. Turint tik tas eilutes, su kuriomis modelis išvedė teisingą atsakymą, galima į nelygybę įstatyti kintamuosius. Lygtyje yra naudojami tokie kintamieji: $m$ - duomenų eilučių skaičius, $h$ - parametrų skaičius (stulpeliai), $\epsilon$ - ieškomas didžiausias galimas kintamasis, su kuriuo modelis nepakeičia išvesties rezultatų, $D_{n, k}$ - duomenys $n$ eilutėje ir $k$ stulpelyje, $R$ - realiųjų skaičių aibė.
 
 \begin{equation}
-DMDK = {\sum_{n=0}^{m} ({\sum_{k=0}^{h} (max_{\epsilon}((|\epsilon| + D_{n, k}) : \epsilon \in R))}/{h})}/{m}
+DMDK = {\sum_{n=0}^{m} ({\sum_{k=0}^{h} (max_{\epsilon}((|\epsilon| + D_{n, k}) : \epsilon \in R | modelis(|\epsilon| + D_{n, k}) = Taip))}/{h})}/{m}
 \label{eq:DMDK lygtis}
 \end{equation} 
 
@@ -270,15 +270,15 @@ Gliukozė & KMI \\\cline{1-2}
 \par DMDK skaičiavimas pateiktas \eqref{DMDK skaičiavimas 2} lygtyje.
 
 \begin{equation}
-DMDK = \frac{3 + 2}{2} + \frac{6 + 1}{2} + \frac{4 + 0.1}{2} = 8.05
+DMDK = (\frac{3 + 2}{2} + \frac{6 + 1}{2} + \frac{4 + 0.1}{2})/3 \approx 2.683
 \label{DMDK skaičiavimas 2}
 \end{equation}
 
-\par Apskaičiavus kitų modelių DMDK reikšmes, galima lyginti, kuris modelis efektyviau saugo duomenis, naudotus mokymosi metu. Jeigu kito modelio apskaičiuota DMDK reikšmė būtų didesnė už 8.05, reikštų, kad tas modelis labiau saugo duomenų privatumą.
+\par Apskaičiavus kitų modelių DMDK reikšmes, galima lyginti, kuris modelis efektyviau saugo duomenis, naudotus mokymosi metu. Jeigu kito modelio apskaičiuota DMDK reikšmė būtų didesnė už 2.683, reikštų, kad tas modelis labiau saugo duomenų privatumą.
 
 \subsection{Algoritmo verifikavimas}
 \par Siekiant pademonstruoti, kad algoritmas teisingai įvertina skirtingus modelius ir galima juos palyginti tarpusavyje, paimkime kelis skirtingus modelių pavyzdžius.
-\par Tarkime, kad pirmas modelis turi viena parametrą - KMI. Pagal šį parametrą, modelis prognozuoja, ar žmogus serga cukriniu diabetu ar ne. Modelio tikslumas yra 54\%, jis visą laiką prognozuoja, kad žmogus serga cukriniu diabetu. Skaičiuojant DMDK, reikia pasirinkti tik tuos duomenis, su kuriais buvo išvesta teisinga prognozė. Modelis visą laiką prognozuoja, kad žmogus serga cukriniu diabetu, todėl, nėra tokios reikšmės, kurią pridėjus prie duomenų, pasikeis modelio prognozė. Todėl DMDK reikšmė yra $\infty$ ir tai reiškia, kad modelis negali būti saugesnis. Kai modelio prognozė visą laiką yra tapati, neįmano atgaminti pradinių duomenų, su kuriais modelis buvo mokomas.
+\par Tarkime, kad pirmas modelis turi viena parametrą - KMI. Pagal šį parametrą, modelis prognozuoja, ar žmogus serga cukriniu diabetu ar ne. Modelio tikslumas yra 54\%, jis visą laiką prognozuoja, kad žmogus serga cukriniu diabetu. Toks modelio tikslumas reiškia, kad duomenyse 54\% žmonių serga cukriniu diabetu. Toks aukštas procentas sergančių žmonių buvo gautas analizuojant viešas cukriniu diabetu sergančių žmonių duomenų duomenų bazes. Skaičiuojant DMDK, reikia pasirinkti tik tuos duomenis, su kuriais buvo išvesta teisinga prognozė. Modelis visą laiką prognozuoja, kad žmogus serga cukriniu diabetu, todėl, nėra tokios reikšmės, kurią pridėjus prie duomenų, pasikeis modelio prognozė. Todėl DMDK reikšmė yra $\infty$ ir tai reiškia, kad modelis negali būti saugesnis. Kai modelio prognozė visą laiką yra vienoda, neįmano atgaminti pradinių duomenų, su kuriais modelis buvo mokomas.
 \par Antras pavyzdinis modelis prognozuoja ar žmogus serga cukriniu diabetu, pagal 2 parametrus: KMI ir gimdymų skaičiumi. Modelio tikslumas yra 72\%, modelio DMDK reikšmė yra 0,00134. Sprendžiant pagal DMDK, modelis yra nesaugus ir yra labai priklausomas nuo pradinių duomenų, su kuriais modelis buvo mokomas. Modelio nesaugumui įrodyti, paimkime kelias savo sugalvotas duomenų eilutes ir pabandykime atgaminti pradinius duomenis. Tarkime, kad mūsų sugalvotos duomenų eilutės yra \ref{tab:KMI ir gimdymų skaičius} lentelėje.
 
 \begin{table}[h]
@@ -289,11 +289,11 @@ KMI & Gimdymų skaičius \\\cline{1-2}
 25      & 3 \\\cline{1-2}
 23       & 2 \\\cline{1-2}
 \end{tabular}
-\caption{Sugalvotos duomenys reikšmės modelio tikrinimui}
+\caption{Sugalvotos reikšmės modelio tikrinimui}
 \label{tab:KMI ir gimdymų skaičius}
 \end{table}
 
-\par Kiekvienai sugalvotai duomenų eilutei, analizuojame kiekvieną stulpelį. Prie stulpelio reikšmės pridedame $\epsilon$ ir didiname $\epsilon$ reikšmę tol, kol pasikeičia modelio rezultatas. Analizuojame kiekvieną stulpelį ir pasirenkame stulpelį su mažiausia $\epsilon$ reikšme. Pakeičiame analizuojamos duomenų eilutės stulpelio reikšmę, su kuria gauname mažiausią $\epsilon$ reikšmę. Išanalizuokime pirmą duomenų eilutę \ref{tab:KMI ir gimdymų skaičius} lentelėje. Po pirmos iteracijos, gauname pakeistą duomenų eilutę: KMI - 26, gimdymų skaičius - 3. Atliekame iteracijas tol, kol gaunamų naujų reikšmių skirtumas tampa labai mažas. Atlikus visų duomenų analizę, gauname duomenis, kurie buvo gauti iš sugalvotų duomenų eilučių. Jeigu modelio DMDK yra mažas, šie duomenys turi būti artimi pradiniams duomenims, kurie buvo naudojami modelio mokymui. Atlikus analizę buvo gauti duomenys \ref{tab:Duomenu tikrinimas} lentelėje. Duomenys yra labai panašūs pradiniams modelio duomenims. Tai reiškia, kad DMDK matavimo algoritmas pasiteisino.
+\par Kiekvienai sugalvotai duomenų eilutei, analizuojame kiekvieną stulpelį. Prie stulpelio reikšmės pridedame $\epsilon$ ir didiname $\epsilon$ reikšmę tol, kol pasikeičia modelio rezultatas. Analizuojame kiekvieną stulpelį ir pasirenkame stulpelį su mažiausia $\epsilon$ reikšme. Pakeičiame analizuojamos duomenų eilutės stulpelio reikšmę, su kuria gauname mažiausią $\epsilon$ reikšmę. Taip sugalvoję duomenis, kurie yra artimi tikriems duomenims, su kuriais buvo mokomas modelis,  galima rasti išgalvotiems duomenims artimiausius tikrus duomenis. Jeigu DMDK yra mažas, duomenis yra lengva rasti, tačiau jeigu DMDK yra didelis, negalima nuspėti kokie duomenys buvo tiksliai naudojami. Išanalizuokime pirmą duomenų eilutę \ref{tab:KMI ir gimdymų skaičius} lentelėje. Po pirmos iteracijos, gauname pakeistą duomenų eilutę: KMI - 26, gimdymų skaičius - 3. Atliekame iteracijas tol, kol gaunamų naujų reikšmių skirtumas tampa labai mažas. Atlikus visų duomenų analizę, gauname duomenis, kurie buvo gauti iš sugalvotų duomenų eilučių. Jeigu modelio DMDK yra mažas, šie duomenys turi būti artimi pradiniams duomenims, kurie buvo naudojami modelio mokymui. Atlikus analizę buvo gauti duomenys \ref{tab:Duomenu tikrinimas} lentelėje. Duomenys yra labai panašūs pradiniams modelio duomenims. Tai reiškia, kad DMDK matavimo algoritmas yra tinkamas.
 
 \begin{table}[h]
 \centering
@@ -303,7 +303,7 @@ KMI & Gimdymų skaičius \\\cline{1-2}
 26      & 1 \\\cline{1-2}
 22       & 2 \\\cline{1-2}
 \end{tabular}
-\caption{Sugalvotos duomenys reikšmės modelio tikrinimui}
+\caption{Sugalvotos reikšmės modelio tikrinimui}
 \label{tab:Duomenu tikrinimas}
 \end{table}
 
@@ -317,21 +317,21 @@ KMI & Gimdymų skaičius \\\cline{1-2}
 \section{Homomorfinis šifravimas}
 \subsection{Metodas}
 % https://www.venafi.com/blog/homomorphic-encryption-what-it-and-how-it-used %
-\par Homomorfinis šifravimas, yra šifravimo algoritmų klasė, kuri yra grindžiama principu, leidžiančiu atlikti skaičiavimus su užšifruotais duomenimis, jų neatšifruojant. Homomorfizmas matematikoje yra dviejų vienodo tipo objektų struktūra, kurioje vienas objektas yra kito atspindys.  Šie algoritmai yra šiek tiek panašūs į viešo šifravimo algoritmus, kurie yra paplitę tinklalapių apsaugoje. Yra naudojamas viešas ir privatus raktas. Su viešu raktu duomenys yra užšifruojami, o su privačiu, atšifruojami. Homomorfinis šifravimas skiriasi nuo viešo šifravimo tuo, kad naudoja algebrainę sistemą, kuri leidžia atlikti skaičiavimus su užšifruotais duomenimis \cite{14}. Algebrainė sistema yra duomenų rinkinys kartu su savo matematinėmis operacijomis.
+\par Homomorfinis šifravimas, yra šifravimo algoritmų klasė, kuri yra grindžiama principu, leidžiančiu atlikti skaičiavimus su užšifruotais duomenimis, jų neatšifruojant. Homomorfizmas matematikoje yra dviejų vienodo tipo objektų struktūra, kurioje vienas objektas yra kito atspindys.  Šie algoritmai yra šiek tiek panašūs į viešo šifravimo algoritmus, kurie yra paplitę tinklalapių apsaugoje. Yra naudojamas viešas ir privatus raktas. Su viešu raktu duomenys yra užšifruojami, o su privačiu, atšifruojami. Homomorfinis šifravimas skiriasi nuo viešo šifravimo tuo, kad naudoja algebrinę sistemą, kuri leidžia atlikti skaičiavimus su užšifruotais duomenimis \cite{14}. Algebrinė sistema yra duomenų rinkinys kartu su savo matematinėmis operacijomis.
   % https://planetmath.org/algebraicsystem %
-\par Yra trijų tipų homomorfiniai šifrai: dalinai homomorfiniai (PHE), šiek tiek homomorfiniai (SHE) ir pilnai homomorfiniai šifrai (FHE). Dalinai homomorfinės sistemos leidžia atlikti skaičiavimus visiems duomenims, tik su pasirinkta operacija. Tai gali būti arba sudėtis arba daugyba.  Operacijos duomenims gali būti atliktos neribotą kartą.  Šiek tiek homomorfinės sistemos (SHE) naudoja vieną operaciją iki tam tikro sudėtingumo. Šios operacijos gali būti atlikto ribotą kartų skaičių. Pilnai homomorfinės sistemos leidžia naudoti sudėtį ir daugybą vienu metu, neribotą kartų. 
+\par Yra trijų tipų homomorfiniai šifrai: dalinai homomorfiniai (PHE), šiek tiek homomorfiniai (SHE) ir pilnai homomorfiniai šifrai (FHE). Dalinai homomorfinės sistemos leidžia atlikti skaičiavimus visiems duomenims, tik su pasirinkta operacija. Tai gali būti arba sudėtis arba daugyba.  Operacijos duomenims gali būti atliktos neribotą kartą.  Šiek tiek homomorfinės sistemos (SHE) naudoja vieną operaciją iki tam tikro sudėtingumo. Šios operacijos gali būti atliktos ribotą kartų skaičių. Pilnai homomorfinės sistemos leidžia naudoti sudėtį ir daugybą vienu metu, neribotą kartų. 
 % https://cryptosith.org/michael/data/talks/2012-01-10-MSR-Cambridge.pdf %
 % https://cims.nyu.edu/~regev/papers/lwesurvey.pdf %
-\par Homomorfinių sistemų saugumas yra paremtas žiedinio mokymo su klaidomis problema (\say{Ring learning with errors}). Ši problema prašo atgaminti slaptą raktą $s$, pagal duotas aproksimuotas tiesines lygtis, su slaptu raktu $s$ \cite{16}. Ši problema nebūtų sunki, jeigu nebūtų aproksimuotų lygčių. Jas išspręsti būtų galima ir su Gauso metodu, tačiau dėl galimos paklaidos, sprendimas yra sunkesnis. Vienas iš efektyviausių sprendimų yra pateiktas A. Blum, A. Kalai, ir H. Wasserman darbe \cite{15}. Pateiktas algoritmui reikia $2^{O(n)}$ duomenų ir laiko. Algoritmas padeda surasti rinkinį tiesinių lygčių $S$, kurio dydis $n$, tarp visų galimų lygčių $2^{O(n)}$. Susumavus šias lygtis turi gautis pirma slapto rakto $s$ koordinatė.
+\par Homomorfinių sistemų saugumas yra paremtas žiedinio mokymo su klaidomis problema (\say{Ring learning with errors}). Ši problema prašo atgaminti slaptą raktą $s$, pagal duotas aproksimuotas tiesines lygtis, su slaptu raktu $s$ \cite{16}. Ši problema nebūtų sunki, jeigu nebūtų aproksimuotų lygčių. Jas išspręsti būtų galima ir su Gauso metodu, tačiau dėl galimos paklaidos, sprendimas yra sunkesnis. Vienas iš efektyviausių sprendimų yra pateiktas A. Blum, A. Kalai, ir H. Wasserman darbe \cite{15}. Pateiktam algoritmui reikia $2^{O(n)}$ duomenų ir laiko. Algoritmas padeda surasti rinkinį tiesinių lygčių $S$, kurio dydis $n$, tarp visų galimų lygčių $2^{O(n)}$. Susumavus šias lygtis turi gautis pirma slapto rakto $s$ koordinatė.
 \subsection{Paillier kriptografija}
 % https://www.sciencedirect.com/topics/computer-science/paillier-cryptosystem %
-\par Pallier kriptosistema yra dalinai homomorfinis šifras, kuris leidžia atlikti homomorfinės sudėties operaciją \cite{17}. Nors palaikoma yra sudėties operacija, norint atlikti veiksmus su užšifruotais duomenimis, reikia naudoti daugybą, nes duomenų užšifruoti duomenys yra pakelti laipsniu. Pallier algoritmas yra pagrįstas problema, kuri skaičiuoja reikšmės likutį \cite{17}. Skaičiavimas pateiktas \eqref{eq:Reikšmės likutis} lygtyje.
+\par Pallier kriptosistema yra dalinai homomorfinis šifras, kuris leidžia atlikti homomorfinės sudėties operaciją \cite{17}. Nors palaikoma yra sudėties operacija, norint atlikti veiksmus su užšifruotais duomenimis, reikia naudoti daugybą, nes užšifruoti duomenys yra pakelti laipsniu. Pallier algoritmas yra pagrįstas problema, kuri skaičiuoja reikšmės liekaną \cite{17}. Skaičiavimas pateiktas \eqref{eq:Reikšmės likutis} lygtyje.
 \begin{equation}
     z \equiv y^{n} \cdot (mod\cdot n^{2})
-    \label{eq:Reikšmės likutis}
+    \label{eq:Reikšmės liekana}
 \end{equation}
 % https://cryptography.fandom.com/wiki/Decisional_composite_residuosity_assumption %
-\par Turint sudėtinę reikšmę $n$ ir sveiką skaičių $z$, yra sunku nuspręsti, ar $z$ yra $n-oji$ liekana modulio $n^{2}$ ar ne \cite{17}.
+\par Turint sudėtinę reikšmę $n$ ir sveiką skaičių $z$, yra sunku nuspręsti, ar $z$ yra lygi $y^{n}$ moduliu $n^{2}$ \cite{17}.
 \par Prieš duomenų šifravimą, reikia rasti viešą ir privatų raktą.
 
 \begin{enumerate}
@@ -368,7 +368,7 @@ KMI & Gimdymų skaičius \\\cline{1-2}
     \end{equation}
 
     Čia $sup(.)$ - grąžina didžiausią reikšmę tekste, |M| - absoliuti teksto reikšmė, N - vienas iš viešų raktų.
-    \item Norint užšifruoti neigiamą reikšmę $-m$, reikia laikytis \eqref{eq:Neigiamos reikšmės šifravimas} lygybės.
+    \item Norint užšifruoti neigiamą reikšmę $-m$, reikia naudoti \eqref{eq:Neigiamos reikšmės šifravimas} lygybę.
     
     \begin{equation}
         E(-m) = E(m)^{-1} = E(m)^{-1 mod(N)}
@@ -381,7 +381,7 @@ KMI & Gimdymų skaičius \\\cline{1-2}
 \section{Federuotas mašininis mokymas}
 \subsection{Metodas}
 % https://arxiv.org/pdf/1902.04885.pdf
-\par Duomenys, skirti mašininio mokymo modelio kūrimui, priklauso $N$ savininkų. Konvenciniai modeliai agreguoja visų savininkų duomenis ir su jais moko modelį. Asmuo kuriantis modelį mato visų savininkų duomenis. Šią problemą sprendžia federuotas mašininis mokymas, kitaip žinomas, kaip jungtinis mokymasis. Kiekvienas savininkas moko modelį atskirai ir visi duomenys nėra agreguojami. Taip vienas iš duomenų savininkų nemato duomenų, kurie jam nepriklauso \cite{18}.
+\par Duomenys, skirti mašininio mokymo modelio kūrimui, priklauso $N$ savininkų. Konvenciniai modeliai agreguoja visų savininkų duomenis ir su jais moko modelį. Asmuo kuriantis modelį mato visų savininkų duomenis. Šią problemą sprendžia federuotas mašininis mokymas, kitaip žinomas, kaip jungtinis mokymasis. Kiekvienas savininkas moko modelį atskirai ir visi duomenys nėra agreguojami. Taip bet kuris duomenų savininkas nemato duomenų, kurie jam nepriklauso \cite{18}.
 
 \subsection{Galimos saugumo spragos}
 % https://arxiv.org/pdf/2004.10020.pdf
@@ -406,7 +406,7 @@ KMI & Gimdymų skaičius \\\cline{1-2}
 
 \section{Blokų-grandinių technologija}
 \par Dažna mašininio mokymosi modelių problema yra riboti resursai, centralizuotumas, duomenų rinkimas ir tikimybė, kad laikui bėgant, duomenys taps pasenę ir nebenaudingi. Šią problemą sprendžia Microsoft įmonė, pasitelkdama blokų-grandinių technologiją \cite{25}.  Minėta technologija leidžia vartotojams praplėsti duomenų rinkinį ir tobulinti modelį.
-\par Vieši modeliai yra laikomi išmaniusiose kontraktuose. Jie užtikrina, kad kodas esantis blokų-grandinių tinkle atitinka reikalavimus \cite{25}.  Išmanieji kontraktai yra protokolai, kurie užtikrina susitarimo tarp vartotojo ir tiekėjo teisingumą. Jie yra automatiškai blokų-grandinių tinkle automatiškai vykdomi ir leidžia kiekvieną transakciją atsekti, bei padaro ją grįžtama \cite{26}. Šiuos kontraktus vertina daug vartotojų ir juos yra sunku modifikuoti. Esant išmaniesiems kontraktas, tinkle galima atsekti, kurie pateikti nauji duomenys yra geri, ir galima vartotoją apdovanoti.
+\par Vieši modeliai yra laikomi išmaniuosiuose kontraktuose. Jie užtikrina, kad kodas esantis blokų-grandinių tinkle atitinka reikalavimus \cite{25}.  Išmanieji kontraktai yra protokolai, kurie užtikrina susitarimo tarp vartotojo ir tiekėjo teisingumą. Jie yra blokų-grandinių tinkle automatiškai vykdomi ir leidžia kiekvieną transakciją atsekti, bei padaro ją grįžtama \cite{26}. Šiuos kontraktus saugo daug vartotojų ir juos yra sunku modifikuoti. Esant išmaniesiems kontraktas, tinkle galima atsekti, kurie pateikti nauji duomenys yra geri, ir galima vartotoją apdovanoti.
 
 \begin{figure}[h]
   \centering
@@ -426,14 +426,14 @@ KMI & Gimdymų skaičius \\\cline{1-2}
 \subsection{Privatumo išsaugojimas}	
 \par Pasiūlytas įmonės Microsoft sprendimas nėra saugus, nes kiekvieno vartotojo pateikti duomenys yra viešai matomi. Tačiau užtenka naudoti 4 skyriuje minimus homomorfinio šifravimo algoritmus ir problema yra išsprendžiama. Modelio saugumas tokiu atveju priklausytų tik nuo pasirinkto šifravimo algoritmo saugumo.
 \par Lyginant su federuotu mokymosi algoritmu, pateiktas blokų-grandinių sprendimas išsprendžia kenkėjiškų įrenginių problemą. Pasiūlytame sprendime, prieš priimant vartotojo duomenis, jie yra įvertinami. Tačiau duomenų įvertinimui, į blokų-grandinių tinklą yra pridedama 10\% duomenų, validumo tikrinimo tikslams. \par Kadangi yra naudojami išmanieji kontraktai, šiuos duomenis galima bandyti iškarto pašalinti iš tinklo. Jeigu kenkėjiškas vartotojas bandytų apkrauti tinklą blogais duomenimis, jam tai daug kainuotų, nes kiekvieno tikrinimo atveju, jis neatgautų sumokėto depozito.
-\par Įrenginių heterogeniškumo problema sprendime nėra sprendžiama ir duomenys yra lygiavertiškai imami iš visų įrenginių ir kiekvienas įrenginys gali vienodai prisidėti prie modelio kūrimo. Kadangi heterogeniškumas nėra tikrinimas, tinkle gali atsirasti daug duomenų, kurie turi labai mažą įtaką modelio tikslumui. Tai kainuoja daug skaičiavimo resursų modelio kūrimui.
+\par Įrenginių heterogeniškumo problema nėra sprendžiama ir duomenys yra lygiavertiškai imami iš visų įrenginių ir kiekvienas įrenginys gali vienodai prisidėti prie modelio kūrimo. Kadangi heterogeniškumas nėra tikrinimas, tinkle gali atsirasti daug duomenų, kurie turi labai mažą įtaką modelio tikslumui. Tai kainuoja daug skaičiavimo resursų modelio kūrimui.
 \par Sprendžiant, kurį metodą pasirinkti, ar federuoto mokymosi, ar blokų-grandinių, reikia atsižvelgti į būsimo tinklo planuojamą dydį. Jeigu planuojama turėti daug įrenginių tinkle, blokų grandinių metodas yra geresnis, nes jis apsaugo nuo kenkėjiškų įrenginių. Jeigu tokių įrenginių būtų daug, iš surenkamo depozito būtų galima atitinkamai apdovanoti teigiamai tinklą paveikiančius naudotojus. Tačiau kadangi nėra atsižvelgiama į įrenginių ir duomenų galimą heterogeniškumą, prarandamas didelė dalis tinklo apmokymo efektyvumo. Jeigu vartotojų bus mažai blokų-grandinių tinkle, atsiranda rizika, jog tinklas nebus toks saugus ir ne visada jis bus prieinamas visiems vartotojams. Jeigu planuojama turėti nedaug vartotojų tinkle, federuotas mokymasis yra geresnis variantas. Kadangi yra vienas centralizuotas serveris, nėra problemų dėl tinklo pasiekiamumo, esant mažam skaičiui vartotojų. Analizuojant įrenginių ir duomenų heterogeniškumą, tinklas yra efektyvesnis apmokant modelį.  
 
 \section{Saugus skirtingų pusių skaičiavimas}
 \subsection{Apibrėžimas}
 %https://eprint.iacr.org/2020/300.pdf%
-\par Saugus skirtingų pusių skaičiavimo algoritmas (angl. „Secure Multiparty Computation“, trumpinys MPC) leidžia keliems įrenginiams skaičiuoti bendros funkcijos rezultatą, nesidalinant duomenimis tarpusavyje \cite{22}. Pagrindinis skirtumas, kuo  skiriasi MPC nuo kitų paskirstyto skaičiavimo algoritmų, yra didelis dėmesys saugumui. Kuriant MPC protokolą skaičiavimams atlikti, yra du reikalavimai: privatumas ir teisingumas. Privatumo reikalavimas reikalauja, kad įrenginiai, kurie vykdys skaičiavimus, sužinotų tik apskaičiuotą rezultatą ir nieko daugiau. Vienintelė papildomai sužinota informacija gali būti gauta tik išvedus ją iš gauto rezultato. Teisingumo reikalavimas reikalauja, kad kiekviena šalis turi gauti teisingai apskaičiuotą reikšmę. Jeigu vienas įrenginys apskaičiuos rezultatą klaidingai, visų įrenginių bendras skaičiavimo rezultatas bus irgi neteisingas. Paskirstyto skaičiavimo algoritmai irgi duotų neteisingą reikšmę, tačiau visų įrenginių bendras rezultatas nenukryptų daug.
-\par Per laiką atsirado MPC protokolo patobulinimų, norint apsaugoti algoritmą nuo kenkėjiškų įrenginių, ir dėl to sukurti dar trys reikalavimai: įvesties duomenų nepriklausomumas, garantuotas reikšmės grąžinimas ir lygumas. Įvesties duomenų nepriklausomumo reikalavimas reikalauja, kad kiekvienas įrenginys nieko nežinotų apie kitų įrenginių naudojamus duomenis ir atitinkamai nekeistų savo duomenų. Garantuoto reikšmės grąžinimo reikalavimas reikalauja, kad kenkėjiški įrenginiai negalėtų sutrikdyti kitų įrenginių skaičiavimų. Pavyzdžiui, jeigu skaičiavimams naudojamas interneto ryšys, negali būti sudaryta galimybė leisti kenkėjiškiems įrenginiams paveikti interneto ryšio. Lygumo reikalavimas reikalauja, kad jeigu įrenginys turi blogus duomenis ar gautas rezultatas yra sugadintas, šis įrenginys turi gauti savo apskaičiuotą reikšmę tik tokiu atveju, jeigu visų kitų įrenginių rezultatai nėra sugadinti.
+\par Saugus skirtingų pusių skaičiavimo algoritmas (angl. \say{Secure Multiparty Computation}, trumpinys MPC) leidžia keliems įrenginiams skaičiuoti bendros funkcijos rezultatą, nesidalinant duomenimis tarpusavyje \cite{22}. Pagrindinis skirtumas, kuo  skiriasi MPC nuo kitų paskirstyto skaičiavimo algoritmų, yra didelis dėmesys saugumui. Kuriant MPC protokolą skaičiavimams atlikti, yra du reikalavimai: privatumas ir teisingumas. Privatumo sąlyga reikalauja, kad įrenginiai, kurie vykdys skaičiavimus, sužinotų tik apskaičiuotą rezultatą ir nieko daugiau. Vienintelė papildomai sužinota informacija gali būti gauta tik išvedus ją iš gauto rezultato. Teisingumo sąlyga reikalauja, kad kiekviena šalis turi gauti teisingai apskaičiuotą reikšmę. Jeigu vienas įrenginys apskaičiuos rezultatą klaidingai, visų įrenginių bendras skaičiavimo rezultatas bus irgi neteisingas. Paskirstyto skaičiavimo algoritmai irgi duotų neteisingą reikšmę, tačiau visų įrenginių bendras rezultatas nenukryptų daug.
+\par Per laiką atsirado MPC protokolo patobulinimų, norint apsaugoti algoritmą nuo kenkėjiškų įrenginių, ir dėl to sukurti dar trys reikalavimai: įvesties duomenų nepriklausomumas, garantuotas reikšmės grąžinimas ir lygumas. Įvesties duomenų nepriklausomumo sąlyga reikalauja, kad kiekvienas įrenginys nieko nežinotų apie kitų įrenginių naudojamus duomenis ir atitinkamai nekeistų savo duomenų. Garantuoto reikšmės grąžinimo sąlyga reikalauja, kad kenkėjiški įrenginiai negalėtų sutrikdyti kitų įrenginių skaičiavimų. Pavyzdžiui, jeigu skaičiavimams naudojamas interneto ryšys, negali būti sudaryta galimybė leisti kenkėjiškiems įrenginiams paveikti interneto ryšio. Lygumo sąlyga reikalauja, kad jeigu įrenginys turi blogus duomenis ar gautas rezultatas yra sugadintas, šis įrenginys turi gauti savo apskaičiuotą reikšmę tik tokiu atveju, jeigu visų kitų įrenginių rezultatai nėra sugadinti.
 \subsection{Skaičiavimo algoritmai}
 %https://ericrafaloff.com/shamirs-secret-sharing-scheme/%
 \par MPC algoritmui paaiškinti, pirma reikia išsianalizuot atvejį, kai yra du įrenginiai su savo slaptais raktais ir viena paslaptis. Jeigu norime atgaminti paslaptį, reikia turėti abiejų įrenginių slaptus raktus ir taip galime atgaminti paslaptį. Pavyzdžiui, jeigu paslaptis yra skaičius 654321, tada reikia sugeneruoti atsitiktinį skaičių, kuris yra mažesnis už 654321. Tarkime tai yra 123456. Šis naujas atsitiktinis skaičiuos yra pirmo įrenginio slaptas raktas. Norint sukurti antro įrenginio raktą, galime iš slapto rakto atimti pirmo įrenginio raktą ir gauname 530865. Norint turėti daugiau įrenginių, kyla problema, kad siekiant atgaminti paslaptį, reikia visų įrenginių sutikimo. Jeigu vienas įrenginys bus prarastas, dings paslaptis. Tai nėra priimtinas sprendimas, todėl buvo sugalvotas algoritmas, kuris leidžia atgaminti paslaptį, turint tik dalį rakto dalių \cite{23}. Šis algoritmas vadinasi Shamir slapto rakto dalijimosi schema („Shamir‘s secret key sharing schema“), kitaip žinomas, kaip rakto skaldymo algoritmas. Slaptas raktas yra padalijamas yra kelias dalis. Kiekviena dalis pavieniui yra nepanaudojama. Slapto rakto atstatymui iš padalintų dalių, nebūtina turėti visas dalis. Pavyzdžiui, jeigu slaptas raktas yra padalijamas į penkias dalis, gali užtekti turėti tik tris dalis ir iš jų galima jau atstatyti pradinį slaptą raktą.
@@ -465,7 +465,7 @@ KMI & Gimdymų skaičius \\\cline{1-2}
 \begin{itemize}
     \item Serveris, kuris paskirsto duomenis į dalis, turėtų naudoti homomorfinį šifravimą, prieš atiduodant duomenis kitiems įrenginiams. Tai netik paslėptų duomenis nuo modelių kūrėjų ir pašalintų duomenų nutekėjimo riziką, bet ir padarytu pačius modelius ir visą tinklą saugesnį.
     \item Kuriant studento modelį, turi būti atliekama kiek galima mažiau užklausų į bendrą modelių tinklą \cite{26}. Pavyzdžiui, užklausos turi būti atliekamos tik iki tol, kol pasiekiamas studento modelio tam tikras tikslumas. Taip pat užklausos turi būti atliekamos su nepanašiais duomenimis. Kuo daugiau yra atliekama užklausų į bendrą modelių tinklą ir kuo jos yra panašesnės, tuo labiau yra tikėtina, kad bus galima atskleisti pradinius modelių duomenis.
-    \item Norint turėti optimalų privatumo išsaugojimą, tinkle esantys modeliai turėtų grąžinti panašius rezultatus \cite{26}. Jeigu keli modeliai išsiskiria rezultatais nuo kitų modelių tinkle, atsiranda tikimybė, kad bus atskleisti pradiniai modelių duomenys. Tai gali nutikti kaip bus siunčiama daug panašių užklausų ir gausis skirtingi rezultatai. Panašus eksperimentas, kuris veiktų ir su PATE tinklu, siekiant atskleisti pradinius duomenis, yra atliktas 3.3 skyriuje. Pavyzdyje yra naudojami kiti algoritmai, tačiau PATE tinklo pažeidžiamumo esmė yra tapati.
+    \item Norint turėti optimalų privatumo išsaugojimą, tinkle esantys modeliai turėtų grąžinti panašius rezultatus \cite{26}. Jeigu keli modeliai išsiskiria rezultatais nuo kitų modelių tinkle, atsiranda tikimybė, kad bus atskleisti pradiniai modelių duomenys. Tai gali nutikti kaip bus siunčiama daug panašių užklausų ir gausis skirtingi rezultatai. Panašus eksperimentas, kuris veiktų ir su PATE tinklu, siekiant atskleisti pradinius duomenis, yra atliktas 3.3 skyriuje. Pavyzdyje yra naudojami kiti algoritmai, tačiau PATE tinklo pažeidžiamumo esmė yra vienoda.
 \end{itemize}
 
 \par Lyginant PATE algoritmą su federuotu mokymu, PATE yra saugesnis, nes tinkle modelių yra nors keli ir jeigu duoti duomenys yra panašūs į vieno modelio pradinius duomenis, esant bendram modelių sutarimui, sunku atgaminti pradinius duomenis, iš tinklo išvesties. Pradinių duomenų atgaminimą taip pat apsunkina ir Gauso filtras. Optimaliu atveju, privatumas tinkle yra geriausiai išsaugomas, kai kiekvienas modelis grąžina panašius rezultatus su duotais viešais duomenimis, tada negalima atsekti kuris modelis tinkle yra už tai atsakingas. PATE yra taip pat ir efektyvesnis už federuotą mokymą, nes modelius kuria įrenginiai, kurie gali pasirinkti tam tikrai duomenų sričiai optimalius algoritmus, o federuotas mokymas apibrėžia tik vienodų algoritmų naudojimą. PATE taip pat išsprendžia įrenginių ir duomenų heterogeniškumo problemas. Vienintelis federuoto mokymosi pranašumas yra, kad nereikia dalintis pradiniais duomenimis. Jeigu jie yra svarbūs, o įrenginiai nėra patikimi, atsiranda rizika, kad įrenginiai gali atskleisti duomenis. Tačiau ši problema gali būti išspręsta su 4 skyriuje minimais šifravimo algoritmais, kurie leistų paslėpti duomenis nuo pačių įrenginių.
@@ -503,7 +503,7 @@ Gradientinio nusileidimo algoritmas & 2272.06 & 63.78\% & 0.05 \\\cline{1-4}
 Pallier homomorfiniu šifravimu grįstas modelis & 2185.37 & 63.52\% & 0.14 \\\cline{1-4}
 \end{tabular}
 \end{adjustbox}
-\caption{Sugalvotos duomenys reikšmės modelio tikrinimui}
+\caption{Sugalvotos reikšmės modelio tikrinimui}
 \label{tab:DMDK rezultatai}
 \end{table}
 
@@ -515,7 +515,7 @@ Pallier homomorfiniu šifravimu grįstas modelis & 2185.37 & 63.52\% & 0.14 \\\c
     \item Su visais modeliais, išskyrus PyTorch neuroninį tinklą, didėjant modelio tikslumui, didėja vidutinė maksimalaus nuokrypio reikšmė – modelis tampa saugesnis, o su PyTorch neuroniniu tinklu, mažėja - modelis tampa mažiau saugus. 
 \end{itemize}
 
-\par Tas pats tyrimas buvo atliktas su MNIST rašytinių skaitmenų nuotraukomis. Tik PyTorch neuroninis tinklas su vienu paslėptu sluoksniu ir VGG16 konvergavo minimumo link. Pasiekus 74\% ir 82\% tikslumus, PyTorch neuroninio tinklo DMDK reikšmės išlieka vienoda - 0.05, MSE nuostolių funkcijos reikšmės atitinkamai 266.67 ir 203.66. VGG16 tinklui pasiekus 72\% tikslumą, MSE nuostolių funkcijos reikšmė - 2.59, DMDK reikšmė -  0.17. Reiškia VGG16 modelis yra saugesnis už paprastą vieno paslėpto sluoksnio PyTorch neuroninį tinklą.
+\par Tas pats tyrimas buvo atliktas su MNIST ranka rašytų skaitmenų nuotraukomis. Tik PyTorch neuroninis tinklas su vienu paslėptu sluoksniu ir VGG16 konvergavo minimumo link. Pasiekus 74\% ir 82\% tikslumus, PyTorch neuroninio tinklo DMDK reikšmės išlieka vienoda - 0.05, MSE nuostolių funkcijos reikšmės atitinkamai 266.67 ir 203.66. VGG16 tinklui pasiekus 72\% tikslumą, MSE nuostolių funkcijos reikšmė - 2.59, DMDK reikšmė -  0.17. Reiškia VGG16 modelis yra saugesnis už paprastą vieno paslėpto sluoksnio PyTorch neuroninį tinklą.
 
 \par Kiekvienam modeliui atliktas atskiras nuostolių funkcijos (MSE), DMDK rodiklių ir modelio tikslumo, DMDK priklausomybės tyrimas.
 
@@ -529,16 +529,16 @@ Pallier homomorfiniu šifravimu grįstas modelis & 2185.37 & 63.52\% & 0.14 \\\c
   \label{fig:Palliers DMDK rodiklio reikšmių priklausomybė nuo MSE nuostolių funkcijos reikšmių}
 \end{figure}
 
-\par DMDK rodiklio reikšmių priklausomybė nuo modelio tikslumo pateikta \ref{fig:Palliers DMDK rodiklio reikšmių priklausomybė nuo MSE nuostolių funkcijos reikšmių} pav. Čia $X$ ašis - modelio tikslumas procentais, $Y$ ašis - DMDK reikšmės.
+\par DMDK rodiklio reikšmių priklausomybė nuo mašininio mokymosi modelio tikslumo pateikta \ref{fig:Palliers DMDK rodiklio reikšmių priklausomybė nuo modelio tikslumo procentais} pav. Čia $X$ ašis - modelio tikslumas procentais, $Y$ ašis - DMDK reikšmės.
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=14cm,height=11cm,keepaspectratio]{img/pal_tyr_2.png}
-  \caption{Palliers DMDK rodiklio reikšmių priklausomybė nuo MSE nuostolių funkcijos reikšmių}
-  \label{fig:Palliers DMDK rodiklio reikšmių priklausomybė nuo MSE nuostolių funkcijos reikšmių}
+  \caption{Palliers DMDK rodiklio reikšmių priklausomybė nuo modelio tikslumo procentais}
+  \label{fig:Palliers DMDK rodiklio reikšmių priklausomybė nuo modelio tikslumo procentais}
 \end{figure}
 
-\par Iš atlikto tyrimo matosi koreliacija tarp modelio nuostolių funkcijos reikšmių ir DMDK reikšmių. Kuo nuostolių funkcijos reikšmė yra mažesnė, tuo DMDK yra didesnis ir modelis yra laikomas saugesnis. Vietos, kuriose DMDK yra lygus 0, modelis yra per daug prisirišęs prie parametrų. DMDK tiesioginės priklausomybės nuo modelio tikslumo, neturi.
+\par Iš atlikto tyrimo matosi koreliacija tarp modelio nuostolių funkcijos reikšmių ir DMDK reikšmių. Kuo nuostolių funkcijos reikšmė yra mažesnė, tuo DMDK yra didesnis ir modelis yra laikomas saugesnis. Vietos, kuriose DMDK yra lygus 0, modelis yra per daug prisirišęs prie parametrų. DMDK priklausomybės nuo modelio tikslumo, neturi.
 
 \subsubsection{PyTorch neuroninio tinklo detalus tyrimas}
 \par DMDK rodiklio reikšmių priklausomybė nuo MSE nuostolių funkcijos reikšmių pateikta \ref{fig:PyTorch neuroninio tinklo DMDK rodiklio reikšmių priklausomybė nuo MSE nuostolių funkcijos reikšmių} pav. Čia $X$ ašis - MSE nuotolių funkcijos reikšmės, $Y$ ašis - DMDK reikšmės. 
@@ -550,13 +550,13 @@ Pallier homomorfiniu šifravimu grįstas modelis & 2185.37 & 63.52\% & 0.14 \\\c
   \label{fig:PyTorch neuroninio tinklo DMDK rodiklio reikšmių priklausomybė nuo MSE nuostolių funkcijos reikšmių}
 \end{figure}
 
-\par DMDK rodiklio reikšmių priklausomybė nuo modelio tikslumo pateikta \ref{fig:PyTorch neuroninio tinklo DMDK rodiklio reikšmių priklausomybė nuo MSE nuostolių funkcijos reikšmių} pav. Čia $X$ ašis - modelio tikslumas procentais, $Y$ ašis - DMDK reikšmės.
+\par DMDK rodiklio reikšmių priklausomybė nuo modelio tikslumo pateikta \ref{fig:PyTorch neuroninio tinklo DMDK rodiklio reikšmių priklausomybė nuo modelio tikslumo procentais} pav. Čia $X$ ašis - modelio tikslumas procentais, $Y$ ašis - DMDK reikšmės.
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=11cm,height=8cm,keepaspectratio]{img/pap_tyr_2.png}
-  \caption{PyTorch neuroninio tinklo DMDK rodiklio reikšmių priklausomybė nuo MSE nuostolių funkcijos reikšmių}
-  \label{fig:PyTorch neuroninio tinklo DMDK rodiklio reikšmių priklausomybė nuo MSE nuostolių funkcijos reikšmių}
+  \caption{PyTorch neuroninio tinklo DMDK rodiklio reikšmių priklausomybė nuo modelio tikslumo procentais}
+  \label{fig:PyTorch neuroninio tinklo DMDK rodiklio reikšmių priklausomybė nuo modelio tikslumo procentais}
 \end{figure}
 
 \par Iš atlikto tyrimo nesimato jokios stiprios koreliacijos tarp DMDK rodiklio ir MSE nuostolių funkcijos reikšmių ar modelio tikslumo.
@@ -572,6 +572,7 @@ Pallier homomorfiniu šifravimu grįstas modelis & 2185.37 & 63.52\% & 0.14 \\\c
   \caption{DMDK priklausomybė nuo pridėto triukšmo}
   \label{fig:DMDK priklausomybė nuo pridėto triukšmo}
 \end{figure}
+\clearpage
 
 \begin{figure}[h]
   \centering
