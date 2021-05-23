@@ -1,10 +1,10 @@
 \begin{frame}[c]{Pasiūlyta tyrimo metodika}
 
 \begin{equation}
-    DMDK = {\sum_{n=0}^{m} ({\sum_{k=0}^{h} (max((|\epsilon| + D_{n, k}) : \epsilon \in R))}/{h})}/{m}
+    DMDK = {\sum_{n=0}^{m} ({\sum_{k=0}^{h} (max_{\epsilon}((|\epsilon| + D_{n, k}) : \epsilon \in R, modelis(|\epsilon| + D_{n, k}) = modelis(D_{n, k})))}/{h})}/{m}
 \end{equation}
 
-$\bf DMDK$ - Didžiausias maksimalus duomenų nuokrypis. \\
+$\bf DMDK$ - Didžiausias modelio duomenų nuokrypis. \\
 $\bf D_{eilut:n,stulp:k}$ - duomenys n eilutėje ir k stulpelyje. \\
 $\bf \epsilon$ - ieškomas didžiausias galimas kintamasis, su kuriuo modelis nepakeičia išvesties rezultatų. \\
 $\bf m$ - duomenų eilučių skaičius. \\

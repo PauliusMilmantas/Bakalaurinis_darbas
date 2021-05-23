@@ -1,0 +1,10 @@
+\begin{frame}[c]{Išvados}
+ 
+\begin{itemize}
+    \item Esant aukštam modelio tikslumui, rekomenduojama naudoti homomorfinį šifravimą. Esant mažesniam, nei 70\% tikslumui, kai modelis priima < 20 parametrų, rekomenduojama naudoti PyTorch karkaso neuroninius tinklus.
+    \item Esant didesniam modelio parametrų skaičiui, PyTorch karkaso neuroniniai tinklai labiau prisimena pradinius mokymosi duomenis ir juos galima lengviau atskleisti.
+    \item Naudojant neuroninius tinklus be homomorfinio šifravimo ir modelio tikslumui esant daugiau nei 80\%, rekomenduojama pridėti triukšmą prie pradinių modelio duomenų.
+    \item Pradinių duomenų kiekis neturi įtakos modelio duomenų saugumui.
+\end{itemize}
+
+\end{frame}
