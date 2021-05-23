@@ -32,8 +32,8 @@
 \titleineng{Privacy-Preserving Artificial Intelligence}
 \status{4 kurso 3 grupės studentas}
 \author{Paulius Milmantas}
-\supervisor{Dr. Linas Petkevičius}
-\reviewer{Dr. Tomas Plankis}
+\supervisor{asist. dr. Linas Petkevičius}
+\reviewer{asist. dr. Tomas Plankis}
 \date{Vilnius \\ \the\year}
 
 % Nustatymai
@@ -42,7 +42,9 @@
 \begin{document}
 \maketitle
 
+\pagestyle{empty} % Pasalinti numeracija
 \tableofcontents
+\pagestyle{fancy} % Grazinti numeracija
 
 \sectionnonumnocontent{Santrauka}
 Mašininio mokymo tyrimų srityje yra kilusi problema dėl duomenų saugojimo: nesaugūs modeliai gali atskleisti jautrius pradinius mokymosi duomenis. Darbe yra tiriami ir lyginami privatumą saugantys dirbtinio intelekto algoritmai pagal jų saugumą, našumą ir panaudojamumą, bei pateikiamos rekomendacijos. Algoritmų lyginimui darbe pateikta metrika, kuri leidžia palyginti skirtingus mašininio mokymosi modelius pagal tai, kiek jie atskleidžia pradinius duomenis. Tyrimų tikslams buvo sukurti ir lyginti \say{PyTorch} neuroninis tinklas, gradientinio nusileidimo metodas ir homomorfinis šifravimas su gradientinio nusileidimo metodu. Tyrime pastebėta, kad mašininio mokymosi modeliams pasiekus ~70\% tikslumą, \say{PyTorch} neuroninio tinklo modelis yra saugesnis už gradientinio nusileidimo metodą ir homomorfinį šifravimą. Modelių tikslumui artėjant prie 100\%, \say{PyTorch} neuroninio tinklo modelis labiau prisimena pradinius duomenis ir juos atskleidžia, o gradientinio nusileidimo metodas ir homomorfinio šifravimo algoritmas didėjant modelio tikslumui, mažiau atskleidžia pradinius duomenis ir tampa saugesnis.
@@ -69,13 +71,13 @@ Machine learning has a security problem: unsafe machine learning models can reve
 	% https://www.nature.com/articles/s42256-020-0186-1 [Nepanaudotas]
 	% https://towardsdatascience.com/the-new-dawn-of-ai-federated-learning-8ccd9ed7fc3a
 	\par Darbo tikslas - ištirti ir palyginti privatumą saugančius dirbtinio intelekto algoritmus pagal jų saugumą, našumą ir panaudojamumą, bei pateikti rekomendacijas.
-	\par Darbo uždaviniai:
-	\begin{itemize}
+	\par Darbo tikslui įgyvendinti, iškelti šie uždaviniai:
+	\begin{enumerate}
 		\item Išanalizuoti esamus algoritmus pagal jų saugumą ir panaudojamumą.
 		\item Identifikuoti kriterijus, kurių pagalba galima įvertinti privatumo išsaugojimą, bei palyginti algoritmus tarpusavyje.
 		\item Ištirti kurie algoritmai yra realizuoti ir realizuoti dalį algoritmų, kurie nėra atvirai prieinami.
 		\item Palyginti algoritmus pagal našumą ir pateikti rekomendacijas.
-	\end{itemize}
+	\end{enumerate}
 \section{Asmens duomenų privatumas mašininio mokymo kontekste}
 	\par Vienas iš būdų apsaugoti duomenis yra decentralizuoti modelį ir naudoti paskirstyto mokymo algoritmus. Paprastai mašininiam mokymui yra naudojamas centralizuotas serveris. Yra surenkami duomenys į vieną vietą ir modelį moko vienas kompiuteris. Jeigu norima pridėti daugiau duomenų arba papildomą klasifikatorių, modelį reikia apmokyti iš naujo. Taip pat, kas kuria šį modelį, turi visą prieigą prie duomenų, šie modeliai nėra saugūs \cite{13}. 
 	\par Šiai bėdai išspręsti, vienas iš metodų yra federuotas mašininis mokymas (angl. \say{Federated machine learning}), kitaip žinomas, kaip jungtinis mokymasis. Šis metodas padeda išspręsti kai kurias bėdas, vykdant modelio mokymą decentralizuotai \cite{3}. Prie bendro tinklo gali prisijungti daug įrenginių. Visi jie turi savo unikalų duomenų rinkinį. Kiekvienas įrenginys pasirenka geriausią statistinį metodą modelio mokymui ir pagal tą metodą sukuria modelį. Kiekvienas sukurtas modelis gali naudoti skirtingą statistinį algoritmą modelio kūrimui. Dažniausiai paskirstyti duomenys tarp skirtingų įrenginių yra panašūs ir yra pasirenkami vienodi statistiniai algoritmai modelių mokymui. Įrenginiai gali naudoti skirtingus statistinius algoritmus, kai tarp įrenginių duomenų vyrauja didelis heterogeniškumas. Nuo to, kokius duomenis turi įrenginiai, atitinkamai reikia rinktis ir statistinį algoritmą modelio kūrimui. Statistiniam algoritmui parinkti nėra vieno metodo ir sprendimas priklauso nuo sprendžiamo uždavinio. Taip yra sukuriama daug skirtingų modelių, realizuotų su skirtingais duomenų rinkiniais. Visi šie rinkiniai vėliau yra surenkami į vieną vietą ir toliau naudojami duomenų analizei. Taip surinkus atskirų įrenginių sukurtus modelius, neturime prieigos prie pradinių duomenų ir daugiau žmonių gali prisidėti prie modelio kūrimo, nematant pilno duomenų rinkinio. Tačiau naudojant šį metodą ne visos problemos yra išsprendžiamos. Duomenų saugumas nėra garantuojamas \cite{3}. Jeigu duomenys nėra užšifruojami, jie gali būti pavogti. Tai gali būti padaryta, jeigu yra naudojamas nesaugus interneto ryšys, arba jeigu yra bandoma analizuoti atskirų įrenginių atsiųstus modelius. Šis metodas išsprendžia tik kelias problemas. Likusios yra: komunikavimo kaštai, įrenginių heterogeniškumas, statistinis heterogeniškumas ir saugumo problemos \cite{4}.
@@ -232,12 +234,12 @@ atvirumas(s[2]) = log_{2} 10153350000 - log_{2} 170188149 = 5.89868142
 \par DMDK yra išvestas \eqref{eq:DMDK lygtis} lygtyje. Prieš DMDK skaičiavimą reikia paimti visus modelio mokymui skirtus duomenis ir kiekvienai duomenų eilutei apskaičiuoti modelio išvestį. Skaičiavimus reikia atlikti tik su tomis eilutėmis, su kuriomis modelis išvedė teisingą atsakymą. Teisingas atsakymas yra laikomas tas, kuris sutampa su atsakymu pradiniuose duomenyse. Pavyzdžiui, su duotais duomenimis modelis grąžina tam tikrą atsakymą, jeigu pradiniuose duomenyse yra nurodyta, kad su šiais parametrais atsakymas yra toks pats, tai reiškia, kad modelis grąžino teisingą atsakymą. Tyrimui reikia imti tik tas duomenų eilutes, su kuriomis buvo grąžinamas teisingas atsakymas, nes šio tyrimo tikslas yra patikrinti, kaip modelis yra prisirišęs prie pradinių duomenų. Prisirišimą testuoja DMDK metrika. Eilutės su neteisingais atsakymais negali būti įtraukiamos į tyrimą, nes prie jų modelis ir taip nėra prisirišęs. Turint tik tas eilutes, su kuriomis modelis išvedė teisingą atsakymą, galima į nelygybę įstatyti kintamuosius. Lygtyje yra naudojami tokie kintamieji: $m$ - duomenų eilučių skaičius, $h$ - parametrų skaičius (stulpeliai), $\epsilon$ - ieškomas didžiausias galimas kintamasis, su kuriuo modelis nepakeičia išvesties rezultatų, $D_{n, k}$ - duomenys $n$ eilutėje ir $k$ stulpelyje, $R$ - realiųjų skaičių aibė.
 
 \begin{equation}
-DMDK = {\sum_{n=0}^{m} ({\sum_{k=0}^{h} (max_{\epsilon}((|\epsilon| + D_{n, k}) : \epsilon \in R | modelis(|\epsilon| + D_{n, k}) = Taip))}/{h})}/{m}
+DMDK = {\sum_{n=0}^{m} ({\sum_{k=0}^{h} (max_{\epsilon}((|\epsilon| + D_{n, k}) : \epsilon \in R, modelis(|\epsilon| + D_{n, k}) = modelis(D_{n, k})))}/{h})}/{m}
 \label{eq:DMDK lygtis}
 \end{equation} 
 
 \subsection{Skaičiavimo pavyzdys}
-\par Tarkime egzistuoja modelis, kuris turi 2 parametrus: gliukozės kiekis kraujyje ir KMI. Pagal šiuos du parametrus modelis išveda rezultatą: ar žmogus serga cukriniu diabetu ar ne. Paimamos visos mokymo duomenų eilutės, su kuriomis modelis išveda teisingą rezultatą. Tarkime, jos yra aprašytos \ref{tab:Pavyzdiniai duomenys 1} lentelėje.
+\par Tarkime egzistuoja modelis, kuris turi 2 parametrus: gliukozės kiekis kraujyje ir KMI. Pagal šiuos du parametrus modelis išveda rezultatą: ar žmogus serga cukriniu diabetu, ar ne. Paimamos visos mokymo duomenų eilutės, su kuriomis modelis išveda teisingą rezultatą. Tarkime, jos yra aprašytos \ref{tab:Pavyzdiniai duomenys 1} lentelėje.
 
 \begin{table}[h]
 \centering
@@ -383,7 +385,7 @@ KMI & Gimdymų skaičius \\\cline{1-2}
 % https://arxiv.org/pdf/1902.04885.pdf
 \par Duomenys, skirti mašininio mokymo modelio kūrimui, priklauso $N$ savininkų. Konvenciniai modeliai agreguoja visų savininkų duomenis ir su jais moko modelį. Asmuo kuriantis modelį mato visų savininkų duomenis. Šią problemą sprendžia federuotas mašininis mokymas, kitaip žinomas, kaip jungtinis mokymasis. Kiekvienas savininkas moko modelį atskirai ir visi duomenys nėra agreguojami. Taip bet kuris duomenų savininkas nemato duomenų, kurie jam nepriklauso \cite{18}.
 
-\subsection{Galimos saugumo spragos}
+% \subsection{Galimos saugumo spragos}
 % https://arxiv.org/pdf/2004.10020.pdf
 \par Viena iš federuoto mašininio mokymosi modelių spragų yra duomenų nuodijimo ataka \cite{19}. Kenkėjas naudoja gradientinio nusileidimo algoritmą ir analizuoja modelio grąžinamą optimalų sprendinį. Taip kenkėjas gali gauti modelio gradientų reikšmes ir atskleisti modelio pradinius duomenis. Arba gali būti pakenkiama modelio tikslumui.
 
@@ -529,6 +531,8 @@ Pallier homomorfiniu šifravimu grįstas modelis & 2185.37 & 63.52\% & 0.14 \\\c
   \label{fig:Palliers DMDK rodiklio reikšmių priklausomybė nuo MSE nuostolių funkcijos reikšmių}
 \end{figure}
 
+\par Pagal \say{Spearman} metodą, koreliacijos reikšmė yra -0.89 -- labai stiprus statistinis ryšys, p-reikšmė yra 6.63e-08 < 0.05 - statistiškai reikšminga. Kuo nuostolių funkcijos reikšmė yra didesnė, tuo didesnis yra DMDK rodiklis ir modelis yra saugesnis.
+
 \par DMDK rodiklio reikšmių priklausomybė nuo mašininio mokymosi modelio tikslumo pateikta \ref{fig:Palliers DMDK rodiklio reikšmių priklausomybė nuo modelio tikslumo procentais} pav. Čia $X$ ašis - modelio tikslumas procentais, $Y$ ašis - DMDK reikšmės.
 
 \begin{figure}[h]
@@ -538,7 +542,7 @@ Pallier homomorfiniu šifravimu grįstas modelis & 2185.37 & 63.52\% & 0.14 \\\c
   \label{fig:Palliers DMDK rodiklio reikšmių priklausomybė nuo modelio tikslumo procentais}
 \end{figure}
 
-\par Iš atlikto tyrimo matosi koreliacija tarp modelio nuostolių funkcijos reikšmių ir DMDK reikšmių. Kuo nuostolių funkcijos reikšmė yra mažesnė, tuo DMDK yra didesnis ir modelis yra laikomas saugesnis. Vietos, kuriose DMDK yra lygus 0, modelis yra per daug prisirišęs prie parametrų. DMDK priklausomybės nuo modelio tikslumo, neturi.
+\par Pagal \say{Spearman} metodą, koreliacijos reikšmė yra 0.74 -- stiprus statistinis ryšys, p-reikšmė yra 1.46e-04 -- statistiškai reikšminga. Kuo nuostolių funkcijos reikšmė yra mažesnė, tuo DMDK yra didesnis ir modelis yra laikomas saugesnis. Vietos, kuriose DMDK yra lygus 0, modelis yra per daug prisirišęs prie parametrų. DMDK priklausomybės nuo modelio tikslumo, neturi.
 
 \subsubsection{PyTorch neuroninio tinklo detalus tyrimas}
 \par DMDK rodiklio reikšmių priklausomybė nuo MSE nuostolių funkcijos reikšmių pateikta \ref{fig:PyTorch neuroninio tinklo DMDK rodiklio reikšmių priklausomybė nuo MSE nuostolių funkcijos reikšmių} pav. Čia $X$ ašis - MSE nuotolių funkcijos reikšmės, $Y$ ašis - DMDK reikšmės. 
@@ -550,6 +554,8 @@ Pallier homomorfiniu šifravimu grįstas modelis & 2185.37 & 63.52\% & 0.14 \\\c
   \label{fig:PyTorch neuroninio tinklo DMDK rodiklio reikšmių priklausomybė nuo MSE nuostolių funkcijos reikšmių}
 \end{figure}
 
+\par Pagal \say{Spearman} metodą, koreliacijos reikšmė yra 0.66 -- vidutinis statistinis ryšys, p-reikšmė yra 0.16 > 0.05 -- statistiškai nereikšminga. Rezultatai nėra statistiškai reikšmingi, dėl mažo duomenų kiekio. Pagal atliktą tyrimą, rasta koreliacija tarp nuostolių funkcijos reikšmės ir DMDK rodiklio -- kuo nuostolių funkcijos reikšmė yra mažesnė, tuo DMDK reikšmė yra mažesnė ir modelis tampa mažiau saugus. 
+
 \par DMDK rodiklio reikšmių priklausomybė nuo modelio tikslumo pateikta \ref{fig:PyTorch neuroninio tinklo DMDK rodiklio reikšmių priklausomybė nuo modelio tikslumo procentais} pav. Čia $X$ ašis - modelio tikslumas procentais, $Y$ ašis - DMDK reikšmės.
 
 \begin{figure}[h]
@@ -559,12 +565,14 @@ Pallier homomorfiniu šifravimu grįstas modelis & 2185.37 & 63.52\% & 0.14 \\\c
   \label{fig:PyTorch neuroninio tinklo DMDK rodiklio reikšmių priklausomybė nuo modelio tikslumo procentais}
 \end{figure}
 
-\par Iš atlikto tyrimo nesimato jokios stiprios koreliacijos tarp DMDK rodiklio ir MSE nuostolių funkcijos reikšmių ar modelio tikslumo.
+\par Pagal \say{Spearman}, koreliacijos reikšmė yra -0.26 -- silpnas statistinis ryšys, p-reikšmė yra 0.62 > 0.05 -- statistiškai nereikšminga.
 
 \subsection{Duomenų triukšmo įtakos tyrimas}
 
 \par Atliktas tyrimas su PyTorch 3-jų pilnai sujungtų sluoksnių neuroniniu tinklu ir duomenų triukšmu. Modelis kiekvieno bandymo metu atlieka 250 iteracijų. Kiekvieną kartą kai yra nuskaitomi duomenys, pridedamas atsitiktinis triukšmas, kuris neviršija nurodytos reikšmės. Tyrime buvo keičiamas maksimalus generuojamas duomenų triukšmas ir stebima, kokią įtaką tai turi sukurtam modeliui.
-\par Tyrime pastebėta, kad tarp triukšmo ir modelio duomenų saugumo rodiklio DMDK yra koreliacija, kuri matoma \ref{fig:DMDK priklausomybė nuo pridėto triukšmo} pav. Didinant atsitiktinį duomenų triukšmą, gerėja modelio duomenų saugumas. Pastebėta taip pat ir koreliacija tarp modelio tikslumo ir pridėto triukšmo prie duomenų. \ref{fig:Modelio tikslumo priklausomybė nuo pridėto triukšmo} Pav. parodyta, kad didinant modelio duomenų triukšmą, mažėja modelio tikslumas.
+\par Tyrime pastebėta, kad tarp triukšmo ir modelio duomenų saugumo rodiklio DMDK yra koreliacija, kuri matoma \ref{fig:DMDK priklausomybė nuo pridėto triukšmo} pav. Didinant atsitiktinį duomenų triukšmą, gerėja modelio duomenų saugumas. Pagal \say{Spearman} metodą, koreliacijos reikšmė yra 0.7 -- stiprus statistinis ryšys, p-reikšmė yra 0.8e-02 < 0.05 -- statistiškai reikšminga.
+
+\par Pastebėta ir koreliacija tarp modelio tikslumo ir pridėto triukšmo prie duomenų. \ref{fig:Modelio tikslumo priklausomybė nuo pridėto triukšmo} Pav. parodyta, kad didinant modelio duomenų triukšmą, mažėja modelio tikslumas. Pagal \say{Spearman} metodą, koreliacijos reikšmė yra -0.54 -- vidutinis statistinis ryšys, p-reikšmė yra 0.06 > 0.05 -- statistiškai nereikšminga.
 
 \begin{figure}[h]
   \centering
@@ -584,14 +592,14 @@ Pallier homomorfiniu šifravimu grįstas modelis & 2185.37 & 63.52\% & 0.14 \\\c
 \subsection{Duomenų kiekio ir DMDK tyrimas}
 \par Buvo atliktas bandymas generuoti duomenis ir tikrinti, kaip keičiasi DMDK reikšmė kintant duomenų kiekiui. Tyrimas buvo atliekant generuojant duomenis panašius į esančius Sklearn žmonių sergančiu cukriniu diabetu, duomenų rinkinyje. Tiriant nebuvo rasta koreliacija tarp sugeneruoto duomenų kiekio ir DMDK reikšmės. Tai reiškia, kad didinant pradinių duomenų kiekį, modelio saugumas nekinta.
 
-\section{Rezultatai}
+\section*{Rezultatai}
 
 \begin{itemize}
     \item Lyginant PyTorch neuroninį tinklą, paprastą gradientinio nusileidimo algoritmą ir Pallier homomorfiniu šifravimu grįstą modelį, jeigu visi minėti modeliai vykdant tyrimą konverguoja minimumo link, pats saugiausias modelis yra PyTorch neuroninis modelis. Mažiausiai duomenis saugantis yra paprastas gradientinis metodas. PyTorch DMDK funkcijos reikšmė - 87.42, Pallier homomorfiniu šifravimu grįsto modelio DMDK reikšmė - 0.14, gradientinio nusileidimo algoritmo DMDK reikšmė - 0.05.
-    \item Naudojant Pallier homomorfiniu šifravimu grįstą modelį, egzistuoja koreliacija tarp modelio nuostolių funkcijos reikšmės ir DMDK rodiklio. Pagal Spearman metodą, koreliacija yra -0.9, stiprus statistinis ryšys, p-reikšmė 3.66e-08 < 0.05 - statistiškai reikšminga. Vidutiniškai, kuo nuostolių funkcijos reikšmė yra mažesnė, tuo DMDK rodiklis yra didesnis ir modelis yra saugesnis.
+    \item Naudojant Pallier homomorfiniu šifravimu grįstą modelį, egzistuoja koreliacija tarp modelio nuostolių funkcijos reikšmės ir DMDK rodiklio. Pagal \say{Spearman} metodą, koreliacijos reikšmė yra -0.89 -- labai stiprus statistinis ryšys, p-reikšmė yra 6.63e-08 < 0.05 -- statistiškai reikšminga. Vidutiniškai, kuo nuostolių funkcijos reikšmė yra mažesnė, tuo DMDK rodiklis yra didesnis ir modelis yra saugesnis.
     \item Pallier homomorfiniu šifravimu grįstas modelis, naudojantis gradientinio nusileidimo algoritmą, diverguoja su MNIST rašytinių skaičių nuotraukomis.
     \item Paprastas PyTorch neuroninis tinklas vienintelis iš minėtų modelių konverguoja minimumo link, su MNIST rašytinių skaičių nuotraukomis. Šiuo atveju, DMDK rodiklis vidutiniškai nukrenta iki 0.05 ir modelis tampa mažiau saugus, nei Pallier algoritmu grįstas modelis, kurio DMDK reikšmė - 0.14.
-    \item Didinant duomenų triukšmą, didėja DMDK reikšmė ir modelis tampa saugesnis, tačiau sumažėja modelio tikslumas. Spearman koreliacija yra 0.7, vidutinis statistinis ryšys, p-reikšmė 0.01 < 0.05 - statistiškai reikšminga.
+    \item Didinant duomenų triukšmą, didėja DMDK reikšmė ir modelis tampa saugesnis, tačiau sumažėja modelio tikslumas. \say{Spearman} koreliacijos reikšmė yra 0.7 -- stiprus statistinis ryšys, p-reikšmė yra 0.8e-02 < 0.05 - statistiškai reikšminga.
 \end{itemize}
 
 \subsection*{Rezultatų aprobavimas}
@@ -600,7 +608,7 @@ Pallier homomorfiniu šifravimu grįstas modelis & 2185.37 & 63.52\% & 0.14 \\\c
 
 \item {\bf Paulius Milmantas} (2021) {\it Privačios informacijos išsaugojimas taikant dirbtinio intelekto technologijas}, Vilnius University Open Series, pp. 71-76. doi: 10.15388/LMITT.2021.8.
 
-\section{Išvados}
+\section*{Išvados}
 
 \par Pagrindinės darbo išvados:
 \begin{itemize}
